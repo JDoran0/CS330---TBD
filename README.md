@@ -1,7 +1,5 @@
-# CS330---TBD
+Tarot: the chaotic card-based fighting game
 
-Player movement: Jump, quick fall, left, right, crouch
+members: Jericho, Dawson, Javi, Enrique
 
-Current Playing field: basic platform
-	*The collision object under the platform that currently holds the player is meant to kill the player
-	*Will be added when player health is added
+created: Oct 26 2024
