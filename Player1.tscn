@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://l7s43n45hpbf"]
 
-[ext_resource type="Script" path="res://player_1.gd" id="1_7oo2r"]
+[ext_resource type="Script" path="res://player_1Script.gd" id="1_7oo2r"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_v7avp"]
 
@@ -12,7 +12,9 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_tlprj"]
 radius = 8.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 3
+collision_mask = 7
 script = ExtResource("1_7oo2r")
 
 [node name="MeshInstance2D (standing)" type="MeshInstance2D" parent="."]
