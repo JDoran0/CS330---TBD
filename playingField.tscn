@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7722o05au1wy"]
+[gd_scene load_steps=4 format=3 uid="uid://b7722o05au1wy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_74nug"]
 size = Vector2(768, 20)
@@ -7,18 +7,14 @@ size = Vector2(768, 20)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_hr5nh"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4torl"]
-distance = 16.0
-
 [node name="PlayingField" type="Node2D"]
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(576, 512)
-metadata/_edit_lock_ = true
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape2D_74nug")
-metadata/_edit_lock_ = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Ground"]
 modulate = Color(0, 0, 0, 1)
@@ -26,10 +22,3 @@ position = Vector2(0, -7.62939e-06)
 scale = Vector2(768, 16)
 mesh = SubResource("BoxMesh_b7hof")
 texture = SubResource("CanvasTexture_hr5nh")
-metadata/_edit_lock_ = true
-
-[node name="worldBoundary(floor)" type="StaticBody2D" parent="."]
-position = Vector2(576, 832)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="worldBoundary(floor)"]
-shape = SubResource("WorldBoundaryShape2D_4torl")
