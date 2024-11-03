@@ -5,7 +5,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 # Select the device to connect to
-@export var playerIndex = 0
+@export var playerIndex = 1
 
 @onready var standing_collision = $standing
 @onready var crouching_collision = $crouching
@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 
 	#if necessary show the health of the player only when updated
 	if health != prevHealth:
-		print("player health 1:", health)
+		print("player health 2:", health)
 		prevHealth = health
 		
 	#for debug purposes will be changed later, when you jump off the platform the game will close
@@ -41,10 +41,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor() and Input.is_action_just_pressed("down" + str(playerIndex)):
 		velocity += (get_gravity() * delta) * 25
 	
-	# faster falling (keyboard)
-	if not is_on_floor() and Input.is_action_just_pressed("ui_down"):
-		velocity += (get_gravity() * delta) * 25
-		
 	# Handle ducking (controller)
 	if Input.is_action_pressed("down" + str(playerIndex)) and is_on_floor():
 		standing_collision.disabled = true
@@ -56,20 +52,20 @@ func _physics_process(delta: float) -> void:
 		standingSprite.visible = true
 		crouching_collision.disabled = true
 		crouchSprite.visible = false
-	
+		
 	# Handle jump. (controller)
 	if Input.is_action_just_pressed("jump" + str(playerIndex)) and is_on_floor():
 		velocity.y = JUMP_VELOCITY	
-		
-	# moving left and right for player1 (controller)
+
+	# moving left and right for player2 (controller)
 	var direction := Input.get_axis("left" + str(playerIndex), "right" + str(playerIndex))
 	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	# Handle ducking (keyboard)
-	if Input.is_action_pressed( "ui_down") and is_on_floor():
+
+	# hand ducking (keyboard)
+	if Input.is_action_pressed("kbDown") and is_on_floor():
 		standing_collision.disabled = true
 		standingSprite.visible = false
 		crouching_collision.disabled = false
@@ -80,15 +76,21 @@ func _physics_process(delta: float) -> void:
 		crouching_collision.disabled = true
 		crouchSprite.visible = false
 	
+	# falling faster (keyboard)
+	if not is_on_floor() and Input.is_action_just_pressed("kbDown"):
+		velocity += (get_gravity() * delta) * 25
+	
 	# handle jumping (keyboard)
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("kbJump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
 	#Left and right (keyboard)
-	var keyboardDirections := Input.get_axis("ui_left", "ui_right")
+	var keyboardDirections := Input.get_axis("kbLeft", "kbRight")
 	if keyboardDirections:
 		velocity.x = keyboardDirections * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+
 
 	move_and_slide()
