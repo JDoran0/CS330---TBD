@@ -7,19 +7,22 @@ const JUMP_VELOCITY = -400.0
 # Select the device to connect to
 @export var playerIndex = 0
 
+@export var facingRight = true
+
 @onready var standing_collision = $standing
 @onready var crouching_collision = $crouching
 @onready var crouchSprite = $"MeshInstance2D (crouch)"
 @onready var standingSprite = $"MeshInstance2D (standing)"
 
 var health = 100
+var stunned = false
 
 #for debugging, can be removed later
 var prevHealth = health
 
+var controllerNumber
 
 func _physics_process(delta: float) -> void:
-	
 	#quit game with esc button
 	if Input.is_action_just_pressed("escape"):
 		get_tree().quit()
@@ -36,17 +39,56 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-		
-	# Ground the character faster. (controller)
-	if not is_on_floor() and Input.is_action_just_pressed("down" + str(playerIndex)):
-		velocity += (get_gravity() * delta) * 25
+	
+	if !stunned:
+		processControllerInput(delta)
+	
 	
 	# faster falling (keyboard)
-	if not is_on_floor() and Input.is_action_just_pressed("ui_down"):
+	#if not is_on_floor() and Input.is_action_just_pressed("ui_down"):
+	#	velocity += (get_gravity() * delta) * 25
+	
+	# Handle ducking (keyboard)
+	#if Input.is_action_pressed( "ui_down") and is_on_floor():
+	#	standing_collision.disabled = true
+	#	standingSprite.visible = false
+	#	crouching_collision.disabled = false
+	#	crouchSprite.visible = true
+	#else:
+	#	standing_collision.disabled = false
+	#	standingSprite.visible = true
+	#	crouching_collision.disabled = true
+	#	crouchSprite.visible = false
+	
+	# handle jumping (keyboard)
+	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	#	velocity.y = JUMP_VELOCITY
+	
+	#Left and right (keyboard)
+	#var keyboardDirections := Input.get_axis("ui_left", "ui_right")
+	#if keyboardDirections:
+	#	velocity.x = keyboardDirections * SPEED
+	#else:
+	#	velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	#Determine which way the player is facing
+	processDirection()
+	
+	# Check for punch input
+	if Input.is_action_just_pressed("attack" + str(controllerNumber)):
+		processAttackDirection()
+		$Fists.attack()
+	
+	move_and_slide()
+
+
+func processControllerInput(delta: float) -> void:
+	# Ground the character faster. (controller)
+	if not is_on_floor() and Input.is_action_just_pressed("down" + str(controllerNumber)):
 		velocity += (get_gravity() * delta) * 25
 		
 	# Handle ducking (controller)
-	if Input.is_action_pressed("down" + str(playerIndex)) and is_on_floor():
+	if Input.is_action_pressed("down" + str(controllerNumber)) and is_on_floor():
 		standing_collision.disabled = true
 		standingSprite.visible = false
 		crouching_collision.disabled = false
@@ -58,37 +100,68 @@ func _physics_process(delta: float) -> void:
 		crouchSprite.visible = false
 	
 	# Handle jump. (controller)
-	if Input.is_action_just_pressed("jump" + str(playerIndex)) and is_on_floor():
+	if Input.is_action_just_pressed("jump" + str(controllerNumber)) and is_on_floor():
 		velocity.y = JUMP_VELOCITY	
 		
 	# moving left and right for player1 (controller)
-	var direction := Input.get_axis("left" + str(playerIndex), "right" + str(playerIndex))
-	if direction:
+	#var direction := Input.get_axis("left" + str(controllerNumber), "right" + str(controllerNumber))
+	var directionx := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
+	var directiony := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_Y)
+	var direction = directionx - directiony
+	if direction > get_parent().GetControllerPositiveDeadzone() || direction < get_parent().GetControllerNegativeDeadzone():
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
-	# Handle ducking (keyboard)
-	if Input.is_action_pressed( "ui_down") and is_on_floor():
-		standing_collision.disabled = true
-		standingSprite.visible = false
-		crouching_collision.disabled = false
-		crouchSprite.visible = true
-	else:
-		standing_collision.disabled = false
-		standingSprite.visible = true
-		crouching_collision.disabled = true
-		crouchSprite.visible = false
-	
-	# handle jumping (keyboard)
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	
-	#Left and right (keyboard)
-	var keyboardDirections := Input.get_axis("ui_left", "ui_right")
-	if keyboardDirections:
-		velocity.x = keyboardDirections * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
+
+
+## Determine which way the player is going
+	#Set facingRight to true or false
+func processDirection() -> void:
+	var directionx := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
+	var directiony := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_Y)
+	var direction = directionx - directiony
+	if(direction < get_parent().GetControllerNegativeDeadzone()):
+		facingRight = false
+	elif(direction > get_parent().GetControllerPositiveDeadzone()):
+		facingRight = true
+
+
+
+## Handle if crouch punching or stand punching - part 1
+	#Note: yPos is a stand in to adjust my testing fists animation according to crouch 
+	#or not crouch. Later this section should instead display the crouch punch 
+	#animation or standing punch animation accordingly. 
+## Handle if facing left or right when punching - part 2
+	#This can later be changed to just rotating the defined animation 
+	#above (ie crouch punch or stand punch) according to direction 
+	#player is facing
+func processAttackDirection() -> void:
+	## part 1
+	var yPos
+	if crouchSprite.visible == true:
+		#Display crouch punch animation here
+		yPos = 6
+	else:
+		#Display standing punch animation here
+		yPos = -4
+	$Fists.position.y = yPos
+	
+	## part 2
+	if facingRight:
+		#Display given animation facing to the right
+		$Fists/AnimatedSprite2D.rotation = 0
+		$Fists.position = Vector2(13, yPos)
+	else:
+		#Display given animation facing to the left
+		$Fists/AnimatedSprite2D.rotation = (PI)
+		$Fists.position = Vector2(-20, yPos)
+
+
+
+##Assigns the player their controller value
+func _on_ready():
+	var controllers = Input.get_connected_joypads()
+	if controllerNumber != 0 && controllerNumber != 1:
+		controllerNumber = get_parent().ClaimController()
+		print_debug("Controller ", controllers[controllerNumber])

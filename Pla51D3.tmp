@@ -17,6 +17,8 @@ radius = 8.0
 collision_layer = 3
 collision_mask = 7
 script = ExtResource("1_7oo2r")
+playerIndex = null
+facingRight = null
 
 [node name="MeshInstance2D (standing)" type="MeshInstance2D" parent="."]
 modulate = Color(0.0313726, 1, 1, 1)

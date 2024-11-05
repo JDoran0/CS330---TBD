@@ -41,5 +41,3 @@ mesh = SubResource("CapsuleMesh_v7avp")
 texture = SubResource("CanvasTexture_66xcx")
 
 [node name="Fists" parent="." instance=ExtResource("2_paj5y")]
-
-[connection signal="ready" from="." to="." method="_on_ready"]
