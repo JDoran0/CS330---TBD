@@ -29,7 +29,7 @@ func _physics_process(delta: float) -> void:
 
 	#if necessary show the health of the player only when updated
 	if health != prevHealth:
-		print("player health 1:", health)
+		print("player health 2:", health)
 		prevHealth = health
 		
 	#for debug purposes will be changed later, when you jump off the platform the game will close
@@ -43,33 +43,8 @@ func _physics_process(delta: float) -> void:
 	if !stunned:
 		processControllerInput(delta)
 	
-	
-	# faster falling (keyboard)
-	#if not is_on_floor() and Input.is_action_just_pressed("ui_down"):
-	#	velocity += (get_gravity() * delta) * 25
-	
-	# Handle ducking (keyboard)
-	#if Input.is_action_pressed( "ui_down") and is_on_floor():
-	#	standing_collision.disabled = true
-	#	standingSprite.visible = false
-	#	crouching_collision.disabled = false
-	#	crouchSprite.visible = true
-	#else:
-	#	standing_collision.disabled = false
-	#	standingSprite.visible = true
-	#	crouching_collision.disabled = true
-	#	crouchSprite.visible = false
-	
-	# handle jumping (keyboard)
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-	#	velocity.y = JUMP_VELOCITY
-	
-	#Left and right (keyboard)
-	#var keyboardDirections := Input.get_axis("ui_left", "ui_right")
-	#if keyboardDirections:
-	#	velocity.x = keyboardDirections * SPEED
-	#else:
-	#	velocity.x = move_toward(velocity.x, 0, SPEED)
+	if !stunned:
+		processKeyboardInput(delta)
 	
 	#Determine which way the player is facing
 	processDirection()
@@ -104,14 +79,24 @@ func processControllerInput(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY	
 		
 	# moving left and right for player1 (controller)
-	#var direction := Input.get_axis("left" + str(controllerNumber), "right" + str(controllerNumber))
-	var directionx := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
-	var directiony := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_Y)
-	var direction = directionx - directiony
-	if direction > get_parent().GetControllerPositiveDeadzone() || direction < get_parent().GetControllerNegativeDeadzone():
+	var controllerDeadzonePos = get_parent().GetControllerPositiveDeadzone()
+	var controllerDeadzoneNeg = get_parent().GetControllerNegativeDeadzone()
+	var directionDPad := Input.get_axis("left" + str(controllerNumber), "right" + str(controllerNumber))
+	var directionStick := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
+	if directionDPad < controllerDeadzoneNeg || directionStick < controllerDeadzoneNeg: 
+		var direction = min(directionStick, directionDPad)
+		velocity.x = direction * SPEED
+	elif directionDPad > controllerDeadzonePos || directionStick > controllerDeadzonePos:
+		var direction = max(directionStick, directionDPad)
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+
+
+##Player 2 keyboard disabled
+func processKeyboardInput(delta: float) -> void: 
+	pass
 
 
 
@@ -119,8 +104,7 @@ func processControllerInput(delta: float) -> void:
 	#Set facingRight to true or false
 func processDirection() -> void:
 	var directionx := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
-	var directiony := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_Y)
-	var direction = directionx - directiony
+	var direction = directionx
 	if(direction < get_parent().GetControllerNegativeDeadzone()):
 		facingRight = false
 	elif(direction > get_parent().GetControllerPositiveDeadzone()):
@@ -163,5 +147,7 @@ func processAttackDirection() -> void:
 func _on_ready():
 	var controllers = Input.get_connected_joypads()
 	if controllerNumber != 0 && controllerNumber != 1:
-		controllerNumber = get_parent().ClaimController()
-		print_debug("Controller ", controllers[controllerNumber])
+		controllerNumber = get_parent().ClaimController(self)
+		print_debug(self.name, ": ", str(controllerNumber))
+		if(controllers.size() > controllerNumber):
+			print_debug("Controller ", controllers[controllerNumber])
