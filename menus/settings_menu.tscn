@@ -58,6 +58,7 @@ horizontal_alignment = 1
 [node name="sfxSlider" parent="background/setValues" instance=ExtResource("2_1ehxl")]
 layout_mode = 2
 value = 1.0
+bus_name = "SFX"
 
 [node name="musicLabel" type="Label" parent="background/setValues"]
 layout_mode = 2
