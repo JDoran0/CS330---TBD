@@ -32,11 +32,9 @@ func startDisplayTimer() -> void:
 func startInputBuffer() -> void: 
 	#Start the InputBuffer
 	$inputBuffer.start()
-	print_debug(get_parent().name, " cannot attack")
 	canAttack = false
 
 func _on_input_buffer_timeout():
-	print_debug(get_parent().name, "can attack again now")
 	canAttack = true
 
 func _on_display_timer_timeout():
@@ -114,12 +112,10 @@ func ApplyDamage(damagedPlayer, damage: int) -> void:
 
 ##Disables all input of the player passed as a argument
 func DisableInput(player) -> void:
-	print_debug("Stunned ", player.name)
 	stunnedPlayer = player
 	stunnedPlayer.stunned = true
 	$stunTimer.start()
 
 
 func _on_stun_timer_timeout():
-	print_debug("Stun finished ", stunnedPlayer.name)
 	stunnedPlayer.stunned = false

@@ -103,11 +103,9 @@ func processKeyboardInput(delta: float) -> void:
 ## Determine which way the player is going
 	#Set facingRight to true or false
 func processDirection() -> void:
-	var directionx := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
-	var direction = directionx
-	if(direction < get_parent().GetControllerNegativeDeadzone()):
+	if velocity.x < 0:
 		facingRight = false
-	elif(direction > get_parent().GetControllerPositiveDeadzone()):
+	elif velocity.x > 0:
 		facingRight = true
 
 
