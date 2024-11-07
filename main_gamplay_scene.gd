@@ -25,7 +25,9 @@ func _process(delta):
 	#Assigns -1 to player 1 if they are a keyboard player (only 1 controller connected)
 func ClaimController(player) -> int:
 	print_debug("Controller count: ", Input.get_connected_joypads().size())
-	if Input.get_connected_joypads().size() == 1 && player.name == "Player1":
+	if Input.get_connected_joypads().size() == 0 && player.name == "Player1":
+		return -1
+	elif Input.get_connected_joypads().size() == 1 && player.name == "Player1":
 		return -1
 	else:
 		var retValue = controllerCount

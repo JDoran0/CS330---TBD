@@ -51,11 +51,6 @@ func _physics_process(delta: float) -> void:
 	#Determine which way the player is facing
 	processDirection()
 	
-	# Check for punch input
-	if Input.is_action_just_pressed("attack" + str(controllerNumber)):
-		processAttackDirection()
-		$Fists.attack()
-	
 	move_and_slide()
 
 
@@ -93,6 +88,11 @@ func processControllerInput(delta: float) -> void:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	# Check for punch input (controller)
+	if Input.is_action_just_pressed("attack" + str(controllerNumber)):
+		processAttackDirection()
+		$Fists.attack()
 
 
 
@@ -123,18 +123,20 @@ func processKeyboardInput(delta: float) -> void:
 		velocity.x = keyboardDirections * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	
+	#Attack (keyboard) 
+	if Input.is_action_just_pressed("kbattack"):
+		processAttackDirection()
+		$Fists.attack()
 
 
 
 ## Determine which way the player is going
 	#Set facingRight to true or false
 func processDirection() -> void:
-	var directionx := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
-	#var directiony := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_Y)
-	var direction = directionx
-	if(direction < get_parent().GetControllerNegativeDeadzone()):
+	if velocity.x < 0:
 		facingRight = false
-	elif(direction > get_parent().GetControllerPositiveDeadzone()):
+	elif velocity.x > 0:
 		facingRight = true
 
 
@@ -175,6 +177,3 @@ func _on_ready():
 	var controllers = Input.get_connected_joypads()
 	if controllerNumber != 0 && controllerNumber != 1:
 		controllerNumber = get_parent().ClaimController(self)
-		print_debug(self.name, ": ", str(controllerNumber))
-		if(controllers.size() > controllerNumber):
-			print_debug("Controller ", controllers[controllerNumber])
