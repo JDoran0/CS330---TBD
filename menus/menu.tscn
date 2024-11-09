@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bek580np0qq3d"]
+[gd_scene load_steps=12 format=3 uid="uid://bek580np0qq3d"]
 
 [ext_resource type="Script" path="res://menus/menu.gd" id="1_ryble"]
+[ext_resource type="Texture2D" uid="uid://bk078os4xtmt1" path="res://Textures/Menu.png" id="2_aout4"]
+[ext_resource type="Texture2D" uid="uid://d22dopojlxx87" path="res://Textures/ButtonBackground.png" id="2_conkb"]
+[ext_resource type="Texture2D" uid="uid://bwtk8lpudnplw" path="res://Textures/ButtonPlay.png" id="3_2tkkr"]
+[ext_resource type="Texture2D" uid="uid://dayfrpg1070u7" path="res://Textures/ButtonPlayPressed.png" id="4_yx3b7"]
+[ext_resource type="Texture2D" uid="uid://b66cw03ksr83y" path="res://Textures/ButtonSettings.png" id="5_djlmv"]
+[ext_resource type="Texture2D" uid="uid://coeat7xoeq1fr" path="res://Textures/ButtonSettingsPressed.png" id="6_00rel"]
+[ext_resource type="Texture2D" uid="uid://c4pq1mexxxste" path="res://Textures/ButtonControls.png" id="7_ym5jw"]
+[ext_resource type="Texture2D" uid="uid://doi2o004pahmy" path="res://Textures/ButtonControlsPressed.png" id="8_b388e"]
+[ext_resource type="Texture2D" uid="uid://dt2ygpi6pygik" path="res://Textures/ButtonExit.png" id="9_8iiks"]
+[ext_resource type="Texture2D" uid="uid://bh45ul2weo7wu" path="res://Textures/ButtonExitPressed.png" id="10_ichca"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -10,6 +20,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ryble")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1053.25, 526.5)
+scale = Vector2(16.8383, 11.53)
+texture = ExtResource("2_aout4")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 1
@@ -24,34 +40,50 @@ text = "¿TAROT?: The Chaotic Card-Based Fighting Game"
 fit_content = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -68.0
-offset_right = 48.0
-offset_bottom = 68.0
+offset_left = -88.5
+offset_top = -115.0
+offset_right = 18.5
+offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 
-[node name="startButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-text = "Start Game"
+[node name="Sprite2D" type="Sprite2D" parent="VBoxContainer"]
+texture_filter = 1
+position = Vector2(52, 80)
+scale = Vector2(4.19444, 3.66667)
+texture = ExtResource("2_conkb")
 
-[node name="settingsButton" type="Button" parent="VBoxContainer"]
+[node name="startButton" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "Settings"
+texture_normal = ExtResource("3_2tkkr")
+texture_pressed = ExtResource("3_2tkkr")
+texture_hover = ExtResource("4_yx3b7")
 
-[node name="controlsButton" type="Button" parent="VBoxContainer"]
+[node name="settingsButton" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "Controls"
+texture_normal = ExtResource("5_djlmv")
+texture_pressed = ExtResource("5_djlmv")
+texture_hover = ExtResource("6_00rel")
 
-[node name="exitGameButton" type="Button" parent="VBoxContainer"]
+[node name="controlsButton" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "Exit Game"
+texture_normal = ExtResource("7_ym5jw")
+texture_pressed = ExtResource("7_ym5jw")
+texture_hover = ExtResource("8_b388e")
+
+[node name="exitGameButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("9_8iiks")
+texture_pressed = ExtResource("9_8iiks")
+texture_hover = ExtResource("10_ichca")
 
 [connection signal="pressed" from="VBoxContainer/startButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/settingsButton" to="." method="_on_settings_button_pressed"]

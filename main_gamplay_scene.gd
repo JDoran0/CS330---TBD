@@ -1,7 +1,7 @@
 extends Node2D
 
-const MAIN_MENU_SCENE = "res://menu.tscn"
-const GAMEPLAY_SCENE = "res://MainGameplayScene.tscn"
+const MAIN_MENU_SCENE = "res://menus/menu.tscn"
+const GAMEPLAY_SCENE = "res://menus/MainGameplayScene.tscn"
 
 static var controllerCount = 0
 var ControllerNegativeDeadzone = -0.09
@@ -15,7 +15,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if get_tree().current_scene != preload(MAIN_MENU_SCENE):
 		playedOnce = true
 	if get_tree().current_scene == preload(MAIN_MENU_SCENE):

@@ -1,7 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyjnoeawwh7u8"]
+[gd_scene load_steps=18 format=3 uid="uid://cyjnoeawwh7u8"]
 
 [ext_resource type="Script" path="res://menus/settings_menu.gd" id="1_2me8r"]
 [ext_resource type="PackedScene" uid="uid://b33qp45dfduy0" path="res://menus/volume_slider.tscn" id="2_1ehxl"]
+[ext_resource type="Texture2D" uid="uid://bk078os4xtmt1" path="res://Textures/Menu.png" id="2_y2vwe"]
+[ext_resource type="Texture2D" uid="uid://bjjfor11p4ryc" path="res://Textures/sliderHandle.png" id="3_iw7wd"]
+[ext_resource type="Texture2D" uid="uid://d22dopojlxx87" path="res://Textures/ButtonBackground.png" id="3_siqmk"]
+[ext_resource type="Texture2D" uid="uid://js4dhxhqoxxa" path="res://Textures/Slider.png" id="4_5kefo"]
+[ext_resource type="Texture2D" uid="uid://dt2ygpi6pygik" path="res://Textures/ButtonExit.png" id="7_p823h"]
+[ext_resource type="Texture2D" uid="uid://bh45ul2weo7wu" path="res://Textures/ButtonExitPressed.png" id="8_fcsxv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x0eqv"]
+texture = ExtResource("4_5kefo")
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_td4rf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gaiut"]
+texture = ExtResource("4_5kefo")
+modulate_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yb330"]
+texture = ExtResource("4_5kefo")
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hyjlv"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_csnfu"]
+texture = ExtResource("4_5kefo")
+modulate_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mtu1i"]
+texture = ExtResource("4_5kefo")
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_58ldp"]
+modulate_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4i6mg"]
+texture = ExtResource("4_5kefo")
+modulate_color = Color(1, 1, 1, 0)
 
 [node name="settingsMenu" type="Control"]
 layout_mode = 3
@@ -16,28 +53,51 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2me8r")
 
+[node name="Background" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1056.84, 553.4)
+scale = Vector2(16.8383, 11.53)
+texture = ExtResource("2_y2vwe")
+
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -50.0
-offset_top = 50.0
-offset_right = 50.0
-offset_bottom = 90.0
+offset_left = -59.755
+offset_top = 174.0
+offset_right = 43.755
+offset_bottom = 201.365
 grow_horizontal = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(48.835, -50)
 bbcode_enabled = true
 text = "[center]Settings[/center]"
 
 [node name="background" type="PanelContainer" parent="."]
-layout_mode = 2
-offset_left = 426.0
-offset_top = 265.0
-offset_right = 726.0
-offset_bottom = 265.0
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -301.0
+offset_top = -185.0
+offset_right = -1.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="background"]
+position = Vector2(152.75, 130.25)
+scale = Vector2(13.125, 5.19167)
+texture = ExtResource("3_siqmk")
 
 [node name="setValues" type="VBoxContainer" parent="background"]
+texture_filter = 1
 layout_mode = 2
 
 [node name="masterVolumeLabel" type="Label" parent="background/setValues"]
@@ -46,7 +106,14 @@ text = "Master Volume"
 horizontal_alignment = 1
 
 [node name="masterVolumeSlider" parent="background/setValues" instance=ExtResource("2_1ehxl")]
+texture_filter = 1
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("3_iw7wd")
+theme_override_icons/grabber_highlight = ExtResource("3_iw7wd")
+theme_override_icons/grabber_disabled = ExtResource("3_iw7wd")
+theme_override_styles/slider = SubResource("StyleBoxTexture_x0eqv")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_td4rf")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_gaiut")
 value = 1.0
 bus_name = "Master"
 
@@ -57,6 +124,12 @@ horizontal_alignment = 1
 
 [node name="sfxSlider" parent="background/setValues" instance=ExtResource("2_1ehxl")]
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("3_iw7wd")
+theme_override_icons/grabber_highlight = ExtResource("3_iw7wd")
+theme_override_icons/grabber_disabled = ExtResource("3_iw7wd")
+theme_override_styles/slider = SubResource("StyleBoxTexture_yb330")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_hyjlv")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_csnfu")
 value = 1.0
 bus_name = "SFX"
 
@@ -67,19 +140,29 @@ horizontal_alignment = 1
 
 [node name="musicSlider" parent="background/setValues" instance=ExtResource("2_1ehxl")]
 layout_mode = 2
+theme_override_icons/grabber = ExtResource("3_iw7wd")
+theme_override_icons/grabber_highlight = ExtResource("3_iw7wd")
+theme_override_icons/grabber_disabled = ExtResource("3_iw7wd")
+theme_override_styles/slider = SubResource("StyleBoxTexture_mtu1i")
+theme_override_styles/grabber_area = SubResource("StyleBoxTexture_58ldp")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxTexture_4i6mg")
 value = 1.0
 bus_name = "Music"
 
-[node name="backButton" type="Button" parent="."]
+[node name="backButton" type="TextureButton" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 50.0
-offset_top = -58.0
-offset_right = 95.0
-offset_bottom = -27.0
+offset_left = -61.5
+offset_top = -205.0
+offset_right = 45.5
+offset_bottom = -168.0
+grow_horizontal = 2
 grow_vertical = 0
-text = "back"
+texture_normal = ExtResource("7_p823h")
+texture_hover = ExtResource("8_fcsxv")
 
 [connection signal="pressed" from="backButton" to="." method="_on_back_button_pressed"]

@@ -11,11 +11,15 @@ const JUMP_VELOCITY = -400.0
 
 @onready var standing_collision = $standing
 @onready var crouching_collision = $crouching
-@onready var crouchSprite = $"MeshInstance2D (crouch)"
-@onready var standingSprite = $"MeshInstance2D (standing)"
+
+@onready var characterStanding = $"Character(standing)"
+@onready var characterCrouching = $"Character(crouching)"
+@onready var playerHealthBar = $"../Player2HB"
 
 var health = 100
 var stunned = false
+var crouching = false
+
 
 #for debugging, can be removed later
 var prevHealth = health
@@ -23,6 +27,9 @@ var prevHealth = health
 var controllerNumber
 
 func _physics_process(delta: float) -> void:
+	
+	playAnimation()
+	
 	#quit game with esc button
 	if Input.is_action_just_pressed("escape"):
 		get_tree().quit()
@@ -31,10 +38,12 @@ func _physics_process(delta: float) -> void:
 	if health != prevHealth:
 		print("player health 2:", health)
 		prevHealth = health
+		playerHealthBar.value = health
+
 		
 	#for debug purposes will be changed later, when you jump off the platform the game will close
-	if health == 0:
-		get_tree().change_scene_to_file("res://menu.tscn")
+	if health <= 0:
+		get_tree().change_scene_to_file("res://menus/menu.tscn")
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -65,14 +74,12 @@ func processControllerInput(delta: float) -> void:
 	# Handle ducking (controller)
 	if Input.is_action_pressed("down" + str(controllerNumber)) and is_on_floor():
 		standing_collision.disabled = true
-		standingSprite.visible = false
 		crouching_collision.disabled = false
-		crouchSprite.visible = true
+		crouching = true
 	else:
 		standing_collision.disabled = false
-		standingSprite.visible = true
 		crouching_collision.disabled = true
-		crouchSprite.visible = false
+		crouching = false
 	
 	# Handle jump. (controller)
 	if Input.is_action_just_pressed("jump" + str(controllerNumber)) and is_on_floor():
@@ -95,7 +102,7 @@ func processControllerInput(delta: float) -> void:
 
 
 ##Player 2 keyboard disabled
-func processKeyboardInput(delta: float) -> void: 
+func processKeyboardInput(_delta: float) -> void: 
 	pass
 
 
@@ -121,28 +128,49 @@ func processDirection() -> void:
 func processAttackDirection() -> void:
 	## part 1
 	var yPos
-	if crouchSprite.visible == true:
+	if crouching == true:
 		#Display crouch punch animation here
-		yPos = 6
+		yPos = 23
 	else:
 		#Display standing punch animation here
-		yPos = -4
+		yPos = 6
 	$Fists.position.y = yPos
 	
 	## part 2
 	if facingRight:
 		#Display given animation facing to the right
 		$Fists/AnimatedSprite2D.rotation = 0
-		$Fists.position = Vector2(13, yPos)
+		$Fists.position = Vector2(25, yPos)
 	else:
 		#Display given animation facing to the left
 		$Fists/AnimatedSprite2D.rotation = (PI)
-		$Fists.position = Vector2(-20, yPos)
+		$Fists.position = Vector2(-25, yPos)
 
-
+#process the correct sprite frame for each frame
+func playAnimation():
+	if facingRight:
+		if crouching:
+			characterStanding.visible = false
+			characterCrouching.visible = true
+			characterCrouching.play("crouching")
+		else: 
+			characterStanding.visible = true
+			characterCrouching.visible = false
+			characterStanding.play("movingRight")
+	else:
+		if crouching:
+			characterStanding.visible = false
+			characterCrouching.visible = true
+			characterCrouching.play("crouching")
+		else:
+			characterStanding.visible = true
+			characterCrouching.visible = false
+			characterStanding.play("movingLeft")
 
 ##Assigns the player their controller value
 func _on_ready():
+	playerHealthBar.value = health
+	
 	var controllers = Input.get_connected_joypads()
 	if controllerNumber != 0 && controllerNumber != 1:
 		controllerNumber = get_parent().ClaimController(self)

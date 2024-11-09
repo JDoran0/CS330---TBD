@@ -1,16 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck0toy73fmu6o"]
+[gd_scene load_steps=2 format=3 uid="uid://ck0toy73fmu6o"]
 
 [ext_resource type="Script" path="res://boundaryScript.gd" id="1_ysk7m"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5qqa7"]
-size = Vector2(1776, 127)
 
 [node name="Boundary" type="Area2D"]
 script = ExtResource("1_ysk7m")
 
-[node name="BoundaryHurtBox" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 10)
-shape = SubResource("RectangleShape2D_5qqa7")
-debug_color = Color(0.986948, 0, 0.31825, 0.42)
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-28.7428, 3.2432)
+scale = Vector2(1.53561, 1.75238)
+build_mode = 1
+polygon = PackedVector2Array(-423.453, -6.41597, -216.369, 581.356, 1025.49, 581.356, 1177.22, 1.00252, 976, -178, -180.552, -178.182)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

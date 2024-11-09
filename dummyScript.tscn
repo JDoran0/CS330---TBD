@@ -12,7 +12,7 @@ var health = 1000
 #for debugging damage
 var prevHealth = health
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	
 	#debugging message (shows up in the command line)
 	if health != prevHealth:

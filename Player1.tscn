@@ -1,45 +1,86 @@
-[gd_scene load_steps=7 format=3 uid="uid://l7s43n45hpbf"]
+[gd_scene load_steps=11 format=3 uid="uid://l7s43n45hpbf"]
 
 [ext_resource type="Script" path="res://player_1Script.gd" id="1_7oo2r"]
+[ext_resource type="Texture2D" uid="uid://rpm8bgfbkby8" path="res://Textures/Tarot_Dog_CrouchingLeft.png" id="2_ds527"]
+[ext_resource type="Texture2D" uid="uid://d1s0qm6wpe3cq" path="res://Textures/Tarot_Dog_Standing_Left.png" id="2_e6s6k"]
+[ext_resource type="Texture2D" uid="uid://44elthhvjuar" path="res://Textures/Tarot_Dog_Standing.png" id="2_lwuyr"]
 [ext_resource type="PackedScene" uid="uid://blini5ubvjgjr" path="res://Fists.tscn" id="2_paj5y"]
+[ext_resource type="Texture2D" uid="uid://b8jmq0bv0x6k8" path="res://Textures/Tarot_Dog_Crouching.png" id="3_qk7i1"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_v7avp"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_qdggc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_e6s6k")
+}],
+"loop": true,
+"name": &"movingLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lwuyr")
+}],
+"loop": true,
+"name": &"movingRight",
+"speed": 5.0
+}]
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_66xcx"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_arxy2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ds527")
+}],
+"loop": true,
+"name": &"crouchingLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qk7i1")
+}],
+"loop": true,
+"name": &"crouchingRight",
+"speed": 5.0
+}]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qval5"]
-height = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrn2y"]
+size = Vector2(34, 51)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tlprj"]
-radius = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x16dl"]
+size = Vector2(12, 53)
 
 [node name="Player1" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 3
 collision_mask = 7
 script = ExtResource("1_7oo2r")
 
-[node name="MeshInstance2D (standing)" type="MeshInstance2D" parent="."]
-modulate = Color(0.0313726, 1, 1, 1)
-position = Vector2(0, 0.244924)
-scale = Vector2(16, 16.2449)
-mesh = SubResource("CapsuleMesh_v7avp")
-texture = SubResource("CanvasTexture_66xcx")
+[node name="Character(standing)" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.12997, 0.130484)
+sprite_frames = SubResource("SpriteFrames_qdggc")
+animation = &"movingLeft"
+
+[node name="Character(crouching)" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, 15)
+scale = Vector2(0.12997, 0.130484)
+sprite_frames = SubResource("SpriteFrames_arxy2")
+animation = &"crouchingRight"
 
 [node name="standing" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_qval5")
+position = Vector2(-7, 7)
+shape = SubResource("RectangleShape2D_qrn2y")
 
 [node name="crouching" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
-shape = SubResource("CircleShape2D_tlprj")
+position = Vector2(-0.500001, 28)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_x16dl")
 disabled = true
-
-[node name="MeshInstance2D (crouch)" type="MeshInstance2D" parent="."]
-modulate = Color(0.0313726, 1, 1, 1)
-position = Vector2(0, 8)
-scale = Vector2(16, 8)
-mesh = SubResource("CapsuleMesh_v7avp")
-texture = SubResource("CanvasTexture_66xcx")
+debug_color = Color(0.0279049, 0.56983, 0.843997, 0.42)
 
 [node name="Fists" parent="." instance=ExtResource("2_paj5y")]
+texture_filter = 1
+scale = Vector2(2, 2)
 
 [connection signal="ready" from="." to="." method="_on_ready"]
