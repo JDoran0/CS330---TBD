@@ -10,6 +10,9 @@ var bus_index: int
 func _ready() -> void:
 	bus_index = AudioServer.get_bus_index(bus_name)
 	value_changed.connect(_on_value_changed)
+	value = db_to_linear(
+		AudioServer.get_bus_volume_db(bus_index)
+	)
 	pass # Replace with function body.
 
 func _on_value_changed(value: float) -> void:
@@ -18,5 +21,5 @@ func _on_value_changed(value: float) -> void:
 		linear_to_db(value)
 	)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	pass
