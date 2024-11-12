@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://soesucmwwp63"]
+
+[ext_resource type="AudioStream" uid="uid://dcdlni4k1e7me" path="res://soundsAndMusic/menuMusic.mp3" id="1_ojeve"]
+
+[node name="music" type="AudioStreamPlayer"]
+stream = ExtResource("1_ojeve")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
