@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsuteealvxu5t"]
+
+[ext_resource type="AudioStream" uid="uid://trpk2ixgkk8w" path="res://soundsAndMusic/MenuBack.mp3" id="1_74s2w"]
+
+[node name="menuBack" type="AudioStreamPlayer"]
+stream = ExtResource("1_74s2w")

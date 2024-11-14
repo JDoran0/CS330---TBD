@@ -11,6 +11,13 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_back_button_pressed() -> void:
-	MenuBack.play()
-	get_tree().change_scene_to_file("res://menus/menu.tscn")
+func _on_re_match_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_new_match_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_return_to_menu_pressed() -> void:
+	pass # Replace with function body.
