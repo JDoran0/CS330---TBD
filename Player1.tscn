@@ -83,4 +83,9 @@ debug_color = Color(0.0279049, 0.56983, 0.843997, 0.42)
 texture_filter = 1
 scale = Vector2(2, 2)
 
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
