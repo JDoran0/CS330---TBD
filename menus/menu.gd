@@ -28,7 +28,7 @@ func _on_settings_button_pressed() -> void:
 func _on_controls_button_pressed() -> void:
 	#TODO: play a sound here
 	MenuClick.play()
-	#get_tree().change_scene_to_file() #<- drag the scene for the 
+	get_tree().change_scene_to_file("res://Controls.tscn") #<- drag the scene for the 
 	pass # Replace with function body.
 
 # Button handles quitting out of the game
