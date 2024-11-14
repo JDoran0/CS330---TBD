@@ -7,7 +7,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 # Button handles starting the game, currently takes us to the actual game scene for now
@@ -28,7 +28,7 @@ func _on_settings_button_pressed() -> void:
 func _on_controls_button_pressed() -> void:
 	#TODO: play a sound here
 	MenuClick.play()
-	get_tree().change_scene_to_file("res://Controls.tscn") #<- drag the scene for the 
+	get_tree().change_scene_to_file("res://menus/controls_menu.tscn") #<- drag the scene for the 
 	pass # Replace with function body.
 
 # Button handles quitting out of the game
