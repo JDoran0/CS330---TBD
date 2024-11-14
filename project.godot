@@ -17,7 +17,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Music="*res://music/menuMusic.tscn"
+MenuClick="*res://soundsAndMusic/menuClick.tscn"
+MenuBack="*res://soundsAndMusic/menu_back.tscn"
+MenuMusic="*res://soundsAndMusic/menuMusic.tscn"
 
 [editor]
 
