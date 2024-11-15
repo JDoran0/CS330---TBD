@@ -19,6 +19,9 @@ func _ready():
 	controllerCount = 0
 	
 	#if true:
+	#	Meteors()
+	
+	#if true:
 	#	theBear()
 
 
@@ -50,9 +53,12 @@ func GetControllerPositiveDeadzone():
 func GetControllerNegativeDeadzone():
 	return ControllerNegativeDeadzone
  
+func Meteors():
+	var spawner_scene = load(METEOR_SCENE)
+	var instance = spawner_scene.instantiate()
+	add_child(instance)
 
 func theBear():
 	var plushie_spawner_scene = load(PLUSHIE_SPAWNER_SCENE)
 	var plushie_spawner_instance = plushie_spawner_scene.instantiate()
 	add_child(plushie_spawner_instance)
-

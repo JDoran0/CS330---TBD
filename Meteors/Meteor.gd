@@ -1,6 +1,5 @@
 extends RigidBody2D
 
-@export var bounce = 150
 
 func _ready():
 	pass
