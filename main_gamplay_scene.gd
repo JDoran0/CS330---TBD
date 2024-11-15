@@ -4,6 +4,8 @@ const MAIN_MENU_SCENE = "res://menus/menu.tscn"
 const GAMEPLAY_SCENE = "res://menus/MainGameplayScene.tscn"
 
 const PLUSHIE_SPAWNER_SCENE = "res://Bear/plushie_spawner.tscn"
+const METEOR_SCENE = "res://Meteors/Meteor_spawner.tscn"
+
 
 static var controllerCount = 0
 var ControllerNegativeDeadzone = -0.09
@@ -16,8 +18,8 @@ func _ready():
 	
 	controllerCount = 0
 	
-	if true:
-		theBear()
+	#if true:
+	#	theBear()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

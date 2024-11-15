@@ -213,3 +213,6 @@ func _on_ready():
 	var _controllers = Input.get_connected_joypads()
 	if controllerNumber != 0 && controllerNumber != 1:
 		controllerNumber = get_parent().ClaimController(self)
+		
+func dealDamage(amount):
+	health -= amount

@@ -184,3 +184,6 @@ func _on_ready():
 		print_debug(self.name, ": ", str(controllerNumber))
 		if(controllers.size() > controllerNumber):
 			print_debug("Controller ", controllers[controllerNumber])
+			
+func dealDamage(amount):
+	health -= amount
