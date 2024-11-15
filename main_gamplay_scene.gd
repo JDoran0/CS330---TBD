@@ -2,7 +2,9 @@ extends Node2D
 
 const MAIN_MENU_SCENE = "res://menus/menu.tscn"
 const GAMEPLAY_SCENE = "res://menus/MainGameplayScene.tscn"
+
 const PLUSHIE_SPAWNER_SCENE = "res://Bear/plushie_spawner.tscn"
+const METEOR_SCENE = "res://Meteor_spawner.tscn"
 
 static var controllerCount = 0
 var ControllerNegativeDeadzone = -0.09
@@ -12,6 +14,10 @@ var playedOnce = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	if true:
+		Meteors()
+	
 	controllerCount = 0
 	
 	if true:
@@ -45,8 +51,14 @@ func GetControllerPositiveDeadzone():
 ##Deadzone to ensure the joysticks dont cause the player to drift when idle
 func GetControllerNegativeDeadzone():
 	return ControllerNegativeDeadzone
+ 
 
 func theBear():
 	var plushie_spawner_scene = load(PLUSHIE_SPAWNER_SCENE)
 	var plushie_spawner_instance = plushie_spawner_scene.instantiate()
 	add_child(plushie_spawner_instance)
+	
+func Meteors():
+	var spawner_scene = load(METEOR_SCENE)
+	var instance = spawner_scene.instantiate()
+	add_child(instance)
