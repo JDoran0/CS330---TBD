@@ -21,11 +21,9 @@ animations = [{
 script = ExtResource("1_o5pln")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2.5, -3)
 shape = SubResource("RectangleShape2D_rmdch")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(3, -3)
 sprite_frames = SubResource("SpriteFrames_c0vgk")
 
 [node name="displayTimer" type="Timer" parent="."]
@@ -35,10 +33,6 @@ one_shot = true
 [node name="inputBuffer" type="Timer" parent="."]
 one_shot = true
 
-[node name="stunTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="displayTimer" to="." method="_on_display_timer_timeout"]
 [connection signal="timeout" from="inputBuffer" to="." method="_on_input_buffer_timeout"]
-[connection signal="timeout" from="stunTimer" to="." method="_on_stun_timer_timeout"]

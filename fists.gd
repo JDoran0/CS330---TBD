@@ -1,9 +1,8 @@
 extends Area2D
 
-@export var knockbackModifier = 0.5
-
+const KNOCKBACK_MODIFIER = 2.0
 const DAMAGE_PER_HIT = 20
-const FORWARD_MOMENTUM = 20
+const FORWARD_MOMENTUM = 500
 
 var canAttack = true
 var stunnedPlayer
@@ -25,9 +24,6 @@ func startDisplayTimer() -> void:
 	$CollisionShape2D.disabled = false;
 	#Start the displaytimer
 	$displayTimer.start()
-	
-	# Make the player move forward from punching
-	ProcessForwardMomentum()
 
 func startInputBuffer() -> void: 
 	#Start the InputBuffer
@@ -45,27 +41,18 @@ func _on_display_timer_timeout():
 
 
 
-#NOTE: player in this context is the one dealing the damage
+# NOTE: player in this context is the one dealing the damage
 #      body is the player recieving the damage
-func _on_body_entered(body):
-	#Check to see who owns this instance of Fists
-	var player = get_parent()
-	
-	# Player 1 attacks Player 2
-	if(player.name == "Player1" && body.name == "Player2"):
-		# Process damage
-		ApplyDamage(body, DAMAGE_PER_HIT)
-		# Process knockback (move opposite direction of hit)
-		ApplyKnockback(body, player, DAMAGE_PER_HIT)
-		DisableInput(body)
-	
-	# Player 2 attacks Player 1
-	if(player.name == "Player2" && body.name == "Player1"): 
-		# Process damage
-		ApplyDamage(body, DAMAGE_PER_HIT)
-		# Process knockback (move opposite direction of hit)
-		ApplyKnockback(body, player, DAMAGE_PER_HIT)
-		DisableInput(body)
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("Player"):
+		# Only apply punch if they are not the owner of the fists
+		if get_parent().name != body.name:
+			var knockback_direction = (global_position - body.global_position).normalized()
+			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
+			body.velocity = velocity * -1
+			body.getStunned()
+			body.move_and_slide()
+			body.dealDamage(DAMAGE_PER_HIT)
 
 
 
@@ -73,49 +60,18 @@ func _on_body_entered(body):
 	#displayTimer temp shows punch animation & allows collision
 func attack() -> void:
 	if canAttack:
+		# Display the animation for attacking with Fists
 		startDisplayTimer()
+		# Diable inputs temporarily for player who attacked (avoid rapid fire)
 		startInputBuffer()
+		# Make the player move forward from punching
+		ProcessForwardMomentum()
 
 
 
 ## Process forward momentum from the punch
 func ProcessForwardMomentum() -> void:
 	var player = get_parent()
-	if(player.facingRight):
-		player.global_position.x += FORWARD_MOMENTUM
-	else:
-		player.global_position.x -= FORWARD_MOMENTUM 
-
-
-
-##Applies a knockback to damagedPlayer
-	#damagedPlayer: The player recieving the knockback effect
-	#damageSourcePosition: The source of the damage (uses source's location)
-func ApplyKnockback(damagedPlayer, damageSource, damage: int) -> void:
-	var knockbackDirection = damageSource.global_position.direction_to(damagedPlayer.global_position)
-	var knockbackStrength = damage * knockbackModifier
-	var knockback = knockbackDirection * knockbackStrength
-	
-	damagedPlayer.global_position += knockback
-
-
-
-##Applies damaged to the damagedPlayer
-func ApplyDamage(damagedPlayer, damage: int) -> void:
-	damagedPlayer.health -= damage
-	if(damagedPlayer.health <= 0):
-		pass
-		#
-		#ADD: DEAL WITH DEATH MECHANICS HERE?
-		#
-
-
-##Disables all input of the player passed as a argument
-func DisableInput(player) -> void:
-	stunnedPlayer = player
-	stunnedPlayer.stunned = true
-	$stunTimer.start()
-
-
-func _on_stun_timer_timeout():
-	stunnedPlayer.stunned = false
+	var lunge_direction = (player.global_position - global_position).normalized()
+	player.velocity.x = lunge_direction.x * FORWARD_MOMENTUM * -1
+	player.move_and_slide()

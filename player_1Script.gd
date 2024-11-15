@@ -7,7 +7,10 @@ const JUMP_VELOCITY = -400.0
 # Select the device to connect to
 @export var playerIndex = 0
 
+@export var CROUCH_SPEED_MODIFIER = 0.5
+
 @export var facingRight = true
+@export var facingUpwards = false
 
 @onready var standing_collision = $standing
 @onready var crouching_collision = $crouching
@@ -33,13 +36,13 @@ func _physics_process(delta: float) -> void:
 	#quit game with esc button
 	if Input.is_action_just_pressed("escape"):
 		get_tree().quit()
-
+	
 	#if necessary show the health of the player only when updated
 	if health != prevHealth:
 		print("player health 1:", health)
 		prevHealth = health
 		playerHealthBar.value = health
-		
+	
 	#for debug purposes will be changed later, when you jump off the platform the game will close
 	if health <= 0:
 		get_tree().change_scene_to_file("res://menus/menu.tscn")
@@ -88,25 +91,33 @@ func processControllerInput(delta: float) -> void:
 	var directionStick := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
 	if directionDPad < controllerDeadzoneNeg || directionStick < controllerDeadzoneNeg: 
 		var direction = min(directionStick, directionDPad)
-		velocity.x = direction * SPEED
-		
+		if crouching:
+			velocity.x = direction * SPEED * CROUCH_SPEED_MODIFIER
+		else:
+			velocity.x = direction * SPEED
 	elif directionDPad > controllerDeadzonePos || directionStick > controllerDeadzonePos:
 		var direction = max(directionStick, directionDPad)
-		velocity.x = direction * SPEED
-		
+		if crouching:
+			velocity.x = direction * SPEED * CROUCH_SPEED_MODIFIER
+		else:
+			velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
 	
 	# Check for punch input (controller)
 	if Input.is_action_just_pressed("attack" + str(controllerNumber)):
+		# Check if looking upwards BEFORE processAttackDirection() 
+		if Input.is_action_pressed("up" + str(controllerNumber)):
+			facingUpwards = true
+		else:
+			facingUpwards = false
 		processAttackDirection()
 		$Fists.attack()
 
 
 
 func processKeyboardInput(delta: float) -> void: 
-	# faster falling (keyboard)
+	# Faster falling (keyboard)
 	if not is_on_floor() and Input.is_action_just_pressed("kbDown"):
 		velocity += (get_gravity() * delta) * 25
 	
@@ -120,21 +131,27 @@ func processKeyboardInput(delta: float) -> void:
 		standing_collision.disabled = false
 		crouching_collision.disabled = true
 	
-	#handle jumping (keyboard)
+	# Handle jumping (keyboard)
 	if Input.is_action_just_pressed("kbJump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	
-	#Left and right (keyboard)
+	# Left and right (keyboard)
 	var keyboardDirections := Input.get_axis("kbLeft", "kbRight")
 	if keyboardDirections:
-		velocity.x = keyboardDirections * SPEED
-		
+		if crouching:
+			velocity.x = keyboardDirections * SPEED * CROUCH_SPEED_MODIFIER
+		else:
+			velocity.x = keyboardDirections * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		
 	
-	#Attack (keyboard) 
+	# Attack (keyboard) 
 	if Input.is_action_just_pressed("kbattack"):
+		# Check if looking upwards BEFORE processAttackDirection() 
+		if Input.is_action_pressed("kbUp"):
+			facingUpwards = true
+		else:
+			facingUpwards = false
 		processAttackDirection()
 		$Fists.attack()
 
@@ -172,12 +189,22 @@ func processAttackDirection() -> void:
 	## part 2
 	if facingRight:
 		#Display given animation facing to the right
-		$Fists/AnimatedSprite2D.rotation = 0
-		$Fists.position = Vector2(25, yPos)
+		$Fists.rotation = 0
+		$Fists.position = Vector2(30, yPos)
+		if facingUpwards && !crouching:
+			$Fists.rotation = -PI/3
+			$Fists.position.y -= 5
+		else:
+			$Fists.rotation = 0
 	else:
 		#Display given animation facing to the left
-		$Fists/AnimatedSprite2D.rotation = (PI)
-		$Fists.position = Vector2(-25, yPos)
+		$Fists.rotation = (PI)
+		$Fists.position = Vector2(-30, yPos)
+		if facingUpwards && !crouching:
+			$Fists.rotation = -2*PI/3
+			$Fists.position.y -= 5
+		else:
+			$Fists.rotation = (PI)
 
 #process the correct sprite frame for each frame
 func playAnimation():
@@ -210,9 +237,8 @@ func _on_stun_timer_timeout() -> void:
 ##Assigns the player their controller value
 func _on_ready():
 	playerHealthBar.value = health
-	var _controllers = Input.get_connected_joypads()
 	if controllerNumber != 0 && controllerNumber != 1:
 		controllerNumber = get_parent().ClaimController(self)
-		
+
 func dealDamage(amount):
 	health -= amount
