@@ -167,6 +167,13 @@ func playAnimation():
 			characterCrouching.visible = false
 			characterStanding.play("movingLeft")
 
+func getStunned():
+	stunned = true
+	$StunTimer.start()
+	
+func _on_stun_timer_timeout() -> void:
+	stunned = false
+	
 ##Assigns the player their controller value
 func _on_ready():
 	playerHealthBar.value = health
