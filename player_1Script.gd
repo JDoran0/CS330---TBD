@@ -33,9 +33,9 @@ func _physics_process(delta: float) -> void:
 	
 	playAnimation()
 	
-	#quit game with esc button
-	if Input.is_action_just_pressed("escape"):
-		get_tree().quit()
+	##quit game with esc button
+	#if Input.is_action_just_pressed("escape"):
+		#get_tree().quit()
 	
 	#if necessary show the health of the player only when updated
 	if health != prevHealth:
