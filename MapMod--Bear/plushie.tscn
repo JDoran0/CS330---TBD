@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8vn8lutwddhm"]
+
+[ext_resource type="Script" path="res://MapMod--Bear/plushie.gd" id="1_lhfsy"]
+[ext_resource type="Texture2D" uid="uid://2lpj5s5sq85q" path="res://MapMod--Bear/Bear Sprite.png" id="2_rnq2f"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2idd0"]
+friction = 0.0
+bounce = 1e+06
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21fnh"]
+radius = 60.0083
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1bf5"]
+radius = 28.2843
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v7wmr"]
+height = 28.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7s3st"]
+
+[node name="Plushie" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_2idd0")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_lhfsy")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_rnq2f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(14, -14)
+shape = SubResource("CircleShape2D_21fnh")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-32, 32)
+shape = SubResource("CircleShape2D_f1bf5")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(-28.8, 60)
+shape = SubResource("CapsuleShape2D_v7wmr")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(-59, 28.8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_7s3st")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

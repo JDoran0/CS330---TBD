@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cjuq3gkqfu4vn"]
 
-[ext_resource type="Texture2D" uid="uid://ddov8yrs7lnxv" path="res://Textures/healthBarUnderlayerP2.png" id="1_l31lq"]
-[ext_resource type="Texture2D" uid="uid://c8y5lj3nts7eg" path="res://Textures/healthBarP2.png" id="2_blttr"]
-[ext_resource type="Texture2D" uid="uid://cguoxba37uyrg" path="res://Textures/healthBarProgressP2.png" id="3_7npcm"]
+[ext_resource type="Texture2D" uid="uid://ddov8yrs7lnxv" path="res://GamePlay--Textures/healthBarUnderlayerP2.png" id="1_l31lq"]
+[ext_resource type="Texture2D" uid="uid://c8y5lj3nts7eg" path="res://GamePlay--Textures/healthBarP2.png" id="2_blttr"]
+[ext_resource type="Texture2D" uid="uid://cguoxba37uyrg" path="res://GamePlay--Textures/healthBarProgressP2.png" id="3_7npcm"]
 
 [node name="Healthbar" type="TextureProgressBar"]
 z_index = 1

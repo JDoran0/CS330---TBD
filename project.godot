@@ -11,15 +11,14 @@ config_version=5
 [application]
 
 config/name="Tarot: The Chaotic Card-Based Fighting Game"
-run/main_scene="res://menus/menu.tscn"
+run/main_scene="res://GamePlay--menus/menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
-MenuClick="*res://soundsAndMusic/menuClick.tscn"
-MenuBack="*res://soundsAndMusic/menu_back.tscn"
-MenuMusic="*res://soundsAndMusic/menuMusic.tscn"
+MenuClick="*res://GamePlay--soundsAndMusic/menuClick.tscn"
+MenuBack="*res://GamePlay--soundsAndMusic/menu_back.tscn"
+MenuMusic="*res://GamePlay--soundsAndMusic/menuMusic.tscn"
 
 [editor]
 

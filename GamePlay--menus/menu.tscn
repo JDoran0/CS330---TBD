@@ -1,0 +1,105 @@
+[gd_scene load_steps=13 format=3 uid="uid://bek580np0qq3d"]
+
+[ext_resource type="Script" path="res://GamePlay--menus/menu.gd" id="1_ryble"]
+[ext_resource type="PackedScene" uid="uid://j1ouvtb4e5bf" path="res://GamePlay--soundsAndMusic/menuClick.tscn" id="2_gs73y"]
+[ext_resource type="Texture2D" uid="uid://bk078os4xtmt1" path="res://GamePlay--Textures/Menu.png" id="2_t0n7u"]
+[ext_resource type="Texture2D" uid="uid://d22dopojlxx87" path="res://GamePlay--Textures/ButtonBackground.png" id="3_510y3"]
+[ext_resource type="Texture2D" uid="uid://bwtk8lpudnplw" path="res://GamePlay--Textures/ButtonPlay.png" id="3_mmrd3"]
+[ext_resource type="Texture2D" uid="uid://dayfrpg1070u7" path="res://GamePlay--Textures/ButtonPlayPressed.png" id="4_kcirb"]
+[ext_resource type="Texture2D" uid="uid://b66cw03ksr83y" path="res://GamePlay--Textures/ButtonSettings.png" id="6_b7rja"]
+[ext_resource type="Texture2D" uid="uid://coeat7xoeq1fr" path="res://GamePlay--Textures/ButtonSettingsPressed.png" id="7_mhu2x"]
+[ext_resource type="Texture2D" uid="uid://c4pq1mexxxste" path="res://GamePlay--Textures/ButtonControls.png" id="8_wrb76"]
+[ext_resource type="Texture2D" uid="uid://doi2o004pahmy" path="res://GamePlay--Textures/ButtonControlsPressed.png" id="9_xth6d"]
+[ext_resource type="Texture2D" uid="uid://dt2ygpi6pygik" path="res://GamePlay--Textures/ButtonExit.png" id="10_rony0"]
+[ext_resource type="Texture2D" uid="uid://bh45ul2weo7wu" path="res://GamePlay--Textures/ButtonExitPressed.png" id="11_i75xm"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ryble")
+
+[node name="Background" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_t0n7u")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_right = 63.0
+offset_bottom = 92.0
+grow_horizontal = 2
+text = "¿TAROT?: The Chaotic Card-Based Fighting Game"
+fit_content = true
+
+[node name="ButtonBackground" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.499
+anchor_top = 0.628
+anchor_right = 0.499
+anchor_bottom = 0.628
+offset_left = -160.348
+offset_top = -209.944
+offset_right = -53.348
+offset_bottom = -149.944
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3, 7)
+texture = ExtResource("3_510y3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.637
+anchor_right = 0.5
+anchor_bottom = 0.637
+offset_left = -106.5
+offset_top = -159.776
+offset_right = 0.5
+offset_bottom = 0.223999
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(2, 2)
+
+[node name="startButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_mmrd3")
+texture_hover = ExtResource("4_kcirb")
+
+[node name="menuClick" parent="VBoxContainer" instance=ExtResource("2_gs73y")]
+
+[node name="settingsButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("6_b7rja")
+texture_hover = ExtResource("7_mhu2x")
+
+[node name="controlsButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("8_wrb76")
+texture_hover = ExtResource("9_xth6d")
+
+[node name="exitGameButton" type="TextureButton" parent="VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("10_rony0")
+texture_hover = ExtResource("11_i75xm")
+
+[connection signal="pressed" from="VBoxContainer/startButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/settingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/controlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/exitGameButton" to="." method="_on_exit_game_button_pressed"]

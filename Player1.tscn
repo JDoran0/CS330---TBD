@@ -1,11 +1,11 @@
 [gd_scene load_steps=11 format=3 uid="uid://l7s43n45hpbf"]
 
 [ext_resource type="Script" path="res://player_1Script.gd" id="1_7oo2r"]
-[ext_resource type="Texture2D" uid="uid://rpm8bgfbkby8" path="res://Textures/Tarot_Dog_CrouchingLeft.png" id="2_ds527"]
-[ext_resource type="Texture2D" uid="uid://d1s0qm6wpe3cq" path="res://Textures/Tarot_Dog_Standing_Left.png" id="2_e6s6k"]
-[ext_resource type="Texture2D" uid="uid://44elthhvjuar" path="res://Textures/Tarot_Dog_Standing.png" id="2_lwuyr"]
-[ext_resource type="PackedScene" uid="uid://blini5ubvjgjr" path="res://Fists.tscn" id="2_paj5y"]
-[ext_resource type="Texture2D" uid="uid://b8jmq0bv0x6k8" path="res://Textures/Tarot_Dog_Crouching.png" id="3_qk7i1"]
+[ext_resource type="Texture2D" uid="uid://rpm8bgfbkby8" path="res://GamePlay--Textures/Tarot_Dog_CrouchingLeft.png" id="2_ds527"]
+[ext_resource type="Texture2D" uid="uid://d1s0qm6wpe3cq" path="res://GamePlay--Textures/Tarot_Dog_Standing_Left.png" id="2_e6s6k"]
+[ext_resource type="Texture2D" uid="uid://44elthhvjuar" path="res://GamePlay--Textures/Tarot_Dog_Standing.png" id="2_lwuyr"]
+[ext_resource type="PackedScene" uid="uid://blini5ubvjgjr" path="res://Weapon--Fists/Fists.tscn" id="2_paj5y"]
+[ext_resource type="Texture2D" uid="uid://b8jmq0bv0x6k8" path="res://GamePlay--Textures/Tarot_Dog_Crouching.png" id="3_qk7i1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qdggc"]
 animations = [{
