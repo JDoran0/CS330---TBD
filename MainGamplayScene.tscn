@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhsstipd2nvyc"]
+[gd_scene load_steps=10 format=3 uid="uid://bhsstipd2nvyc"]
 
 [ext_resource type="Script" path="res://main_gamplay_scene.gd" id="1_dntj8"]
 [ext_resource type="PackedScene" uid="uid://b7722o05au1wy" path="res://playingField.tscn" id="1_ps7od"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cg6op4vou28hs" path="res://player1HealthBar.tscn" id="3_52nj2"]
 [ext_resource type="PackedScene" uid="uid://ck0toy73fmu6o" path="res://Boundary.tscn" id="3_pbywp"]
 [ext_resource type="PackedScene" uid="uid://4rdk1nsidjd3" path="res://Player2.tscn" id="5_rrjq2"]
+[ext_resource type="PackedScene" uid="uid://b2c18qo0c0mwl" path="res://menus/pauseMenu.tscn" id="9_ja0oi"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_dntj8")
@@ -49,3 +50,7 @@ position = Vector2(578, 324)
 
 [node name="Player2" parent="." instance=ExtResource("5_rrjq2")]
 position = Vector2(799, 447)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ja0oi")]
