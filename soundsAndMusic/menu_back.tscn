@@ -4,3 +4,4 @@
 
 [node name="menuBack" type="AudioStreamPlayer"]
 stream = ExtResource("1_74s2w")
+bus = &"SFX"

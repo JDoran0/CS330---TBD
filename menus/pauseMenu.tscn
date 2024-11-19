@@ -269,14 +269,6 @@ text = "Resume"
 layout_mode = 2
 text = "Restart"
 
-[node name="Settings" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-
-[node name="Controls" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "Controls"
-
 [node name="mainMenu" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Main Menu"
@@ -288,8 +280,6 @@ libraries = {
 }
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Controls" to="." method="_on_controls_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/mainMenu" to="." method="_on_main_menu_pressed"]
