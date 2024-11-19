@@ -50,3 +50,7 @@ text = "New Match
 [node name="returnToMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Return To Main Menu"
+
+[connection signal="pressed" from="VBoxContainer/reMatch" to="." method="_on_re_match_pressed"]
+[connection signal="pressed" from="VBoxContainer/newMatch" to="." method="_on_new_match_pressed"]
+[connection signal="pressed" from="VBoxContainer/returnToMenu" to="." method="_on_return_to_menu_pressed"]

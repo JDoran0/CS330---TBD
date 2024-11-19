@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	
 	#for debug purposes will be changed later, when you jump off the platform the game will close
 	if health <= 0:
-		get_tree().change_scene_to_file("res://menus/menu.tscn")
+		get_tree().change_scene_to_file("res://menus/game_over.tscn")
 	
 	# Add the gravity.
 	if not is_on_floor():
