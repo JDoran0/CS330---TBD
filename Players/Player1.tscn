@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://l7s43n45hpbf"]
 
-[ext_resource type="Script" path="res://player_1Script.gd" id="1_7oo2r"]
+[ext_resource type="Script" path="res://Players/player_1Script.gd" id="1_7oo2r"]
 [ext_resource type="Texture2D" uid="uid://rpm8bgfbkby8" path="res://GamePlay--Textures/Tarot_Dog_CrouchingLeft.png" id="2_ds527"]
 [ext_resource type="Texture2D" uid="uid://d1s0qm6wpe3cq" path="res://GamePlay--Textures/Tarot_Dog_Standing_Left.png" id="2_e6s6k"]
 [ext_resource type="Texture2D" uid="uid://44elthhvjuar" path="res://GamePlay--Textures/Tarot_Dog_Standing.png" id="2_lwuyr"]

@@ -1,8 +1,8 @@
 extends Area2D
 
-const KNOCKBACK_MODIFIER = 50.0
+const KNOCKBACK_MODIFIER = 40.0
 const DAMAGE_PER_HIT = 10
-const FORWARD_MOMENTUM = 500
+const FORWARD_MOMENTUM = 100
 
 var canAttack = true
 var stunnedPlayer
@@ -48,7 +48,7 @@ func _on_body_entered(body: Node) -> void:
 		if get_parent().name != body.name:
 			var knockback_direction = (global_position - body.global_position).normalized()
 			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
-			body.velocity = velocity * -0.5
+			body.velocity = velocity * -1.25
 			body.getStunned()
 			body.move_and_slide()
 			body.dealDamage(DAMAGE_PER_HIT)
@@ -56,7 +56,7 @@ func _on_body_entered(body: Node) -> void:
 
 
 # Begin punch cooldown (buffer) and use displayTimer
-	#displayTimer temp shows punch animation & allows collision
+# displayTimer temp shows punch animation & allows collision
 func attack() -> void:
 	if canAttack:
 		# Display the animation for attacking with Fists
@@ -72,5 +72,5 @@ func attack() -> void:
 func ProcessForwardMomentum() -> void:
 	var player = get_parent()
 	var lunge_direction = (player.global_position - global_position).normalized()
-	player.velocity.x = lunge_direction.x * FORWARD_MOMENTUM * -0.3
+	player.velocity.x = lunge_direction.x * FORWARD_MOMENTUM * -10
 	player.move_and_slide()
