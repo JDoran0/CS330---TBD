@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://j1ouvtb4e5bf"]
+
+[ext_resource type="AudioStream" uid="uid://coecfqox3lh6x" path="res://GamePlay--soundsAndMusic/MenuClick.mp3" id="1_tqcb6"]
+
+[node name="menuClick" type="AudioStreamPlayer"]
+stream = ExtResource("1_tqcb6")
+volume_db = 5.0
+bus = &"SFX"
