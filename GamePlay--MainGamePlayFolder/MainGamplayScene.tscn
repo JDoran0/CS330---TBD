@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhsstipd2nvyc"]
+[gd_scene load_steps=11 format=3 uid="uid://bhsstipd2nvyc"]
 
 [ext_resource type="Script" path="res://GamePlay--MainGamePlayFolder/main_gamplay_scene.gd" id="1_kqk4g"]
 [ext_resource type="Texture2D" uid="uid://b1md8deagnp5f" path="res://GamePlay--Textures/FightingBackground.png" id="2_0bqpg"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b7722o05au1wy" path="res://GamePlay--MainGamePlayFolder/playingField.tscn" id="7_dmx44"]
 [ext_resource type="PackedScene" uid="uid://4rdk1nsidjd3" path="res://Players/Player2.tscn" id="8_oudd7"]
 [ext_resource type="PackedScene" uid="uid://b2c18qo0c0mwl" path="res://GamePlay--menus/pauseMenu.tscn" id="9_ryris"]
+[ext_resource type="PackedScene" uid="uid://cmvl0maw0goru" path="res://GamePlay--MainGamePlayFolder/dynamic_camera.tscn" id="10_6xnnv"]
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_kqk4g")
@@ -43,9 +44,6 @@ pivot_offset = Vector2(5, -5)
 [node name="Player1" parent="." instance=ExtResource("6_sso1s")]
 position = Vector2(256, 456)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(578, 324)
-
 [node name="PlayingField" parent="." instance=ExtResource("7_dmx44")]
 
 [node name="Player2" parent="." instance=ExtResource("8_oudd7")]
@@ -55,4 +53,8 @@ position = Vector2(799, 447)
 
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ryris")]
 
+
 [node name="Bullets" type="Node2D" parent="."]
+
+[node name="dynamicCamera" parent="." instance=ExtResource("10_6xnnv")]
+
