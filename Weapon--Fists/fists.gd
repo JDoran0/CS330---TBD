@@ -1,6 +1,6 @@
 extends Area2D
 
-const KNOCKBACK_MODIFIER = 40.0
+const KNOCKBACK_MODIFIER = 400.0
 const DAMAGE_PER_HIT = 10
 const FORWARD_MOMENTUM = 100
 
