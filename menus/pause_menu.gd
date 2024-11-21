@@ -30,16 +30,30 @@ func testEscape():
 		unPause()
 
 func _on_resume_pressed() -> void:
+	#TODO: add game unpause here, also make sure you can unpause using esc again.
 	MenuClick.play()
 	unPause()
 	pass # Replace with function body.
 	
 
 func _on_restart_pressed() -> void:
-	MenuClick.play()
 	unPause()
 	get_tree().reload_current_scene()
 	pass # Replace with function body.
+
+func _on_settings_pressed() -> void:
+	MenuClick.play()
+	unPause()
+	get_tree().change_scene_to_file("res://menus/settings_menu.tscn")
+	pass # Replace with function body.
+
+
+func _on_controls_pressed() -> void:
+	MenuClick.play()
+	unPause()
+	get_tree().change_scene_to_file("res://menus/controls_menu.tscn")
+	pass # Replace with function body.
+
 
 func _on_main_menu_pressed() -> void:
 	MenuBack.play()
