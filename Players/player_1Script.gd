@@ -153,7 +153,8 @@ func processKeyboardInput(delta: float) -> void:
 		else:
 			facingUpwards = false
 		processAttackDirection()
-		$Fists.attack()
+		#$Fists.attack()
+		$Gun.shoot()
 
 
 
@@ -202,6 +203,7 @@ func processAttackDirection() -> void:
 			$Fists.position.y -= 5
 		else:
 			$Fists.rotation = (PI)
+	$Gun.position = get_parent().position
 
 #process the correct sprite frame for each frame
 func playAnimation():

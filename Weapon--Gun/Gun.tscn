@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dky6x1k1yekcj"]
+
+[ext_resource type="Texture2D" uid="uid://bk8q21goge6ne" path="res://Weapon--Gun/pow9.png" id="1_0uvcx"]
+[ext_resource type="Script" path="res://Weapon--Gun/gun.gd" id="1_x44sc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8jehs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0uvcx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Gun" type="Node2D"]
+script = ExtResource("1_x44sc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2.125, 2.5)
+sprite_frames = SubResource("SpriteFrames_8jehs")

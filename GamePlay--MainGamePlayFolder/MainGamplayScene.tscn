@@ -54,3 +54,5 @@ position = Vector2(799, 447)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ryris")]
+
+[node name="Bullets" type="Node2D" parent="."]
