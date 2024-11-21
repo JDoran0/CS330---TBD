@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://l7s43n45hpbf"]
+[gd_scene load_steps=13 format=3 uid="uid://l7s43n45hpbf"]
 
 [ext_resource type="Script" path="res://Players/player_1Script.gd" id="1_7oo2r"]
 [ext_resource type="Texture2D" uid="uid://rpm8bgfbkby8" path="res://GamePlay--Textures/Tarot_Dog_CrouchingLeft.png" id="2_ds527"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://blini5ubvjgjr" path="res://Weapon--Fists/Fists.tscn" id="2_paj5y"]
 [ext_resource type="Texture2D" uid="uid://b8jmq0bv0x6k8" path="res://GamePlay--Textures/Tarot_Dog_Crouching.png" id="3_qk7i1"]
 [ext_resource type="PackedScene" uid="uid://dky6x1k1yekcj" path="res://Weapon--Gun/Gun.tscn" id="7_yl25e"]
+[ext_resource type="PackedScene" uid="uid://cbh61d4ro1trx" path="res://Weapon--Chicken/Chicken.tscn" id="8_2rf0l"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qdggc"]
 animations = [{
@@ -89,6 +90,8 @@ wait_time = 0.2
 one_shot = true
 
 [node name="Gun" parent="." instance=ExtResource("7_yl25e")]
+
+[node name="Chicken" parent="." instance=ExtResource("8_2rf0l")]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

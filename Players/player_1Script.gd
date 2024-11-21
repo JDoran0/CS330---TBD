@@ -155,7 +155,8 @@ func processKeyboardInput(delta: float) -> void:
 			facingUpwards = false
 		
 		#CHECK WHICH WEAPON USING HERE
-		$Fists.attack()
+		#$Fists.attack()
+		$Chicken.attack()
 		#$Gun.shoot()
 		
 

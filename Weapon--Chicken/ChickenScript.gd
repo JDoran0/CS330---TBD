@@ -1,6 +1,6 @@
 extends Area2D
 
-const KNOCKBACK_MODIFIER = 100.0
+const KNOCKBACK_MODIFIER = 400.0
 const DAMAGE_PER_HIT = 10
 const FORWARD_MOMENTUM = 100
 
@@ -46,9 +46,16 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
-			var knockback_direction = (global_position - body.global_position).normalized()
-			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
-			body.velocity = velocity * -1.25
+			#var knockback_direction = (global_position - body.global_position).normalized()
+			#var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
+			#body.velocity = velocity * -1.25
+			var fistPosition = global_position
+			if body.facingUpwards:
+				fistPosition.y = body.position.y - 200
+				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
+			else:
+				fistPosition.y = body.position.y
+				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
 			body.getStunned()
 			body.move_and_slide()
 			body.dealDamage(DAMAGE_PER_HIT)
@@ -71,7 +78,7 @@ func attack() -> void:
 		var yPos
 		if get_parent().crouching == true:
 			#Display crouch punch animation here
-			yPos = 27
+			yPos = 23
 		else:
 			#Display standing punch animation here
 			yPos = 6
@@ -81,7 +88,7 @@ func attack() -> void:
 		if get_parent().facingRight:
 			#Display given animation facing to the right
 			rotation = 0
-			position = Vector2(50, yPos)
+			position = Vector2(30, yPos)
 			if get_parent().facingUpwards && not get_parent().crouching:
 				rotation = -PI/3
 				position.y -= 5
@@ -90,14 +97,15 @@ func attack() -> void:
 		else:
 			#Display given animation facing to the left
 			rotation = (PI)
-			position = Vector2(-50, yPos)
+			position = Vector2(-30, yPos)
 			if get_parent().facingUpwards &&  not get_parent().crouching:
 				rotation = -2*PI/3
-				position.y -= 5
+				position.y -= 30
 			else:
 				rotation = (PI)
 		
 		# Display the animation for attacking with Fists
+		
 		startDisplayTimer()
 		# Diable inputs temporarily for player who attacked (avoid rapid fire)
 		startInputBuffer()
