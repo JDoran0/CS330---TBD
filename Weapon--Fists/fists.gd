@@ -81,7 +81,7 @@ func attack() -> void:
 		if get_parent().facingRight:
 			#Display given animation facing to the right
 			rotation = 0
-			position = Vector2(50, yPos)
+			position = Vector2(20, yPos)
 			if get_parent().facingUpwards && not get_parent().crouching:
 				rotation = -PI/3
 				position.y -= 5
@@ -90,7 +90,7 @@ func attack() -> void:
 		else:
 			#Display given animation facing to the left
 			rotation = (PI)
-			position = Vector2(-50, yPos)
+			position = Vector2(-20, yPos)
 			if get_parent().facingUpwards &&  not get_parent().crouching:
 				rotation = -2*PI/3
 				position.y -= 5

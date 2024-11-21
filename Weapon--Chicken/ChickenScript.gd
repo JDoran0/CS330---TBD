@@ -1,11 +1,12 @@
 extends Area2D
 
-const KNOCKBACK_MODIFIER = 400.0
-const DAMAGE_PER_HIT = 10
-const FORWARD_MOMENTUM = 100
+var KNOCKBACK_MODIFIER = 0.0
+var DAMAGE_PER_HIT = 5
+const FORWARD_MOMENTUM = 150
 
 var canAttack = true
 var stunnedPlayer
+var setInputBuffer = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,19 +47,13 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
-			#var knockback_direction = (global_position - body.global_position).normalized()
-			#var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
-			#body.velocity = velocity * -1.25
-			var fistPosition = global_position
-			if body.facingUpwards:
-				fistPosition.y = body.position.y - 200
-				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
-			else:
-				fistPosition.y = body.position.y
-				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
+			var knockback_direction = (global_position - body.global_position).normalized()
+			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
+			body.velocity = velocity * -1.25
 			body.getStunned()
 			body.move_and_slide()
 			body.dealDamage(DAMAGE_PER_HIT)
+			DAMAGE_PER_HIT *= 1.5
 
 
 
@@ -89,25 +84,65 @@ func attack() -> void:
 			#Display given animation facing to the right
 			rotation = 0
 			position = Vector2(30, yPos)
+			
+			#check if up + attack
 			if get_parent().facingUpwards && not get_parent().crouching:
-				rotation = -PI/3
-				position.y -= 5
+				rotation = PI/5
+				position.x -= 20
+				position.y += 30
+				
+				setInputBuffer = 1.5
+				KNOCKBACK_MODIFIER = 150
+			
+			#check for crouch + attack
+			elif get_parent().crouching:
+				position.x = 50
+				
+				setInputBuffer = 1
+				KNOCKBACK_MODIFIER = 100
+				
+			#regular attack
 			else:
+				position.y = -10
 				rotation = 0
+				
+				setInputBuffer = 0.5
+				KNOCKBACK_MODIFIER = 50
 		else:
 			#Display given animation facing to the left
 			rotation = (PI)
 			position = Vector2(-30, yPos)
+			
+			# check if up + attack
 			if get_parent().facingUpwards &&  not get_parent().crouching:
-				rotation = -2*PI/3
-				position.y -= 30
+				rotation = -(1*PI/5)
+				position.x += 10
+				position.y += 30
+				
+				setInputBuffer = 1.5
+				KNOCKBACK_MODIFIER = 150
+				
+			# Check is crouching + attack
+			elif get_parent().crouching:
+				position.x = -50
+				
+				setInputBuffer = 1.0
+				KNOCKBACK_MODIFIER = 50
+
+			# normal attack
 			else:
+				position.y = -10
 				rotation = (PI)
-		
+				setInputBuffer = 0.5
+				KNOCKBACK_MODIFIER = 100
+
 		# Display the animation for attacking with Fists
 		
 		startDisplayTimer()
+		
 		# Diable inputs temporarily for player who attacked (avoid rapid fire)
+		$inputBuffer.wait_time = setInputBuffer
+		
 		startInputBuffer()
 		# Make the player move forward from punching
 		ProcessForwardMomentum()
