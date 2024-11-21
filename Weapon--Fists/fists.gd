@@ -1,6 +1,6 @@
 extends Area2D
 
-const KNOCKBACK_MODIFIER = 400.0
+const KNOCKBACK_MODIFIER = 40.0
 const DAMAGE_PER_HIT = 10
 const FORWARD_MOMENTUM = 100
 
@@ -46,16 +46,9 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
-			#var knockback_direction = (global_position - body.global_position).normalized()
-			#var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
-			#body.velocity = velocity * -1.25
-			var fistPosition = global_position
-			if body.facingUpwards:
-				fistPosition.y = body.position.y - 200
-				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
-			else:
-				fistPosition.y = body.position.y
-				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
+			var knockback_direction = (global_position - body.global_position).normalized()
+			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
+			body.velocity = velocity * -1.25
 			body.getStunned()
 			body.move_and_slide()
 			body.dealDamage(DAMAGE_PER_HIT)
