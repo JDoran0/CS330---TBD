@@ -20,3 +20,8 @@ script = ExtResource("1_x44sc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2.125, 2.5)
 sprite_frames = SubResource("SpriteFrames_8jehs")
+
+[node name="BulletTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

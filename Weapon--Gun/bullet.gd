@@ -29,5 +29,5 @@ func _on_body_entered(body: Node):
 		body.velocity = velocity * -1
 		body.getStunned()
 		body.move_and_slide()
-		body.dealDamage(34)
+		body.dealDamage(20)
 		queue_free()
