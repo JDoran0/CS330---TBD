@@ -7,6 +7,7 @@ const bulletPath = preload('res://Weapon--Gun/Bullet.tscn')
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$BulletTimer.wait_time = timeBetweenShots
+	global_position = get_parent().position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -112,7 +112,8 @@ func processControllerInput(delta: float) -> void:
 			facingUpwards = true
 		else:
 			facingUpwards = false
-		processAttackDirection()
+		
+		#CHECK WHICH WEAPON USING HERE
 		$Fists.attack()
 
 # Handling keyboard inputs for player 1
@@ -152,9 +153,11 @@ func processKeyboardInput(delta: float) -> void:
 			facingUpwards = true
 		else:
 			facingUpwards = false
-		processAttackDirection()
-		#$Fists.attack()
-		$Gun.shoot()
+		
+		#CHECK WHICH WEAPON USING HERE
+		$Fists.attack()
+		#$Gun.shoot()
+		
 
 
 
@@ -164,46 +167,6 @@ func processDirection() -> void:
 		facingRight = false
 	elif velocity.x > 0:
 		facingRight = true
-
-## Handle if crouch punching or stand punching - part 1
-	#Note: yPos is a stand in to adjust my testing fists animation according to crouch 
-	#or not crouch. Later this section should instead display the crouch punch 
-	#animation or standing punch animation accordingly. 
-## Handle if facing left or right when punching - part 2
-	#This can later be changed to just rotating the defined animation 
-	#above (ie crouch punch or stand punch) according to direction 
-	#player is facing
-func processAttackDirection() -> void:
-	## part 1
-	var yPos
-	if crouching == true:
-		#Display crouch punch animation here
-		yPos = 23
-	else:
-		#Display standing punch animation here
-		yPos = 6
-	$Fists.position.y = yPos
-	
-	## part 2
-	if facingRight:
-		#Display given animation facing to the right
-		$Fists.rotation = 0
-		$Fists.position = Vector2(30, yPos)
-		if facingUpwards && !crouching:
-			$Fists.rotation = -PI/3
-			$Fists.position.y -= 5
-		else:
-			$Fists.rotation = 0
-	else:
-		#Display given animation facing to the left
-		$Fists.rotation = (PI)
-		$Fists.position = Vector2(-30, yPos)
-		if facingUpwards && !crouching:
-			$Fists.rotation = -2*PI/3
-			$Fists.position.y -= 5
-		else:
-			$Fists.rotation = (PI)
-	$Gun.position = get_parent().position
 
 #process the correct sprite frame for each frame
 func playAnimation():
@@ -241,5 +204,5 @@ func _on_ready():
 		controllerNumber = get_parent().ClaimController(self)
 
 # Process dealt damage from other entities
-func dealDamage(amount):
+func dealDamage(amount):   
 	health -= amount
