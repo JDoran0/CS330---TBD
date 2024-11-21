@@ -36,7 +36,7 @@ func shoot():
 				bullet.global_position.y = global_position.y + 20
 			else:
 				bullet.global_position.y = global_position.y
-			
+		
 		
 		# Add the bullet to the scene
 		bullet_container.add_child(bullet)
