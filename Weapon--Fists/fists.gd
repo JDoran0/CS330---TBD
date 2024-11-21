@@ -1,6 +1,6 @@
 extends Area2D
 
-const KNOCKBACK_MODIFIER = 40.0
+const KNOCKBACK_MODIFIER = 400.0
 const DAMAGE_PER_HIT = 10
 const FORWARD_MOMENTUM = 100
 
@@ -46,19 +46,64 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
-			var knockback_direction = (global_position - body.global_position).normalized()
-			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
-			body.velocity = velocity * -1.25
+			#var knockback_direction = (global_position - body.global_position).normalized()
+			#var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
+			#body.velocity = velocity * -1.25
+			var fistPosition = global_position
+			if body.facingUpwards:
+				fistPosition.y = body.position.y - 200
+				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
+			else:
+				fistPosition.y = body.position.y
+				body.applyKnockback(KNOCKBACK_MODIFIER, fistPosition)
 			body.getStunned()
 			body.move_and_slide()
 			body.dealDamage(DAMAGE_PER_HIT)
 
 
 
+## Handle if crouch punching or stand punching - part 1
+	#Note: yPos is a stand in to adjust my testing fists animation according to crouch 
+	#or not crouch. Later this section should instead display the crouch punch 
+	#animation or standing punch animation accordingly. 
+## Handle if facing left or right when punching - part 2
+	#This can later be changed to just rotating the defined animation 
+	#above (ie crouch punch or stand punch) according to direction 
+	#player is facing
 # Begin punch cooldown (buffer) and use displayTimer
 # displayTimer temp shows punch animation & allows collision
 func attack() -> void:
 	if canAttack:
+		## part 1
+		var yPos
+		if get_parent().crouching == true:
+			#Display crouch punch animation here
+			yPos = 23
+		else:
+			#Display standing punch animation here
+			yPos = 6
+		position.y = yPos
+	
+		## part 2
+		if get_parent().facingRight:
+			#Display given animation facing to the right
+			rotation = 0
+			position = Vector2(30, yPos)
+			if get_parent().facingUpwards && not get_parent().crouching:
+				rotation = -PI/3
+				position.y -= 5
+			else:
+				rotation = 0
+		else:
+			#Display given animation facing to the left
+			rotation = (PI)
+			position = Vector2(-30, yPos)
+			if get_parent().facingUpwards &&  not get_parent().crouching:
+				rotation = -2*PI/3
+				position.y -= 5
+			else:
+				rotation = (PI)
+		
 		# Display the animation for attacking with Fists
 		startDisplayTimer()
 		# Diable inputs temporarily for player who attacked (avoid rapid fire)
