@@ -79,5 +79,10 @@ shape = SubResource("RectangleShape2D_dpg8y")
 wait_time = 0.2
 one_shot = true
 
+[node name="ConcussedTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="timeout" from="ConcussedTimer" to="." method="_on_concussed_timer_timeout"]

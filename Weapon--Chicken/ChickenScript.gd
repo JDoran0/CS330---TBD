@@ -4,6 +4,7 @@ var KNOCKBACK_MODIFIER = 0.0
 var DAMAGE_PER_HIT = 5
 const FORWARD_MOMENTUM = 150
 
+var bigHit = false
 var canAttack = true
 var stunnedPlayer
 var setInputBuffer = 0.0
@@ -54,6 +55,8 @@ func _on_body_entered(body: Node) -> void:
 			body.move_and_slide()
 			body.dealDamage(DAMAGE_PER_HIT)
 			DAMAGE_PER_HIT *= 1.5
+			if bigHit:
+				body.getConcussed()
 
 
 
@@ -68,6 +71,7 @@ func _on_body_entered(body: Node) -> void:
 # Begin punch cooldown (buffer) and use displayTimer
 # displayTimer temp shows punch animation & allows collision
 func attack() -> void:
+	
 	if canAttack:
 		## part 1
 		var yPos
@@ -78,6 +82,12 @@ func attack() -> void:
 			#Display standing punch animation here
 			yPos = 6
 		position.y = yPos
+		
+			#check for a concussive attack
+		if get_parent().facingUpwards:
+			bigHit = true
+		else:
+			bigHit = false
 	
 		## part 2
 		if get_parent().facingRight:
@@ -87,6 +97,7 @@ func attack() -> void:
 			
 			#check if up + attack
 			if get_parent().facingUpwards && not get_parent().crouching:
+				
 				rotation = PI/5
 				position.x -= 20
 				position.y += 30

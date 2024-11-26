@@ -14,6 +14,8 @@ var facingUpwards = false
 var crouching = false
 
 var stunned = false
+var concussed = false
+var recoveredFromConcussed = false
 
 @export var crouchSpeed = 0.5
 
@@ -30,8 +32,6 @@ var health = 100
 
 # for updating player health
 var prevHealth = health
-
-
 
 func _physics_process(delta: float) -> void:
 	
@@ -90,13 +90,26 @@ func processControllerInput(delta: float) -> void:
 	var directionStick := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
 	if directionDPad < controllerDeadzoneNeg || directionStick < controllerDeadzoneNeg: 
 		var direction = min(directionStick, directionDPad)
+		
+		if concussed:
+			direction *= -1
+		elif !concussed and recoveredFromConcussed:
+			direction *= -1
+			recoveredFromConcussed = false
 		# Make slower speed when crouching
 		if crouching:
 			velocity.x = direction * SPEED * crouchSpeed
 		else:
 			velocity.x = direction * SPEED
+
 	elif directionDPad > controllerDeadzonePos || directionStick > controllerDeadzonePos:
 		var direction = max(directionStick, directionDPad)
+		
+		if concussed:
+			direction *= -1
+		elif !concussed and recoveredFromConcussed:
+			direction *= -1
+			recoveredFromConcussed = false
 		# Make slower speed when crouching
 		if crouching:
 			velocity.x = direction * SPEED * crouchSpeed
@@ -104,6 +117,8 @@ func processControllerInput(delta: float) -> void:
 			velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+
+
 	
 	# Check for punch input (controller)
 	if Input.is_action_just_pressed("attack" + str(controllerNumber)):
@@ -165,3 +180,11 @@ func _on_ready():
 # Process dealt damage from other entities
 func dealDamage(amount):
 	health -= amount
+
+func getConcussed():
+	concussed = true
+	$ConcussedTimer.start
+
+func _on_concussed_timer_timeout() -> void:
+	concussed = false
+	recoveredFromConcussed = true
