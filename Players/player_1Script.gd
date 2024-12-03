@@ -96,8 +96,7 @@ func processControllerInput(delta: float) -> void:
 		var direction = min(directionStick, directionDPad)
 		if concussed:
 			direction *= -1
-
-		elif !concussed and recoveredFromConcussed:
+		if recoveredFromConcussed:
 			direction *= -1
 			recoveredFromConcussed = false
 		
@@ -110,7 +109,7 @@ func processControllerInput(delta: float) -> void:
 		var direction = max(directionStick, directionDPad)
 		if concussed:
 			direction *= -1
-		elif !concussed and recoveredFromConcussed:
+		if recoveredFromConcussed:
 			direction *= -1
 			recoveredFromConcussed = false
 
@@ -131,7 +130,8 @@ func processControllerInput(delta: float) -> void:
 			facingUpwards = false
 		
 		#CHECK WHICH WEAPON USING HERE
-		$Fists.attack()
+		#$Fists.attack()
+		$Chicken.attack()
 
 # Handling keyboard inputs for player 1
 func processKeyboardInput(delta: float) -> void: 
@@ -158,7 +158,7 @@ func processKeyboardInput(delta: float) -> void:
 	
 	if concussed:
 		keyboardDirections *= -1
-	elif !concussed and recoveredFromConcussed:
+	if recoveredFromConcussed:
 		keyboardDirections *= -1
 		recoveredFromConcussed = false
 		
@@ -237,6 +237,7 @@ func dealDamage(amount):
 func getConcussed():
 	concussed = true
 	$ConcussedTimer.start()
+
 
 # remove the concussed effect
 func _on_concussed_timer_timeout() -> void:
