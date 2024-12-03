@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbh61d4ro1trx"]
+[gd_scene load_steps=10 format=3 uid="uid://cbh61d4ro1trx"]
 
 [ext_resource type="Script" path="res://Weapon--Chicken/ChickenScript.gd" id="1_ovddn"]
+[ext_resource type="Texture2D" uid="uid://b8vahphy37saq" path="res://GamePlay--Textures/Rubber Chicken.png" id="2_hv3ex"]
 [ext_resource type="Texture2D" uid="uid://baq6vpey2rpqx" path="res://GamePlay--Textures/New Piskel-1.png.png" id="2_nyh6i"]
 [ext_resource type="AudioStream" uid="uid://sthi33sv7nl4" path="res://Weapon--Chicken/RubberChicken.mp3" id="3_abso4"]
 
@@ -12,12 +13,113 @@ height = 42.0
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("2_hv3ex")
+}],
+"loop": true,
+"name": &" RegHit - Right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("2_nyh6i")
 }],
 "loop": true,
-"name": &"default",
+"name": &"Ducking hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hv3ex")
+}],
+"loop": true,
+"name": &"RegHit - Left",
 "speed": 5.0
 }]
+
+[sub_resource type="Animation" id="Animation_k7ejx"]
+resource_name = "RegHit - Right"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../RegHitRight/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("2_hv3ex"), ExtResource("2_hv3ex"), ExtResource("2_hv3ex")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RegHitRight/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-10.6634, -4.66112e-07), Vector2(-0.28062, -1.22663e-08), Vector2(-10.8037, -4.72245e-07)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RegHitRight/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.0513607, 0.0400257), Vector2(0.0513607, 0.0725227), Vector2(0.0513607, 0.0395865)]
+}
+
+[sub_resource type="Animation" id="Animation_aehpu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../RegHitRight/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_hv3ex")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../RegHitRight/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-10.6634, -4.66112e-07)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../RegHitRight/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.0513607, 0.0400257)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ua2q"]
+_data = {
+"RESET": SubResource("Animation_aehpu"),
+"RegHit - Right": SubResource("Animation_k7ejx")
+}
 
 [node name="Chicken" type="Area2D"]
 script = ExtResource("1_ovddn")
@@ -27,9 +129,12 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_bhrlk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(9, 0)
-scale = Vector2(3.10417, 1.1)
+visible = false
+position = Vector2(1.19209e-07, -1.42109e-14)
+rotation = 4.71239
+scale = Vector2(0.0605653, 0.0670547)
 sprite_frames = SubResource("SpriteFrames_c0vgk")
+animation = &"RegHit - Left"
 
 [node name="displayTimer" type="Timer" parent="."]
 wait_time = 0.25
@@ -41,6 +146,18 @@ one_shot = true
 [node name="RubberChicken" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_abso4")
 bus = &"SFX"
+
+[node name="RegHitRight" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_5ua2q")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="RegHitRight"]
+position = Vector2(-10.6634, -4.66112e-07)
+rotation = 1.5708
+scale = Vector2(0.0513607, 0.0400257)
+texture = ExtResource("2_hv3ex")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="displayTimer" to="." method="_on_display_timer_timeout"]

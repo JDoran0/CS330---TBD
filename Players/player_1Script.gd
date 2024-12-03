@@ -181,8 +181,8 @@ func processKeyboardInput(delta: float) -> void:
 		
 		#CHECK WHICH WEAPON USING HERE
 		#$Fists.attack()
-		$Gun.shoot()
-		$Chicken.attack()		
+		#$Gun.shoot()
+		$Chicken.attack()
 
 
 
