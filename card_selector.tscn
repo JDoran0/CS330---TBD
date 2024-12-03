@@ -1,0 +1,199 @@
+[gd_scene load_steps=14 format=3 uid="uid://eu0h2a8ap3xi"]
+
+[ext_resource type="Script" path="res://card_selector.gd" id="1_npcrd"]
+[ext_resource type="Texture2D" uid="uid://bk078os4xtmt1" path="res://Textures/Menu.png" id="1_w4faa"]
+[ext_resource type="Texture2D" uid="uid://ceoe4b0sjjs2o" path="res://Textures/Card Textures/Tarot - Rubber Chicken.png" id="2_2lpd4"]
+[ext_resource type="Texture2D" uid="uid://dgtb0ep34wc3w" path="res://Textures/Card Textures/Tarot - Meteor Card.png" id="4_iw5og"]
+[ext_resource type="Texture2D" uid="uid://doy117s5hws4n" path="res://Textures/Card Textures/Tarot - Bear Card.png" id="5_c7pdj"]
+[ext_resource type="Texture2D" uid="uid://2st8tkvtcbl3" path="res://Textures/Card Textures/Tarot - The Punch.png" id="5_gymil"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xmnv"]
+size = Vector2(560, 860)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t14vh"]
+size = Vector2(575, 875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnbxg"]
+size = Vector2(585, 870)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4j054"]
+size = Vector2(585, 880)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mnn8t"]
+size = Vector2(580, 870)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adnn7"]
+size = Vector2(580, 865)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhjad"]
+size = Vector2(301.5, 91)
+
+[node name="CardSelector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -1.0
+offset_right = 3.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_npcrd")
+
+[node name="Background" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 642.0
+texture = ExtResource("1_w4faa")
+
+[node name="CardButtons" type="VBoxContainer" parent="."]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00260417
+anchor_top = 0.00154321
+anchor_right = 0.997396
+anchor_bottom = 1.00309
+offset_left = -1.0
+offset_top = 27.0
+offset_right = 4612.0
+offset_bottom = 2488.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 4
+theme_override_constants/separation = 100
+
+[node name="Cards" type="HBoxContainer" parent="CardButtons"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 500
+
+[node name="Chicken" type="Button" parent="CardButtons/Cards"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("2_2lpd4")
+
+[node name="ChickArea" type="Area2D" parent="CardButtons/Cards/Chicken"]
+
+[node name="ChickCollision" type="CollisionShape2D" parent="CardButtons/Cards/Chicken/ChickArea"]
+position = Vector2(294, 440)
+shape = SubResource("RectangleShape2D_6xmnv")
+
+[node name="Meteors" type="Button" parent="CardButtons/Cards"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("4_iw5og")
+
+[node name="MeteorArea" type="Area2D" parent="CardButtons/Cards/Meteors"]
+
+[node name="MeteorCollision" type="CollisionShape2D" parent="CardButtons/Cards/Meteors/MeteorArea"]
+position = Vector2(292.5, 437.5)
+shape = SubResource("RectangleShape2D_t14vh")
+
+[node name="Gun" type="Button" parent="CardButtons/Cards"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("2_2lpd4")
+
+[node name="GunArea" type="Area2D" parent="CardButtons/Cards/Gun"]
+
+[node name="GunCollision" type="CollisionShape2D" parent="CardButtons/Cards/Gun/GunArea"]
+position = Vector2(293.499, 435)
+shape = SubResource("RectangleShape2D_pnbxg")
+
+[node name="Cards2" type="HBoxContainer" parent="CardButtons"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 500
+
+[node name="OnePunch" type="Button" parent="CardButtons/Cards2"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("5_gymil")
+
+[node name="OneArea" type="Area2D" parent="CardButtons/Cards2/OnePunch"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardButtons/Cards2/OnePunch/OneArea"]
+position = Vector2(291.5, 438)
+shape = SubResource("RectangleShape2D_4j054")
+
+[node name="Bear" type="Button" parent="CardButtons/Cards2"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("5_c7pdj")
+
+[node name="BearArea" type="Area2D" parent="CardButtons/Cards2/Bear"]
+
+[node name="BearCollision" type="CollisionShape2D" parent="CardButtons/Cards2/Bear/BearArea"]
+position = Vector2(290, 438)
+shape = SubResource("RectangleShape2D_mnn8t")
+
+[node name="Last" type="Button" parent="CardButtons/Cards2"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("2_2lpd4")
+
+[node name="LastArea" type="Area2D" parent="CardButtons/Cards2/Last"]
+
+[node name="LastCollision" type="CollisionShape2D" parent="CardButtons/Cards2/Last/LastArea"]
+position = Vector2(295.999, 435.5)
+shape = SubResource("RectangleShape2D_adnn7")
+
+[node name="ContinueButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -148.5
+offset_top = -148.0
+offset_right = 148.5
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 0
+disabled = true
+
+[node name="ContArea" type="Area2D" parent="ContinueButton"]
+
+[node name="ContArea" type="CollisionShape2D" parent="ContinueButton/ContArea"]
+position = Vector2(148.75, 45.5)
+shape = SubResource("RectangleShape2D_rhjad")
+
+[connection signal="mouse_entered" from="CardButtons/Cards/Chicken" to="." method="_on_chicken_mouse_entered"]
+[connection signal="mouse_exited" from="CardButtons/Cards/Chicken" to="." method="_on_chicken_mouse_exited"]
+[connection signal="toggled" from="CardButtons/Cards/Chicken" to="." method="_on_chicken_toggled"]
+[connection signal="area_entered" from="CardButtons/Cards/Chicken/ChickArea" to="." method="_on_chick_area_area_entered"]
+[connection signal="area_exited" from="CardButtons/Cards/Chicken/ChickArea" to="." method="_on_chick_area_area_exited"]
+[connection signal="mouse_entered" from="CardButtons/Cards/Meteors" to="." method="_on_meteors_mouse_entered"]
+[connection signal="mouse_exited" from="CardButtons/Cards/Meteors" to="." method="_on_meteors_mouse_exited"]
+[connection signal="toggled" from="CardButtons/Cards/Meteors" to="." method="_on_meteors_toggled"]
+[connection signal="area_entered" from="CardButtons/Cards/Meteors/MeteorArea" to="." method="_on_meteor_area_area_entered"]
+[connection signal="area_exited" from="CardButtons/Cards/Meteors/MeteorArea" to="." method="_on_meteor_area_area_exited"]
+[connection signal="mouse_entered" from="CardButtons/Cards/Gun" to="." method="_on_gun_mouse_entered"]
+[connection signal="mouse_exited" from="CardButtons/Cards/Gun" to="." method="_on_gun_mouse_exited"]
+[connection signal="toggled" from="CardButtons/Cards/Gun" to="." method="_on_gun_toggled"]
+[connection signal="area_entered" from="CardButtons/Cards/Gun/GunArea" to="." method="_on_gun_area_area_entered"]
+[connection signal="area_exited" from="CardButtons/Cards/Gun/GunArea" to="." method="_on_gun_area_area_exited"]
+[connection signal="mouse_entered" from="CardButtons/Cards2/OnePunch" to="." method="_on_one_punch_mouse_entered"]
+[connection signal="mouse_exited" from="CardButtons/Cards2/OnePunch" to="." method="_on_one_punch_mouse_exited"]
+[connection signal="toggled" from="CardButtons/Cards2/OnePunch" to="." method="_on_one_punch_toggled"]
+[connection signal="area_entered" from="CardButtons/Cards2/OnePunch/OneArea" to="." method="_on_one_area_area_entered"]
+[connection signal="area_exited" from="CardButtons/Cards2/OnePunch/OneArea" to="." method="_on_one_area_area_exited"]
+[connection signal="mouse_entered" from="CardButtons/Cards2/Bear" to="." method="_on_bear_mouse_entered"]
+[connection signal="mouse_exited" from="CardButtons/Cards2/Bear" to="." method="_on_bear_mouse_exited"]
+[connection signal="toggled" from="CardButtons/Cards2/Bear" to="." method="_on_bear_toggled"]
+[connection signal="area_entered" from="CardButtons/Cards2/Bear/BearArea" to="." method="_on_bear_area_area_entered"]
+[connection signal="area_exited" from="CardButtons/Cards2/Bear/BearArea" to="." method="_on_bear_area_area_exited"]
+[connection signal="mouse_entered" from="CardButtons/Cards2/Last" to="." method="_on_last_mouse_entered"]
+[connection signal="mouse_exited" from="CardButtons/Cards2/Last" to="." method="_on_last_mouse_exited"]
+[connection signal="toggled" from="CardButtons/Cards2/Last" to="." method="_on_last_toggled"]
+[connection signal="area_entered" from="CardButtons/Cards2/Last/LastArea" to="." method="_on_last_2d_area_entered"]
+[connection signal="area_exited" from="CardButtons/Cards2/Last/LastArea" to="." method="_on_last_2d_area_exited"]
+[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="area_entered" from="ContinueButton/ContArea" to="." method="_on_cont_area_area_entered"]
+[connection signal="area_exited" from="ContinueButton/ContArea" to="." method="_on_cont_area_area_exited"]
