@@ -16,22 +16,15 @@ var setInputBuffer = 0.0
 @onready var chickenSound = $RubberChicken
 @onready var collShape = $CollisionShape2D
 
-@onready var HitRight = $RightHit
-@onready var HitLeft = $LeftHit
-@onready var CrouchRight = $CrouchRight
-@onready var CrouchLeft = $CrouchLeft
-@onready var UpRight = $UpRight
-@onready var UpLeft = $UpLeft
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	HitRight.visible = false
-	HitLeft.visible = false
-	CrouchRight.visible = false
-	CrouchLeft.visible = false
-	UpRight.visible = false
-	UpLeft.visible = false
+	$RightHit.visible = false
+	$LeftHit.visible = false
+	$CrouchRight.visible = false
+	$CrouchLeft.visible = false
+	$UpRight.visible = false
+	$UpLeft.visible = false
 	collShape.disabled = true
 
 # Player punches
@@ -39,18 +32,18 @@ func startDisplayTimer() -> void:
 	#Begin displaying punch animation 
 	if get_parent().facingRight:
 		if get_parent().crouching:
-			CrouchRight.visible = true
+			$CrouchRight.visible = true
 		elif get_parent().facingUpwards:
-			UpRight.visible = true
+			$UpRight.visible = true
 		else:
-			HitRight = true
+			$RightHit.visible = true
 	else:
 		if get_parent().crouching:
-			CrouchLeft.visible = true
+			$CrouchLeft.visible = true
 		elif get_parent().facingUpwards:
-			UpLeft.visible = true
+			$UpLeft.visible = true
 		else:
-			HitLeft = true
+			$LeftHit.visible = true
 	
 	#Begin collision
 	collShape.disabled = false;
@@ -70,12 +63,13 @@ func _on_input_buffer_timeout():
 # Player isn't punching
 func _on_display_timer_timeout():
 	#Stop displaying the punch animation
-	HitRight.visible = false
-	HitLeft.visible = false
-	CrouchRight.visible = false
-	CrouchLeft.visible = false
-	UpRight.visible = false
-	UpLeft.visible = false
+	$RightHit.visible = false
+	$LeftHit.visible = false
+	$CrouchRight.visible = false
+	$CrouchLeft.visible = false
+	$UpRight.visible = false
+	$UpLeft.visible = false
+	
 	#Stop collision
 	collShape.disabled = true
 
@@ -129,7 +123,7 @@ func attack() -> void:
 		else:
 			#Display standing punch animation here
 			yPos = 6
-		position.y = yPos
+		$CollisionShape2D.position.y = yPos
 		
 			#check for a concussive attack
 		if get_parent().facingUpwards:
@@ -140,15 +134,15 @@ func attack() -> void:
 		## part 2
 		if get_parent().facingRight:
 			#Display given animation facing to the right
-			rotation = 0
-			position = Vector2(30, yPos)
+			$CollisionShape2D.rotation = 0
+			$CollisionShape2D.position = Vector2(30, yPos)
 			
 			#check if up + attack
 			if get_parent().facingUpwards && not get_parent().crouching:
 				
-				rotation = PI/5
-				position.x -= 20
-				position.y += 30
+				$CollisionShape2D.rotation = PI/5
+				$CollisionShape2D.position.x -= 20
+				$CollisionShape2D.position.y += 30
 
 				setInputBuffer = 1.5
 				KNOCKBACK_MODIFIER = 20
@@ -157,28 +151,28 @@ func attack() -> void:
 			
 			#check for crouch + attack
 			elif get_parent().crouching:
-				position.x = 50
+				$CollisionShape2D.position.x = 50
 				
 				setInputBuffer = 1
 				KNOCKBACK_MODIFIER = 50
 				
 			#regular attack
 			else:
-				position.y = -10
-				rotation = 0
+				$CollisionShape2D.position.y = -10
+				$CollisionShape2D.rotation = 0
 				
 				setInputBuffer = 0.5
 				KNOCKBACK_MODIFIER = 200
 		else:
 			#Display given animation facing to the left
-			rotation = (PI)
-			position = Vector2(-30, yPos)
+			$CollisionShape2D.rotation = (PI)
+			$CollisionShape2D.position = Vector2(-30, yPos)
 			
 			# check if up + attack
 			if get_parent().facingUpwards &&  not get_parent().crouching:
-				rotation = -(1*PI/5)
-				position.x += 10
-				position.y += 30
+				$CollisionShape2D.rotation = -(1*PI/5)
+				$CollisionShape2D.position.x += 10
+				$CollisionShape2D.position.y += 30
 				
 				setInputBuffer = 1.5
 				KNOCKBACK_MODIFIER = 20
@@ -187,15 +181,15 @@ func attack() -> void:
 				
 			# Check is crouching + attack
 			elif get_parent().crouching:
-				position.x = -50
+				$CollisionShape2D.position.x = -50
 				
 				setInputBuffer = 1.0
 				KNOCKBACK_MODIFIER = 50
 
 			# normal attack
 			else:
-				position.y = -10
-				rotation = (PI)
+				$CollisionShape2D.position.y = -10
+				$CollisionShape2D.rotation = (PI)
 				setInputBuffer = 0.5
 				KNOCKBACK_MODIFIER = 200
 
