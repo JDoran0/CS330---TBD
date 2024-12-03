@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhrlk"]
 radius = 6.0
-height = 42.0
+height = 46.0
 
 [node name="Chicken" type="Area2D"]
 script = ExtResource("1_ovddn")
@@ -39,13 +39,13 @@ scale = Vector2(0.0513607, 0.0747183)
 texture = ExtResource("2_hv3ex")
 
 [node name="CrouchRight" type="Sprite2D" parent="."]
-position = Vector2(50, 23)
+position = Vector2(50, 40)
 rotation = 1.5708
 scale = Vector2(0.0513607, 0.0747183)
 texture = ExtResource("2_hv3ex")
 
 [node name="CrouchLeft" type="Sprite2D" parent="."]
-position = Vector2(-50, 23)
+position = Vector2(-50, 40)
 rotation = 4.71239
 scale = Vector2(0.0513607, 0.0747183)
 texture = ExtResource("2_hv3ex")
