@@ -13,7 +13,10 @@ var facingRight = true
 var facingUpwards = false
 var crouching = false
 
+
 var stunned = false
+var concussed = false
+var recoveredFromConcussed = false
 
 @export var crouchSpeed = 0.5
 
@@ -91,12 +94,26 @@ func processControllerInput(delta: float) -> void:
 	var directionStick := Input.get_joy_axis(controllerNumber, JOY_AXIS_LEFT_X)
 	if directionDPad < controllerDeadzoneNeg || directionStick < controllerDeadzoneNeg: 
 		var direction = min(directionStick, directionDPad)
+		if concussed:
+			direction *= -1
+
+		elif !concussed and recoveredFromConcussed:
+			direction *= -1
+			recoveredFromConcussed = false
+		
 		if crouching:
 			velocity.x = direction * SPEED * crouchSpeed
 		else:
 			velocity.x = direction * SPEED
+
 	elif directionDPad > controllerDeadzonePos || directionStick > controllerDeadzonePos:
 		var direction = max(directionStick, directionDPad)
+		if concussed:
+			direction *= -1
+		elif !concussed and recoveredFromConcussed:
+			direction *= -1
+			recoveredFromConcussed = false
+
 		if crouching:
 			velocity.x = direction * SPEED * crouchSpeed
 		else:
@@ -138,6 +155,13 @@ func processKeyboardInput(delta: float) -> void:
 	
 	# Left and right (keyboard)
 	var keyboardDirections := Input.get_axis("kbLeft", "kbRight")
+	
+	if concussed:
+		keyboardDirections *= -1
+	elif !concussed and recoveredFromConcussed:
+		keyboardDirections *= -1
+		recoveredFromConcussed = false
+		
 	if keyboardDirections:
 		if crouching:
 			velocity.x = keyboardDirections * SPEED * crouchSpeed
@@ -145,6 +169,7 @@ func processKeyboardInput(delta: float) -> void:
 			velocity.x = keyboardDirections * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+
 	
 	# Attack (keyboard) 
 	if Input.is_action_just_pressed("kbattack"):
@@ -157,6 +182,7 @@ func processKeyboardInput(delta: float) -> void:
 		#CHECK WHICH WEAPON USING HERE
 		#$Fists.attack()
 		$Gun.shoot()
+		$Chicken.attack()		
 
 
 
@@ -192,6 +218,7 @@ func playAnimation():
 func getStunned():
 	stunned = true
 	$StunTimer.start()
+	
 
 # Remove the stun
 func _on_stun_timer_timeout() -> void:
@@ -205,3 +232,14 @@ func _on_ready():
 # Process dealt damage from other entities
 func dealDamage(amount):   
 	health -= amount
+
+# concuss the player
+func getConcussed():
+	concussed = true
+	$ConcussedTimer.start()
+
+# remove the concussed effect
+func _on_concussed_timer_timeout() -> void:
+	concussed = false
+	recoveredFromConcussed = true
+	
