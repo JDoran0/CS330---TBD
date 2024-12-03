@@ -9,22 +9,51 @@ var bigHit = false
 
 var canAttack = true
 
+
 var stunnedPlayer
 var setInputBuffer = 0.0
 
 @onready var chickenSound = $RubberChicken
+@onready var collShape = $CollisionShape2D
+
+@onready var HitRight = $RightHit
+@onready var HitLeft = $LeftHit
+@onready var CrouchRight = $CrouchRight
+@onready var CrouchLeft = $CrouchLeft
+@onready var UpRight = $UpRight
+@onready var UpLeft = $UpLeft
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite2D.visible = false
-	$CollisionShape2D.disabled = true
+	HitRight.visible = false
+	HitLeft.visible = false
+	CrouchRight.visible = false
+	CrouchLeft.visible = false
+	UpRight.visible = false
+	UpLeft.visible = false
+	collShape.disabled = true
 
 # Player punches
 func startDisplayTimer() -> void: 
 	#Begin displaying punch animation 
-	$AnimatedSprite2D.visible = true
+	if get_parent().facingRight:
+		if get_parent().crouching:
+			CrouchRight.visible = true
+		elif get_parent().facingUpwards:
+			UpRight.visible = true
+		else:
+			HitRight = true
+	else:
+		if get_parent().crouching:
+			CrouchLeft.visible = true
+		elif get_parent().facingUpwards:
+			UpLeft.visible = true
+		else:
+			HitLeft = true
+	
 	#Begin collision
-	$CollisionShape2D.disabled = false;
+	collShape.disabled = false;
 	#Start the displaytimer
 	$displayTimer.start()
 
@@ -41,9 +70,14 @@ func _on_input_buffer_timeout():
 # Player isn't punching
 func _on_display_timer_timeout():
 	#Stop displaying the punch animation
-	$AnimatedSprite2D.visible = false
+	HitRight.visible = false
+	HitLeft.visible = false
+	CrouchRight.visible = false
+	CrouchLeft.visible = false
+	UpRight.visible = false
+	UpLeft.visible = false
 	#Stop collision
-	$CollisionShape2D.disabled = true
+	collShape.disabled = true
 
 
 
@@ -115,9 +149,11 @@ func attack() -> void:
 				rotation = PI/5
 				position.x -= 20
 				position.y += 30
-				
+
 				setInputBuffer = 1.5
 				KNOCKBACK_MODIFIER = 20
+				
+				DamageToDeal = 4
 			
 			#check for crouch + attack
 			elif get_parent().crouching:
@@ -146,6 +182,8 @@ func attack() -> void:
 				
 				setInputBuffer = 1.5
 				KNOCKBACK_MODIFIER = 20
+				
+				DamageToDeal = 4
 				
 			# Check is crouching + attack
 			elif get_parent().crouching:
