@@ -20,6 +20,10 @@ MenuClick="*res://GamePlay--soundsAndMusic/menuClick.tscn"
 MenuBack="*res://GamePlay--soundsAndMusic/menu_back.tscn"
 MenuMusic="*res://GamePlay--soundsAndMusic/menuMusic.tscn"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

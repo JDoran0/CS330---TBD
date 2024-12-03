@@ -14,32 +14,38 @@
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_kqk4g")
 
-[node name="Background" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(585.5, 319.447)
-scale = Vector2(15.2266, 11.4468)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="backGround" type="TextureRect" parent="CanvasLayer"]
+texture_filter = 2
+offset_right = 1151.0
+offset_bottom = 645.0
 texture = ExtResource("2_0bqpg")
 
-[node name="Node2D" parent="." instance=ExtResource("3_oe6n8")]
-position = Vector2(-89, 76)
-
-[node name="Player1HB" parent="." instance=ExtResource("4_7jxjn")]
-offset_left = -371.0
-offset_top = -175.0
-offset_right = -278.0
-offset_bottom = -161.0
+[node name="Player1HB" parent="CanvasLayer" instance=ExtResource("4_7jxjn")]
+offset_left = -20.0
+offset_top = -21.0
+offset_right = 77.0
+offset_bottom = -7.0
 pivot_offset = Vector2(-5, -5)
 
-[node name="Player2HB" parent="." instance=ExtResource("5_ycid5")]
+[node name="Player2HB" parent="CanvasLayer" instance=ExtResource("5_ycid5")]
 anchors_preset = 0
 anchor_left = 0.0
 anchor_right = 0.0
-offset_left = 972.0
-offset_top = -175.0
-offset_right = 1065.0
-offset_bottom = -161.0
+offset_left = 614.0
+offset_top = -21.0
+offset_right = 707.0
+offset_bottom = -7.0
 grow_horizontal = 1
 pivot_offset = Vector2(5, -5)
+
+[node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ryris")]
+
+[node name="Node2D" parent="." instance=ExtResource("3_oe6n8")]
+visible = false
+position = Vector2(-89, 76)
 
 [node name="Player1" parent="." instance=ExtResource("6_sso1s")]
 position = Vector2(256, 456)
@@ -48,10 +54,6 @@ position = Vector2(256, 456)
 
 [node name="Player2" parent="." instance=ExtResource("8_oudd7")]
 position = Vector2(799, 447)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ryris")]
 
 [node name="Bullets" type="Node2D" parent="."]
 

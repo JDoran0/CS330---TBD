@@ -27,7 +27,7 @@ var recoveredFromConcussed = false
 # Visual sprites
 @onready var characterStanding = $"Character(standing)"
 @onready var characterCrouching = $"Character(crouching)"
-@onready var playerHealthBar = $"../Player1HB"
+@onready var playerHealthBar = $"../CanvasLayer/Player1HB"
 
 var health = 100
 
