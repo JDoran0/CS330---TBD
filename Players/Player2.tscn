@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://4rdk1nsidjd3"]
+[gd_scene load_steps=11 format=3 uid="uid://4rdk1nsidjd3"]
 
 [ext_resource type="Script" path="res://Players/player_2Script.gd" id="1_ytmdn"]
 [ext_resource type="Texture2D" uid="uid://c8qsq7jur02ea" path="res://GamePlay--Textures/Tarot_Cat_StandingLeft.png" id="2_cgf2g"]
 [ext_resource type="Texture2D" uid="uid://burhmpbs8s8mk" path="res://GamePlay--Textures/Tarot_Cat_Standing.png" id="2_daknk"]
 [ext_resource type="PackedScene" uid="uid://blini5ubvjgjr" path="res://Weapon--Fists/Fists.tscn" id="2_wdvpg"]
 [ext_resource type="Texture2D" uid="uid://bpmask15fy8w6" path="res://GamePlay--Textures/Tarot_Cat_Crouching.png" id="4_q6mn0"]
+[ext_resource type="PackedScene" uid="uid://cbh61d4ro1trx" path="res://Weapon--Chicken/Chicken.tscn" id="6_1ni57"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w6np4"]
 animations = [{
@@ -80,8 +81,10 @@ wait_time = 0.2
 one_shot = true
 
 [node name="ConcussedTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 3.0
 one_shot = true
+
+[node name="Chicken" parent="." instance=ExtResource("6_1ni57")]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

@@ -1,13 +1,18 @@
 extends Area2D
 
 var KNOCKBACK_MODIFIER = 0.0
-var DAMAGE_PER_HIT = 5
+var DAMAGE_PER_HIT = 15
 const FORWARD_MOMENTUM = 150
+var DamageToDeal = 1
 
 var bigHit = false
+
 var canAttack = true
+
 var stunnedPlayer
 var setInputBuffer = 0.0
+
+@onready var chickenSound = $RubberChicken
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,14 +54,23 @@ func _on_body_entered(body: Node) -> void:
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
 			var knockback_direction = (global_position - body.global_position).normalized()
+			print(knockback_direction)
 			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
-			body.velocity = velocity * -1.25
+			body.velocity = velocity * -1
 			body.getStunned()
 			body.move_and_slide()
-			body.dealDamage(DAMAGE_PER_HIT)
-			DAMAGE_PER_HIT *= 1.5
+			
+			#Deal 2 times as much damage as last time
+			body.dealDamage(DamageToDeal)
+			DamageToDeal *= 2
+			
+			#play the rubber chicken noise
+			chickenSound.play()
+			
+			#Reverse the players controls as well as create a flash on the screen
 			if bigHit:
 				body.getConcussed()
+				ConcussedEffect.playConcussedEffect()
 
 
 
@@ -103,14 +117,14 @@ func attack() -> void:
 				position.y += 30
 				
 				setInputBuffer = 1.5
-				KNOCKBACK_MODIFIER = 150
+				KNOCKBACK_MODIFIER = 20
 			
 			#check for crouch + attack
 			elif get_parent().crouching:
 				position.x = 50
 				
 				setInputBuffer = 1
-				KNOCKBACK_MODIFIER = 100
+				KNOCKBACK_MODIFIER = 50
 				
 			#regular attack
 			else:
@@ -118,7 +132,7 @@ func attack() -> void:
 				rotation = 0
 				
 				setInputBuffer = 0.5
-				KNOCKBACK_MODIFIER = 50
+				KNOCKBACK_MODIFIER = 200
 		else:
 			#Display given animation facing to the left
 			rotation = (PI)
@@ -131,7 +145,7 @@ func attack() -> void:
 				position.y += 30
 				
 				setInputBuffer = 1.5
-				KNOCKBACK_MODIFIER = 150
+				KNOCKBACK_MODIFIER = 20
 				
 			# Check is crouching + attack
 			elif get_parent().crouching:
@@ -145,7 +159,7 @@ func attack() -> void:
 				position.y = -10
 				rotation = (PI)
 				setInputBuffer = 0.5
-				KNOCKBACK_MODIFIER = 100
+				KNOCKBACK_MODIFIER = 200
 
 		# Display the animation for attacking with Fists
 		
