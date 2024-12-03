@@ -15,7 +15,7 @@ var playedOnce = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	# $Camera2D.zoom = Vector2(0.6, 0.65)
 	controllerCount = 0
 	
 	#if true:
