@@ -49,7 +49,7 @@ func _physics_process(delta: float) -> void:
 	
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta * 2
+		velocity += get_gravity() * delta
 	
 	# check if stunned and if assigned a controller or keyboard - does not apply to Player 2)
 	if !stunned && controllerNumber != -1:
@@ -92,8 +92,10 @@ func processControllerInput(delta: float) -> void:
 		var direction = min(directionStick, directionDPad)
 		
 		if concussed:
+			print("concussed")
 			direction *= -1
-		elif !concussed and recoveredFromConcussed:
+		if recoveredFromConcussed:
+			print("recovered")
 			direction *= -1
 			recoveredFromConcussed = false
 		# Make slower speed when crouching
@@ -107,7 +109,7 @@ func processControllerInput(delta: float) -> void:
 		
 		if concussed:
 			direction *= -1
-		elif !concussed and recoveredFromConcussed:
+		if recoveredFromConcussed:
 			direction *= -1
 			recoveredFromConcussed = false
 		# Make slower speed when crouching
@@ -129,7 +131,8 @@ func processControllerInput(delta: float) -> void:
 			facingUpwards = false
 		
 		#CHECK WHICH WEAPON USING HERE
-		$Fists.attack()
+		#$Fists.attack()
+		$Chicken.attack()
 
 #Player 2 keyboard disabled
 func processKeyboardInput(_delta: float) -> void: 
@@ -183,7 +186,8 @@ func dealDamage(amount):
 
 func getConcussed():
 	concussed = true
-	$ConcussedTimer.start
+	$ConcussedTimer.start()
+
 
 func _on_concussed_timer_timeout() -> void:
 	concussed = false
