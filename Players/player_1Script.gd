@@ -96,7 +96,6 @@ func processControllerInput(delta: float) -> void:
 		var direction = min(directionStick, directionDPad)
 		if concussed:
 			direction *= -1
-
 		elif !concussed and recoveredFromConcussed:
 			direction *= -1
 			recoveredFromConcussed = false
@@ -238,6 +237,7 @@ func dealDamage(amount):
 func getConcussed():
 	concussed = true
 	$ConcussedTimer.start()
+
 
 # remove the concussed effect
 func _on_concussed_timer_timeout() -> void:
