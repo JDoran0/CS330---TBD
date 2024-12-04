@@ -1,7 +1,8 @@
 extends Area2D
 
 var KNOCKBACK_MODIFIER = 0.0
-var DAMAGE_PER_HIT = 15
+#unnecessary variable
+var DAMAGE_PER_HIT = 20
 const FORWARD_MOMENTUM = 150
 var DamageToDeal = 1
 
@@ -25,7 +26,7 @@ func _ready():
 	$CrouchLeft.visible = false
 	$UpRight.visible = false
 	$UpLeft.visible = false
-	collShape.disabled = true
+	$CollisionShape2D.disabled = true
 
 # Player punches
 func startDisplayTimer() -> void: 
@@ -46,7 +47,7 @@ func startDisplayTimer() -> void:
 			$LeftHit.visible = true
 	
 	#Begin collision
-	collShape.disabled = false;
+	$CollisionShape2D.disabled = false;
 	#Start the displaytimer
 	$displayTimer.start()
 
@@ -71,7 +72,7 @@ func _on_display_timer_timeout():
 	$UpLeft.visible = false
 	
 	#Stop collision
-	collShape.disabled = true
+	$CollisionShape2D.disabled = true
 
 
 
@@ -81,16 +82,15 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
-			var knockback_direction = (global_position - body.global_position).normalized()
-			print(knockback_direction)
+			var knockback_direction = ($CollisionShape2D.global_position - body.global_position).normalized()
 			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
-			body.velocity = velocity * -1
+			body.velocity = velocity * -1.25
 			body.getStunned()
 			body.move_and_slide()
 			
 			#Deal 2 times as much damage as last time
 			body.dealDamage(DamageToDeal)
-			DamageToDeal *= 2
+			DamageToDeal *= 1.5
 			
 			#play the rubber chicken noise
 			chickenSound.play()
@@ -140,7 +140,7 @@ func attack() -> void:
 			#check if up + attack
 			if get_parent().facingUpwards && not get_parent().crouching:
 				
-				$CollisionShape2D.rotation = PI/4
+				$CollisionShape2D.rotation = PI/1.7
 				$CollisionShape2D.position.x -= 10
 				$CollisionShape2D.position.y += 30
 
@@ -160,18 +160,17 @@ func attack() -> void:
 			#regular attack
 			else:
 				$CollisionShape2D.position.y = -10
-				#$CollisionShape2D.rotation = 
 				
 				setInputBuffer = 0.5
 				KNOCKBACK_MODIFIER = 50
 		else:
 			#Display given animation facing to the left
-			$CollisionShape2D.rotation = (PI)
+			$CollisionShape2D.rotation = (PI/2)
 			$CollisionShape2D.position = Vector2(-30, yPos)
 			
 			# check if up + attack
 			if get_parent().facingUpwards &&  not get_parent().crouching:
-				$CollisionShape2D.rotation = -(1*PI/5)
+				$CollisionShape2D.rotation = -(PI/1.7)
 				$CollisionShape2D.position.x += 10
 				$CollisionShape2D.position.y += 30
 				
@@ -182,7 +181,8 @@ func attack() -> void:
 				
 			# Check is crouching + attack
 			elif get_parent().crouching:
-				$CollisionShape2D.position.x = -50
+				$CollisionShape2D.position.x = -70
+				$CollisionShape2D.position.y = 35
 				
 				setInputBuffer = 1.0
 				KNOCKBACK_MODIFIER = 50
@@ -190,7 +190,7 @@ func attack() -> void:
 			# normal attack
 			else:
 				$CollisionShape2D.position.y = -10
-				$CollisionShape2D.rotation = (PI)
+				
 				setInputBuffer = 0.5
 				KNOCKBACK_MODIFIER = 200
 
@@ -210,6 +210,6 @@ func attack() -> void:
 # Process forward momentum from the punch
 func ProcessForwardMomentum() -> void:
 	var player = get_parent()
-	var lunge_direction = (player.global_position - global_position).normalized()
-	player.velocity.x = lunge_direction.x * FORWARD_MOMENTUM + 10
+	var lunge_direction = (player.global_position - $CollisionShape2D.global_position).normalized()
+	player.velocity.x = lunge_direction.x * FORWARD_MOMENTUM * -10
 	player.move_and_slide()
