@@ -1,11 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://eu0h2a8ap3xi"]
+[gd_scene load_steps=17 format=3 uid="uid://eu0h2a8ap3xi"]
 
 [ext_resource type="Script" path="res://Card Selection Screen/card_selector.gd" id="1_npcrd"]
-[ext_resource type="Texture2D" uid="uid://bk078os4xtmt1" path="res://GamePlay--Textures/Menu.png" id="1_w4faa"]
 [ext_resource type="Texture2D" uid="uid://ceoe4b0sjjs2o" path="res://Card Selection Screen/Card Textures/Tarot - Rubber Chicken.png" id="2_2lpd4"]
+[ext_resource type="Texture2D" uid="uid://nirongops3t6" path="res://Card Selection Screen/Card Background .png" id="2_2v275"]
 [ext_resource type="Texture2D" uid="uid://dgtb0ep34wc3w" path="res://Card Selection Screen/Card Textures/Tarot - Meteor Card.png" id="4_iw5og"]
 [ext_resource type="Texture2D" uid="uid://doy117s5hws4n" path="res://Card Selection Screen/Card Textures/Tarot - Bear Card.png" id="5_c7pdj"]
+[ext_resource type="Texture2D" uid="uid://dbglbcmhny45m" path="res://Card Selection Screen/Card Textures/Tarot - Gun Card.png" id="5_dytxm"]
 [ext_resource type="Texture2D" uid="uid://2st8tkvtcbl3" path="res://Card Selection Screen/Card Textures/Tarot - The Punch.png" id="5_gymil"]
+[ext_resource type="Texture2D" uid="uid://dcb2pr2qqlgki" path="res://Card Selection Screen/Card Textures/Tarot - Ice.png" id="8_4jeds"]
+[ext_resource type="Texture2D" uid="uid://c7m822yjrbuwu" path="res://Card Selection Screen/Card Begin.png" id="9_2765k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xmnv"]
 size = Vector2(560, 860)
@@ -42,12 +45,12 @@ grow_vertical = 2
 script = ExtResource("1_npcrd")
 
 [node name="Background" type="TextureRect" parent="."]
-visible = false
 texture_filter = 1
 layout_mode = 0
+offset_left = -5.0
 offset_right = 1153.0
-offset_bottom = 642.0
-texture = ExtResource("1_w4faa")
+offset_bottom = 649.0
+texture = ExtResource("2_2v275")
 
 [node name="CardButtons" type="VBoxContainer" parent="."]
 layout_direction = 2
@@ -57,10 +60,10 @@ anchor_left = -0.00260417
 anchor_top = 0.00154321
 anchor_right = 0.997396
 anchor_bottom = 1.00309
-offset_left = -1.0
-offset_top = 27.0
+offset_left = -0.999996
+offset_top = 81.0
 offset_right = 4612.0
-offset_bottom = 2488.0
+offset_bottom = 2272.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.2, 0.2)
@@ -97,7 +100,7 @@ shape = SubResource("RectangleShape2D_t14vh")
 [node name="Gun" type="Button" parent="CardButtons/Cards"]
 layout_mode = 2
 toggle_mode = true
-icon = ExtResource("2_2lpd4")
+icon = ExtResource("5_dytxm")
 
 [node name="GunArea" type="Area2D" parent="CardButtons/Cards/Gun"]
 
@@ -135,7 +138,7 @@ shape = SubResource("RectangleShape2D_mnn8t")
 [node name="Last" type="Button" parent="CardButtons/Cards2"]
 layout_mode = 2
 toggle_mode = true
-icon = ExtResource("2_2lpd4")
+icon = ExtResource("8_4jeds")
 
 [node name="LastArea" type="Area2D" parent="CardButtons/Cards2/Last"]
 
@@ -151,12 +154,21 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -148.5
-offset_top = -148.0
+offset_top = -158.0
 offset_right = 148.5
-offset_bottom = -55.0
+offset_bottom = -65.0
 grow_horizontal = 2
 grow_vertical = 0
 disabled = true
+
+[node name="CardBegin" type="TextureRect" parent="ContinueButton"]
+layout_mode = 0
+offset_left = -3.0
+offset_top = -7.0
+offset_right = 303.0
+offset_bottom = 99.0
+texture = ExtResource("9_2765k")
+expand_mode = 2
 
 [node name="ContArea" type="Area2D" parent="ContinueButton"]
 

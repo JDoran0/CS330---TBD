@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhsstipd2nvyc"]
+[gd_scene load_steps=12 format=3 uid="uid://bhsstipd2nvyc"]
 
 [ext_resource type="Script" path="res://GamePlay--MainGamePlayFolder/main_gamplay_scene.gd" id="1_kqk4g"]
 [ext_resource type="Texture2D" uid="uid://b1md8deagnp5f" path="res://GamePlay--Textures/FightingBackground.png" id="2_0bqpg"]
 [ext_resource type="PackedScene" uid="uid://ck0toy73fmu6o" path="res://GamePlay--MainGamePlayFolder/Boundary.tscn" id="3_oe6n8"]
 [ext_resource type="PackedScene" uid="uid://cg6op4vou28hs" path="res://Players/player1HealthBar.tscn" id="4_7jxjn"]
 [ext_resource type="PackedScene" uid="uid://cjuq3gkqfu4vn" path="res://Players/player2HealthBar.tscn" id="5_ycid5"]
+[ext_resource type="Texture2D" uid="uid://b7sr2sgvjj8xj" path="res://Card Selection Screen/Card Textures/None.png" id="6_bblna"]
 [ext_resource type="PackedScene" uid="uid://l7s43n45hpbf" path="res://Players/Player1.tscn" id="6_sso1s"]
 [ext_resource type="PackedScene" uid="uid://b7722o05au1wy" path="res://GamePlay--MainGamePlayFolder/playingField.tscn" id="7_dmx44"]
 [ext_resource type="PackedScene" uid="uid://4rdk1nsidjd3" path="res://Players/Player2.tscn" id="8_oudd7"]
@@ -42,6 +43,21 @@ grow_horizontal = 1
 pivot_offset = Vector2(5, -5)
 
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ryris")]
+
+[node name="CardSlot" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CardIcon" type="TextureRect" parent="CanvasLayer/CardSlot"]
+layout_mode = 0
+offset_left = 553.0
+offset_top = 30.0
+offset_right = 1129.0
+offset_bottom = 894.0
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("6_bblna")
 
 [node name="Node2D" parent="." instance=ExtResource("3_oe6n8")]
 visible = false

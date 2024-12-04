@@ -11,6 +11,8 @@ var ControllerPositiveDeadzone = 0.09
 
 var playedOnce = false
 
+@onready var card_icon = $"CanvasLayer/CardSlot/CardIcon"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	controllerCount = 0
@@ -20,6 +22,9 @@ func _ready():
 	$CardTimer.wait_time = randi_range(5, 10)
 	print("Timer set for:", $CardTimer.wait_time, "seconds")
 	$CardTimer.start()
+	
+	var card_texture = preload("res://Card Selection Screen/Card Textures/None.png")
+	update_card_slot(card_texture)
 
 func _process(_delta):
 	if get_tree().current_scene != preload(MAIN_MENU_SCENE):
@@ -90,18 +95,28 @@ func _on_card_timer_timeout():
 	print(Global.randomCard)
 	print(Global.restOfCards)
 	
+	var card_texture: Texture = null
+	
 	if(Global.randomCard == "Chick"):
+		card_texture = preload("res://Card Selection Screen/Card Textures/Tarot - Rubber Chicken.png")
 		Chicken();
 	elif(Global.randomCard == "Bear"):
+		card_texture = preload("res://Card Selection Screen/Card Textures/Tarot - Bear Card.png")
 		theBear();
 	elif(Global.randomCard == "Punch"):
+		card_texture = preload("res://Card Selection Screen/Card Textures/Tarot - The Punch.png")
 		onePunch()
 	elif(Global.randomCard == "Meteor"):
+		card_texture = preload("res://Card Selection Screen/Card Textures/Tarot - Meteor Card.png")
 		Meteors()
 	elif(Global.randomCard == "Gun"):
+		card_texture = preload("res://Card Selection Screen/Card Textures/Tarot - Gun Card.png")
 		theGun()
 	elif(Global.randomCard == "Last"):
+		card_texture = preload("res://Card Selection Screen/Card Textures/Tarot - Ice.png")
 		last()
+	
+	update_card_slot(card_texture)
 	
 	var randomIndex = randi() % Global.restOfCards.size()
 	Global.restOfCards.append(Global.randomCard)
@@ -123,3 +138,6 @@ func stop_meteor_timer():
 		print("Meteor timer stopped and spawner removed.")
 	else:
 		print("No meteor spawner instance or timer not found.")
+		
+func update_card_slot(card_texture: Texture):
+	card_icon.texture = card_texture
