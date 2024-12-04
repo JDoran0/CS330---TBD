@@ -134,14 +134,14 @@ func attack() -> void:
 		## part 2
 		if get_parent().facingRight:
 			#Display given animation facing to the right
-			$CollisionShape2D.rotation = 0
+			$CollisionShape2D.rotation = PI/2
 			$CollisionShape2D.position = Vector2(30, yPos)
 			
 			#check if up + attack
 			if get_parent().facingUpwards && not get_parent().crouching:
 				
-				$CollisionShape2D.rotation = PI/5
-				$CollisionShape2D.position.x -= 20
+				$CollisionShape2D.rotation = PI/4
+				$CollisionShape2D.position.x -= 10
 				$CollisionShape2D.position.y += 30
 
 				setInputBuffer = 1.5
@@ -151,7 +151,8 @@ func attack() -> void:
 			
 			#check for crouch + attack
 			elif get_parent().crouching:
-				$CollisionShape2D.position.x = 50
+				$CollisionShape2D.position.x = 70
+				$CollisionShape2D.position.y = 35
 				
 				setInputBuffer = 1
 				KNOCKBACK_MODIFIER = 50
@@ -159,10 +160,10 @@ func attack() -> void:
 			#regular attack
 			else:
 				$CollisionShape2D.position.y = -10
-				$CollisionShape2D.rotation = 0
+				#$CollisionShape2D.rotation = 
 				
 				setInputBuffer = 0.5
-				KNOCKBACK_MODIFIER = 200
+				KNOCKBACK_MODIFIER = 50
 		else:
 			#Display given animation facing to the left
 			$CollisionShape2D.rotation = (PI)
@@ -210,5 +211,5 @@ func attack() -> void:
 func ProcessForwardMomentum() -> void:
 	var player = get_parent()
 	var lunge_direction = (player.global_position - global_position).normalized()
-	player.velocity.x = lunge_direction.x * FORWARD_MOMENTUM * -10
+	player.velocity.x = lunge_direction.x * FORWARD_MOMENTUM + 10
 	player.move_and_slide()
