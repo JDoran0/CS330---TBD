@@ -1,27 +1,110 @@
-[gd_scene load_steps=13 format=3 uid="uid://l7s43n45hpbf"]
+[gd_scene load_steps=26 format=3 uid="uid://l7s43n45hpbf"]
 
 [ext_resource type="Script" path="res://Players/player_1Script.gd" id="1_7oo2r"]
+[ext_resource type="Texture2D" uid="uid://b0pmyu8n1yfap" path="res://Animations/Punching/Uppercut/DogUpOne.png" id="2_bgkw6"]
 [ext_resource type="Texture2D" uid="uid://rpm8bgfbkby8" path="res://GamePlay--Textures/Tarot_Dog_CrouchingLeft.png" id="2_ds527"]
-[ext_resource type="Texture2D" uid="uid://d1s0qm6wpe3cq" path="res://GamePlay--Textures/Tarot_Dog_Standing_Left.png" id="2_e6s6k"]
-[ext_resource type="Texture2D" uid="uid://44elthhvjuar" path="res://GamePlay--Textures/Tarot_Dog_Standing.png" id="2_lwuyr"]
 [ext_resource type="PackedScene" uid="uid://blini5ubvjgjr" path="res://Weapon--Fists/Fists.tscn" id="2_paj5y"]
+[ext_resource type="Texture2D" uid="uid://wr0c3ma5xkve" path="res://Animations/Running/DogStationary.png" id="3_q5lmh"]
 [ext_resource type="Texture2D" uid="uid://b8jmq0bv0x6k8" path="res://GamePlay--Textures/Tarot_Dog_Crouching.png" id="3_qk7i1"]
+[ext_resource type="Texture2D" uid="uid://qalxcu8q3e4n" path="res://Animations/Punching/Uppercut/DogUpTwo.png" id="3_vg7t3"]
+[ext_resource type="Texture2D" uid="uid://bcjjjl652a1el" path="res://Animations/Punching/Uppercut/DogPunch.png" id="4_3e41n"]
+[ext_resource type="Texture2D" uid="uid://dixgwr6j8p2kk" path="res://Animations/Stun/DogStun1.png" id="5_fh2tw"]
+[ext_resource type="Texture2D" uid="uid://bixe86mr8jrj8" path="res://Animations/Punching/Uppercut/DogUpThree.png" id="5_kveh7"]
+[ext_resource type="Texture2D" uid="uid://dg41y7f6q3c8e" path="res://Animations/Stun/DogStun2.png" id="6_a5mmm"]
+[ext_resource type="Texture2D" uid="uid://bb2clka38lx0f" path="res://Animations/Punching/Uppercut/DogUpFour.png" id="6_h3tar"]
+[ext_resource type="Texture2D" uid="uid://b2xqstlt3v7of" path="res://Animations/Stun/DogStun3.png" id="7_f84au"]
+[ext_resource type="Texture2D" uid="uid://66fepdyjdki" path="res://Animations/Punching/Uppercut/DogUpFive.png" id="7_r0ok4"]
 [ext_resource type="PackedScene" uid="uid://dky6x1k1yekcj" path="res://Weapon--Gun/Gun.tscn" id="7_yl25e"]
 [ext_resource type="PackedScene" uid="uid://cbh61d4ro1trx" path="res://Weapon--Chicken/Chicken.tscn" id="8_2rf0l"]
+[ext_resource type="Texture2D" uid="uid://c48tr7h1p042q" path="res://Animations/Running/RunDog1.png" id="9_17aj3"]
+[ext_resource type="Texture2D" uid="uid://df5o7s6w78u4d" path="res://Animations/Running/RunDog2.png" id="10_7qeyd"]
+[ext_resource type="Texture2D" uid="uid://bs53u32ti6021" path="res://Animations/Running/RunDog3.png" id="11_u442h"]
+[ext_resource type="Texture2D" uid="uid://bgk18qeebi0v8" path="res://Animations/Running/RunDog4.png" id="12_ub7cj"]
+[ext_resource type="Texture2D" uid="uid://ddkp06q4upfsy" path="res://Animations/Punching/DogCrouchPunch.png" id="13_jh0p0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qdggc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_e6s6k")
+"texture": ExtResource("2_bgkw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vg7t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3e41n")
 }],
 "loop": true,
-"name": &"movingLeft",
-"speed": 5.0
+"name": &"PunchRight",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_lwuyr")
+"texture": ExtResource("3_q5lmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_fh2tw")
+}, {
+"duration": 1.5,
+"texture": ExtResource("6_a5mmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_f84au")
+}],
+"loop": true,
+"name": &"Stun",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q5lmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_bgkw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vg7t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kveh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h3tar")
+}, {
+"duration": 2.0,
+"texture": ExtResource("7_r0ok4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h3tar")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_kveh7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vg7t3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_bgkw6")
+}],
+"loop": true,
+"name": &"UppercutRight",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q5lmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_17aj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_7qeyd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_u442h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ub7cj")
 }],
 "loop": true,
 "name": &"movingRight",
@@ -30,6 +113,14 @@ animations = [{
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_arxy2"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_jh0p0")
+}],
+"loop": true,
+"name": &"crouchPunchRight",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_ds527")
@@ -60,12 +151,15 @@ script = ExtResource("1_7oo2r")
 
 [node name="Character(standing)" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.12997, 0.130484)
+position = Vector2(-7, 8)
+scale = Vector2(2, 2.067)
 sprite_frames = SubResource("SpriteFrames_qdggc")
-animation = &"movingLeft"
+animation = &"PunchRight"
+speed_scale = 5.0
 
 [node name="Character(crouching)" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, 15)
+visible = false
+position = Vector2(-2, 17)
 scale = Vector2(0.12997, 0.130484)
 sprite_frames = SubResource("SpriteFrames_arxy2")
 animation = &"crouchingRight"
@@ -75,6 +169,7 @@ position = Vector2(-7, 7)
 shape = SubResource("RectangleShape2D_qrn2y")
 
 [node name="crouching" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-0.500001, 28)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_x16dl")
@@ -90,13 +185,24 @@ wait_time = 0.2
 one_shot = true
 
 [node name="Gun" parent="." instance=ExtResource("7_yl25e")]
+visible = false
 
 [node name="Chicken" parent="." instance=ExtResource("8_2rf0l")]
+visible = false
 
 [node name="ConcussedTimer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true
 
+[node name="PunchTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="PunchCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="ConcussedTimer" to="." method="_on_concussed_timer_timeout"]
+[connection signal="timeout" from="PunchTimer" to="." method="_on_punch_timer_timeout"]
+[connection signal="timeout" from="PunchCooldownTimer" to="." method="_on_punch_cooldown_timer_timeout"]

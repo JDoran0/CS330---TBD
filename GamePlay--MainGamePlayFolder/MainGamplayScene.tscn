@@ -58,3 +58,7 @@ position = Vector2(799, 447)
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="dynamicCamera" parent="." instance=ExtResource("10_6xnnv")]
+
+[node name="CardTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="CardTimer" to="." method="_on_card_timer_timeout"]

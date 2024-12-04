@@ -20,6 +20,7 @@ MenuClick="*res://GamePlay--soundsAndMusic/menuClick.tscn"
 MenuBack="*res://GamePlay--soundsAndMusic/menu_back.tscn"
 MenuMusic="*res://GamePlay--soundsAndMusic/menuMusic.tscn"
 ConcussedEffect="*res://Weapon--Chicken/Concussed_effect.tscn"
+Global="*res://global.gd"
 
 [display]
 

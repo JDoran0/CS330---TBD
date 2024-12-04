@@ -1,25 +1,108 @@
-[gd_scene load_steps=11 format=3 uid="uid://4rdk1nsidjd3"]
+[gd_scene load_steps=24 format=3 uid="uid://4rdk1nsidjd3"]
 
 [ext_resource type="Script" path="res://Players/player_2Script.gd" id="1_ytmdn"]
-[ext_resource type="Texture2D" uid="uid://c8qsq7jur02ea" path="res://GamePlay--Textures/Tarot_Cat_StandingLeft.png" id="2_cgf2g"]
-[ext_resource type="Texture2D" uid="uid://burhmpbs8s8mk" path="res://GamePlay--Textures/Tarot_Cat_Standing.png" id="2_daknk"]
+[ext_resource type="Texture2D" uid="uid://dyenrh1wik3y4" path="res://Animations/Running/CatStationary.png" id="2_j0nyn"]
 [ext_resource type="PackedScene" uid="uid://blini5ubvjgjr" path="res://Weapon--Fists/Fists.tscn" id="2_wdvpg"]
+[ext_resource type="Texture2D" uid="uid://bxpgw7ugqim34" path="res://Animations/Running/RunCat1.png" id="3_ef2ll"]
+[ext_resource type="Texture2D" uid="uid://xyhstr7jibn8" path="res://Animations/Stun/CatStun1.png" id="3_yv2vn"]
+[ext_resource type="Texture2D" uid="uid://d4cpmow0chrff" path="res://Animations/Running/RunCat2.png" id="4_js48c"]
 [ext_resource type="Texture2D" uid="uid://bpmask15fy8w6" path="res://GamePlay--Textures/Tarot_Cat_Crouching.png" id="4_q6mn0"]
+[ext_resource type="Texture2D" uid="uid://b038y1s4ku2v5" path="res://Animations/Stun/CatStun2.png" id="4_wnlbh"]
+[ext_resource type="Texture2D" uid="uid://desc3170yrli8" path="res://Animations/Stun/CatStun3.png" id="5_iys5u"]
+[ext_resource type="Texture2D" uid="uid://36nutlv8tjga" path="res://Animations/Running/RunCat3.png" id="5_x2ir2"]
 [ext_resource type="PackedScene" uid="uid://cbh61d4ro1trx" path="res://Weapon--Chicken/Chicken.tscn" id="6_1ni57"]
+[ext_resource type="Texture2D" uid="uid://b85o785emmuf7" path="res://Animations/Punching/Uppercut/CatUp1.png" id="6_8dfqa"]
+[ext_resource type="Texture2D" uid="uid://camp8od2yqv03" path="res://Animations/Running/RunCat4.png" id="6_x43i0"]
+[ext_resource type="Texture2D" uid="uid://cfalw2q3ttf6w" path="res://Animations/Punching/Uppercut/CatUp2.png" id="7_fj2hk"]
+[ext_resource type="Texture2D" uid="uid://c054kajx2t240" path="res://Animations/Punching/Uppercut/CatUp3.png" id="8_hj4rq"]
+[ext_resource type="Texture2D" uid="uid://baryuals8rr4a" path="res://Animations/Punching/Uppercut/CatUp4.png" id="9_rantp"]
+[ext_resource type="Texture2D" uid="uid://df1jyc765t2vo" path="res://Animations/Punching/Uppercut/CatUp5.png" id="10_kkunk"]
+[ext_resource type="Texture2D" uid="uid://b3r7pk4iyqoxh" path="res://Animations/Punching/Uppercut/CatPunch.png" id="15_ht6v2"]
+[ext_resource type="Texture2D" uid="uid://dt1n8sosp5bmm" path="res://Animations/Punching/CatCrouchPunch.png" id="16_dlchd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w6np4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_cgf2g")
+"texture": ExtResource("6_8dfqa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fj2hk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ht6v2")
 }],
 "loop": true,
-"name": &"movingLeft",
+"name": &"PunchRight",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j0nyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yv2vn")
+}, {
+"duration": 1.5,
+"texture": ExtResource("4_wnlbh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_iys5u")
+}],
+"loop": true,
+"name": &"Stun",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_daknk")
+"texture": ExtResource("2_j0nyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8dfqa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fj2hk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_hj4rq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rantp")
+}, {
+"duration": 2.0,
+"texture": ExtResource("10_kkunk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rantp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_hj4rq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_fj2hk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8dfqa")
+}],
+"loop": true,
+"name": &"UppercutRight",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j0nyn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ef2ll")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_js48c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_x2ir2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_x43i0")
 }],
 "loop": true,
 "name": &"movingRight",
@@ -28,6 +111,14 @@ animations = [{
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sta13"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_dlchd")
+}],
+"loop": true,
+"name": &"crouchPunchRight",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_q6mn0")
@@ -50,13 +141,16 @@ script = ExtResource("1_ytmdn")
 
 [node name="Character(standing)" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-scale = Vector2(0.13, 0.13)
+position = Vector2(-10, 5)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_w6np4")
-animation = &"movingLeft"
+animation = &"movingRight"
+speed_scale = 5.0
 
 [node name="Character(crouching)" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
-position = Vector2(0, 2)
+position = Vector2(0, 15)
 scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_sta13")
 animation = &"crouching"
@@ -66,6 +160,7 @@ position = Vector2(21, 6)
 scale = Vector2(2, 2)
 
 [node name="crouching" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(7.10543e-15, 27)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_k6taw")
@@ -85,7 +180,16 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Chicken" parent="." instance=ExtResource("6_1ni57")]
+visible = false
+
+[node name="PunchTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="PunchCooldownTimer" type="Timer" parent="."]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
 [connection signal="timeout" from="ConcussedTimer" to="." method="_on_concussed_timer_timeout"]
+[connection signal="timeout" from="PunchTimer" to="." method="_on_punch_timer_timeout"]
+[connection signal="timeout" from="PunchCooldownTimer" to="." method="_on_punch_cooldown_timer_timeout"]

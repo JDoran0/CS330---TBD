@@ -302,16 +302,6 @@ func _on_last_2d_area_exited(area: Area2D) -> void:
 	lastArea = false
 	_on_last_mouse_exited()
 
-# Getting the first card and setting up the rest
-func setUp():
-	var randomIndex = randi() % startingLineup.size()
-	var randomCard = startingLineup[randomIndex]
-	
-	var restOfCards = startingLineup.duplicate()
-	restOfCards.erase(randomCard)
-	
-	return {"Random Card": randomCard, "Rest of Cards": restOfCards}
-
 # Setting up Continue Button
 func _update_start_button():
 	var contButton = $ContinueButton
@@ -322,6 +312,14 @@ func _update_start_button():
 
 func _on_continue_button_pressed() -> void:
 	print("Game Started with lineup:", startingLineup)
+	var randomIndex = randi() % startingLineup.size()
+	Global.randomCard = startingLineup[randomIndex]
+	
+	Global.restOfCards = startingLineup.duplicate()
+	Global.restOfCards.erase(Global.randomCard)
+	
+	print("Random Card:", Global.randomCard)
+	print("Rest of Cards:", Global.restOfCards)
 	get_tree().change_scene_to_file("res://GamePlay--MainGamePlayFolder/MainGamplayScene.tscn")
 
 func _on_cont_area_area_entered(area: Area2D) -> void:

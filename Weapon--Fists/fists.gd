@@ -47,11 +47,11 @@ func _on_body_entered(body: Node) -> void:
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
 			var knockback_direction = (global_position - body.global_position).normalized()
-			var velocity = knockback_direction * DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
+			var velocity = knockback_direction * Global.DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
 			body.velocity = velocity * -1.25
 			body.getStunned()
 			body.move_and_slide()
-			body.dealDamage(DAMAGE_PER_HIT)
+			body.dealDamage(Global.DAMAGE_PER_HIT)
 
 
 

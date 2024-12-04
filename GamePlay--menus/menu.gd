@@ -3,7 +3,7 @@ extends Control
 # Button handles starting the game, currently takes us to the actual game scene for now
 func _on_start_button_pressed() -> void:
 	MenuClick.play()
-	get_tree().change_scene_to_file("res://GamePlay--MainGamePlayFolder/MainGamplayScene.tscn")
+	get_tree().change_scene_to_file("res://Card Selection Screen/card_selector.tscn")
 
 # Button handles taking the player to a settings menu, takes them to settings scene
 func _on_settings_button_pressed() -> void:
