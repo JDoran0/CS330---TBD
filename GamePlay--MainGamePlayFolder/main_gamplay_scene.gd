@@ -102,6 +102,8 @@ func ResetCharacters():
 		player1.health = 100
 		player2.position = P2spawn
 		player1.position = P1spawn
+		player1.velocity = Vector2(0, 0)
+		player2.velocity = Vector2(0, 0)
 
 func _on_game_timer_timeout() -> void:
 	$GameTimer.stop()
