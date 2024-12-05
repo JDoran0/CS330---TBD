@@ -1,13 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b03tggkch7s2x"]
+[gd_scene load_steps=8 format=3 uid="uid://b03tggkch7s2x"]
 
 [ext_resource type="Script" path="res://MapMod--Bear/plushie_spawner.gd" id="1_2abg0"]
 [ext_resource type="PackedScene" uid="uid://c8vn8lutwddhm" path="res://MapMod--Bear/plushie.tscn" id="2_csv4p"]
-
-[sub_resource type="Curve2D" id="Curve2D_wf2fx"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -573, -207, 0, 0, 0, 0, 582, -210, 0, 0, 0, 0, 580, 429, 0, 0, 0, 0, -576, 431, 0, 0, 0, 0, -573, -207)
-}
-point_count = 5
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_edld4"]
 friction = 0.0
@@ -31,14 +25,6 @@ mob_scene = ExtResource("2_csv4p")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(578, 326)
-
-[node name="PlushiePath" type="Path2D" parent="."]
-position = Vector2(576, 216)
-curve = SubResource("Curve2D_wf2fx")
-
-[node name="PlushieSpawnLocation" type="PathFollow2D" parent="PlushiePath"]
-position = Vector2(-573, -207)
-rotation = -0.0025974
 
 [node name="Border" type="StaticBody2D" parent="."]
 disable_mode = 2
