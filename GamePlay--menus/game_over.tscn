@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck1fh5i6qvcly"]
+[gd_scene load_steps=4 format=3 uid="uid://ck1fh5i6qvcly"]
 
 [ext_resource type="Script" path="res://GamePlay--menus/game_over.gd" id="1_nvu8h"]
+[ext_resource type="Texture2D" uid="uid://bbbpujj14jmph" path="res://GamePlay--Textures/MatchOverBlue.png" id="2_y4jss"]
+[ext_resource type="Texture2D" uid="uid://cgy5lvpbfw4lo" path="res://GamePlay--Textures/MatchOverRed.png" id="3_4yfbh"]
 
 [node name="gameOver" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +13,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_nvu8h")
+
+[node name="Red" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_4yfbh")
+stretch_mode = 6
+
+[node name="Blue" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_y4jss")
+stretch_mode = 6
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 1

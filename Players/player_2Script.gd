@@ -48,8 +48,8 @@ func _physics_process(delta: float) -> void:
 		prevHealth = health
 		playerHealthBar.value = health
 	
-	if health <= 0:
-		get_tree().change_scene_to_file("res://GamePlay--menus/game_over.tscn")
+	#if health <= 0:
+	#	get_tree().change_scene_to_file("res://GamePlay--menus/game_over.tscn")
 	
 	# Add the gravity.
 	if not is_on_floor():
