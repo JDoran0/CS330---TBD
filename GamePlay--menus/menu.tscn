@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bek580np0qq3d"]
+[gd_scene load_steps=13 format=3 uid="uid://bek580np0qq3d"]
 
 [ext_resource type="Script" path="res://GamePlay--menus/menu.gd" id="1_ryble"]
 [ext_resource type="Texture2D" uid="uid://bk078os4xtmt1" path="res://GamePlay--Textures/Menu.png" id="2_t0n7u"]
 [ext_resource type="Texture2D" uid="uid://d22dopojlxx87" path="res://GamePlay--Textures/ButtonBackground.png" id="3_510y3"]
+[ext_resource type="Texture2D" uid="uid://cgds7h8c0agof" path="res://GamePlay--Textures/Tarot Logo.png" id="3_cd8hi"]
 [ext_resource type="Texture2D" uid="uid://bwtk8lpudnplw" path="res://GamePlay--Textures/ButtonPlay.png" id="3_mmrd3"]
 [ext_resource type="Texture2D" uid="uid://dayfrpg1070u7" path="res://GamePlay--Textures/ButtonPlayPressed.png" id="4_kcirb"]
 [ext_resource type="Texture2D" uid="uid://b66cw03ksr83y" path="res://GamePlay--Textures/ButtonSettings.png" id="6_b7rja"]
@@ -31,17 +32,18 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_t0n7u")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="Logo" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -63.0
-offset_right = 63.0
-offset_bottom = 92.0
+offset_left = -136.0
+offset_top = 20.0
+offset_right = 760.0
+offset_bottom = 532.0
 grow_horizontal = 2
-text = "¿TAROT?: The Chaotic Card-Based Fighting Game"
-fit_content = true
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_cd8hi")
 
 [node name="ButtonBackground" type="TextureRect" parent="."]
 texture_filter = 1

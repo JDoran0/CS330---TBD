@@ -12,6 +12,8 @@ var controllerNumber
 var facingRight = true
 var facingUpwards = false
 var crouching = false
+var isPunching = false
+var punchCooldown = false
 
 var stunned = false
 var concussed = false
@@ -130,9 +132,22 @@ func processControllerInput(delta: float) -> void:
 		else:
 			facingUpwards = false
 		
+		if !punchCooldown:
+			punchCooldown = true
+			isPunching = true
+			$PunchTimer.start()
+			$PunchCooldownTimer.start()
+		
 		#CHECK WHICH WEAPON USING HERE
-		#$Fists.attack()
-		$Chicken.attack()
+		if Global.weaponType == "Chicken":
+			$Chicken.attack()
+		elif Global.weaponType == "Gun":
+			$Gun.shoot()
+		elif Global.weaponType == "OnePunch":
+			$Fists.attack()
+			Global.DAMAGE_PER_HIT = 1000
+		else:
+			$Fists.attack()
 
 #Player 2 keyboard disabled
 func processKeyboardInput(_delta: float) -> void: 
@@ -147,24 +162,60 @@ func processDirection() -> void:
 
 #process the correct sprite frame for each frame
 func playAnimation():
-	if facingRight:
+
+	if isPunching:
+		if facingUpwards:
+			characterStanding.visible = true
+			characterCrouching.visible = false
+			characterStanding.play("UppercutRight")
+		elif crouching:
+			characterStanding.visible = false
+			characterCrouching.visible = true
+			characterCrouching.play("crouchPunchRight")
+		else:
+			characterStanding.visible = true
+			characterCrouching.visible = false
+			characterStanding.play("PunchRight")
+		return
+	
+	if stunned:
+		characterStanding.visible = true
+		characterCrouching.visible = false
+		characterStanding.flip_h = not facingRight
+		characterStanding.play("Stun")
+		return
+	elif facingRight:
 		if crouching:
 			characterStanding.visible = false
 			characterCrouching.visible = true
-			characterCrouching.play("crouchingRight")
-		else: 
+			characterCrouching.flip_h = false
+			characterCrouching.play("crouching")
+		elif velocity.x > 0:
 			characterStanding.visible = true
 			characterCrouching.visible = false
+			characterStanding.flip_h = false
 			characterStanding.play("movingRight")
+		else:
+			characterStanding.visible = true
+			characterCrouching.visible = false
+			characterStanding.flip_h = false
+			characterStanding.frame = 0
 	else:
 		if crouching:
 			characterStanding.visible = false
 			characterCrouching.visible = true
-			characterCrouching.play("crouchingLeft")
+			characterCrouching.flip_h = true
+			characterCrouching.play("crouching")
+		elif velocity.x < 0:
+			characterStanding.visible = true
+			characterCrouching.visible = false
+			characterStanding.flip_h = true
+			characterStanding.play("movingRight")
 		else:
 			characterStanding.visible = true
 			characterCrouching.visible = false
-			characterStanding.play("movingLeft")
+			characterStanding.flip_h = true
+			characterStanding.frame = 0
 
 # Stun the player for an appropriate time
 func getStunned():
@@ -188,7 +239,12 @@ func getConcussed():
 	concussed = true
 	$ConcussedTimer.start()
 
-
 func _on_concussed_timer_timeout() -> void:
 	concussed = false
 	recoveredFromConcussed = true
+
+func _on_punch_timer_timeout() -> void:
+	isPunching = false
+
+func _on_punch_cooldown_timer_timeout() -> void:
+	punchCooldown = false
