@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var timeBetweenShots = 2
+@export var timeBetweenShots = 0.75
 var canShootAgain = true
 const bulletPath = preload('res://Weapon--Gun/Bullet.tscn')
 
@@ -42,7 +42,7 @@ func shoot():
 		# Set position and velocity
 		if get_parent().facingRight:
 			bullet.rotation = 0
-			bullet.velocity = Vector2(400.0, 0.0)
+			bullet.velocity = Vector2(600.0, 0.0)
 			bullet.global_position.x = global_position.x + 25
 			bullet.global_position.y = global_position.y - 3
 			if get_parent().facingUpwards && not get_parent().crouching:
@@ -52,7 +52,7 @@ func shoot():
 				bullet.global_position.y = global_position.y - 15
 		else:
 			bullet.rotation = PI
-			bullet.velocity = Vector2(-400.0, 0.0)
+			bullet.velocity = Vector2(-600.0, 0.0)
 			bullet.global_position.x = global_position.x - 25
 			bullet.global_position.y = global_position.y - 3
 			if get_parent().facingUpwards && not get_parent().crouching:
@@ -62,7 +62,7 @@ func shoot():
 				bullet.global_position.y = global_position.y - 15
 		
 		if get_parent().crouching:
-				bullet.global_position.y = global_position.y + 20
+				bullet.global_position.y = global_position.y - 5
 		
 		# Add the bullet to the scene
 		bullet_container.add_child(bullet)
