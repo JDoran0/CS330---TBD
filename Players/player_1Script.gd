@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 
 const SPEED = 300.0
+const FRICTION_EFFECT_MAX_SPEED = 50.0
 const JUMP_VELOCITY = -400.0
 
 # Select the device to connect to
@@ -18,7 +19,7 @@ var stunned = false
 var concussed = false
 var recoveredFromConcussed = false
 
-@export var frictionFactor = 0.01
+@export var frictionFactor = 0.005
 @export var crouchSpeed = 0.5
 
 #two seperate collision boxes for different collision modes
@@ -119,7 +120,7 @@ func processControllerInput(delta: float) -> void:
 		else:
 			velocity.x = direction * SPEED
 	else:
-		if Global.prevCard == "Last":
+		if Global.prevCard == "Last" and (velocity.x < FRICTION_EFFECT_MAX_SPEED or velocity.x > FRICTION_EFFECT_MAX_SPEED * -1):
 			velocity.x = move_toward(velocity.x, 0, SPEED * frictionFactor)
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -185,7 +186,7 @@ func processKeyboardInput(delta: float) -> void:
 		else:
 			velocity.x = keyboardDirections * SPEED
 	else:
-		if Global.prevCard == "Last":
+		if Global.prevCard == "Last" and (velocity.x < FRICTION_EFFECT_MAX_SPEED or velocity.x > FRICTION_EFFECT_MAX_SPEED * -1):
 			velocity.x = move_toward(velocity.x, 0, SPEED * frictionFactor)
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)

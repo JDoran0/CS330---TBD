@@ -23,6 +23,7 @@ scale = Vector2(1.00536, 1.09211)
 sprite_frames = SubResource("SpriteFrames_8jehs")
 
 [node name="BulletTimer" type="Timer" parent="."]
+wait_time = 0.75
 one_shot = true
 
 [connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]
