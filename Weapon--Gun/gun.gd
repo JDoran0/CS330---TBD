@@ -14,14 +14,14 @@ func _ready():
 func _process(delta):
 	if get_parent().facingRight:
 		$AnimatedSprite2D.flip_h = false
-		position.x = 10
+		position.x = 0
 		if get_parent().facingUpwards && not get_parent().crouching:
 			rotation = 11*PI/6
 		else:
 			rotation = 0
 	else:
 		$AnimatedSprite2D.flip_h = true
-		position.x = -10
+		position.x = -15
 		if get_parent().facingUpwards && not get_parent().crouching:
 			rotation = PI/6
 		else:
@@ -31,32 +31,35 @@ func _process(delta):
 		position.y = 25
 	else:
 		position.y = 15
-		
 
 func shoot():
 	if canShootAgain:
 		var bullet_container = get_tree().current_scene.get_node("Bullets")
 		var bullet = bulletPath.instantiate()
 		
+		bullet.playerName = get_parent().name
+		
 		# Set position and velocity
 		if get_parent().facingRight:
 			bullet.rotation = 0
 			bullet.velocity = Vector2(400.0, 0.0)
-			bullet.global_position.x = global_position.x + 40
-			bullet.global_position.y = global_position.y
+			bullet.global_position.x = global_position.x + 25
+			bullet.global_position.y = global_position.y - 3
 			if get_parent().facingUpwards && not get_parent().crouching:
 				#Process upwards rotation when facing to the right
 				bullet.global_rotation = 11*PI/6
 				bullet.velocity = bullet.velocity.rotated(11*PI/6)
+				bullet.global_position.y = global_position.y - 15
 		else:
 			bullet.rotation = PI
 			bullet.velocity = Vector2(-400.0, 0.0)
-			bullet.global_position.x = global_position.x - 40
-			bullet.global_position.y = global_position.y
+			bullet.global_position.x = global_position.x - 25
+			bullet.global_position.y = global_position.y - 3
 			if get_parent().facingUpwards && not get_parent().crouching:
 				#Process upwards rotation when facing to the left
 				bullet.global_rotation = 7*PI/6
 				bullet.velocity = bullet.velocity.rotated(PI/6)
+				bullet.global_position.y = global_position.y - 15
 		
 		if get_parent().crouching:
 				bullet.global_position.y = global_position.y + 20

@@ -1,6 +1,7 @@
 extends Node
 
 var randomCard = null
+var prevCard = null
 var restOfCards = []
 
 var weaponType = null

@@ -19,6 +19,7 @@ var stunned = false
 var concussed = false
 var recoveredFromConcussed = false
 
+@export var frictionFactor = 0.01
 @export var crouchSpeed = 0.5
 
 #two seperate collision boxes for different collision modes
@@ -120,17 +121,19 @@ func processControllerInput(delta: float) -> void:
 		else:
 			velocity.x = direction * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if Global.prevCard == "Last":
+			velocity.x = move_toward(velocity.x, 0, SPEED * frictionFactor)
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 
-
+	# Check if looking upwards BEFORE processAttackDirection() 
+	if Input.is_action_pressed("up" + str(controllerNumber)):
+		facingUpwards = true
+	else:
+		facingUpwards = false
 	
 	# Check for punch input (controller)
 	if Input.is_action_just_pressed("attack" + str(controllerNumber)):
-		# Check if looking upwards BEFORE processAttackDirection() 
-		if Input.is_action_pressed("up" + str(controllerNumber)):
-			facingUpwards = true
-		else:
-			facingUpwards = false
 		
 		if !punchCooldown:
 			punchCooldown = true
@@ -162,8 +165,11 @@ func processDirection() -> void:
 
 #process the correct sprite frame for each frame
 func playAnimation():
-
-	if isPunching:
+	if Global.weaponType == "Chicken":
+		$Chicken.visible = true
+	elif Global.weaponType == "Gun":
+		$Gun.visible = true
+	elif isPunching:
 		if facingUpwards:
 			characterStanding.visible = true
 			characterCrouching.visible = false
@@ -216,6 +222,10 @@ func playAnimation():
 			characterCrouching.visible = false
 			characterStanding.flip_h = true
 			characterStanding.frame = 0
+	if Global.weaponType != "Gun":
+		$Gun.visible = false
+	if Global.weaponType != "Chicken":
+		$Chicken.visible = false
 
 # Stun the player for an appropriate time
 func getStunned():
