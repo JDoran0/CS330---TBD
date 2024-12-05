@@ -1,35 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbh61d4ro1trx"]
+[gd_scene load_steps=5 format=3 uid="uid://cbh61d4ro1trx"]
 
 [ext_resource type="Script" path="res://Weapon--Chicken/ChickenScript.gd" id="1_ovddn"]
-[ext_resource type="Texture2D" uid="uid://baq6vpey2rpqx" path="res://GamePlay--Textures/New Piskel-1.png.png" id="2_nyh6i"]
+[ext_resource type="Texture2D" uid="uid://b8vahphy37saq" path="res://GamePlay--Textures/Rubber Chicken.png" id="2_hv3ex"]
 [ext_resource type="AudioStream" uid="uid://sthi33sv7nl4" path="res://Weapon--Chicken/RubberChicken.mp3" id="3_abso4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhrlk"]
 radius = 6.0
-height = 42.0
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_c0vgk"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_nyh6i")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+height = 46.0
 
 [node name="Chicken" type="Area2D"]
+texture_filter = 1
 script = ExtResource("1_ovddn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_bhrlk")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(9, 0)
-scale = Vector2(3.10417, 1.1)
-sprite_frames = SubResource("SpriteFrames_c0vgk")
 
 [node name="displayTimer" type="Timer" parent="."]
 wait_time = 0.25
@@ -41,6 +26,40 @@ one_shot = true
 [node name="RubberChicken" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_abso4")
 bus = &"SFX"
+
+[node name="RightHit" type="Sprite2D" parent="."]
+position = Vector2(30, 6)
+rotation = 1.5708
+scale = Vector2(0.0513607, 0.0747183)
+texture = ExtResource("2_hv3ex")
+
+[node name="LeftHit" type="Sprite2D" parent="."]
+position = Vector2(-30, 6)
+rotation = 4.71239
+scale = Vector2(0.0513607, 0.0747183)
+texture = ExtResource("2_hv3ex")
+
+[node name="CrouchRight" type="Sprite2D" parent="."]
+position = Vector2(60, 30)
+rotation = 1.5708
+scale = Vector2(0.04, 0.1)
+texture = ExtResource("2_hv3ex")
+
+[node name="CrouchLeft" type="Sprite2D" parent="."]
+position = Vector2(-60, 30)
+rotation = 4.71239
+scale = Vector2(0.04, 0.1)
+texture = ExtResource("2_hv3ex")
+
+[node name="UpLeft" type="Sprite2D" parent="."]
+position = Vector2(-20, 10)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_hv3ex")
+
+[node name="UpRight" type="Sprite2D" parent="."]
+position = Vector2(20, 10)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("2_hv3ex")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="displayTimer" to="." method="_on_display_timer_timeout"]
