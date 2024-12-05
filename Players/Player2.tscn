@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://4rdk1nsidjd3"]
+[gd_scene load_steps=25 format=3 uid="uid://4rdk1nsidjd3"]
 
 [ext_resource type="Script" path="res://Players/player_2Script.gd" id="1_ytmdn"]
 [ext_resource type="Texture2D" uid="uid://dyenrh1wik3y4" path="res://Animations/Running/CatStationary.png" id="2_j0nyn"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://df1jyc765t2vo" path="res://Animations/Punching/Uppercut/CatUp5.png" id="10_kkunk"]
 [ext_resource type="Texture2D" uid="uid://b3r7pk4iyqoxh" path="res://Animations/Punching/Uppercut/CatPunch.png" id="15_ht6v2"]
 [ext_resource type="Texture2D" uid="uid://dt1n8sosp5bmm" path="res://Animations/Punching/CatCrouchPunch.png" id="16_dlchd"]
+[ext_resource type="PackedScene" uid="uid://dky6x1k1yekcj" path="res://Weapon--Gun/Gun.tscn" id="20_jyb41"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w6np4"]
 animations = [{
@@ -156,6 +157,7 @@ sprite_frames = SubResource("SpriteFrames_sta13")
 animation = &"crouching"
 
 [node name="Fists" parent="." instance=ExtResource("2_wdvpg")]
+visible = false
 position = Vector2(21, 6)
 scale = Vector2(2, 2)
 
@@ -180,13 +182,14 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Chicken" parent="." instance=ExtResource("6_1ni57")]
-visible = false
 
 [node name="PunchTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
 
 [node name="PunchCooldownTimer" type="Timer" parent="."]
+
+[node name="Gun" parent="." instance=ExtResource("20_jyb41")]
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

@@ -177,6 +177,7 @@ disabled = true
 debug_color = Color(0.0279049, 0.56983, 0.843997, 0.42)
 
 [node name="Fists" parent="." instance=ExtResource("2_paj5y")]
+visible = false
 texture_filter = 1
 scale = Vector2(2, 2)
 
@@ -185,10 +186,8 @@ wait_time = 0.2
 one_shot = true
 
 [node name="Gun" parent="." instance=ExtResource("7_yl25e")]
-visible = false
 
 [node name="Chicken" parent="." instance=ExtResource("8_2rf0l")]
-visible = false
 
 [node name="ConcussedTimer" type="Timer" parent="."]
 wait_time = 3.0

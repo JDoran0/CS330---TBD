@@ -119,6 +119,7 @@ func _on_card_timer_timeout():
 	update_card_slot(card_texture)
 	
 	var randomIndex = randi() % Global.restOfCards.size()
+	Global.prevCard = Global.randomCard
 	Global.restOfCards.append(Global.randomCard)
 	Global.randomCard = Global.restOfCards[randomIndex]
 	Global.restOfCards.erase(Global.randomCard)
