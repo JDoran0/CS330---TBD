@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhsstipd2nvyc"]
+[gd_scene load_steps=16 format=3 uid="uid://bhsstipd2nvyc"]
 
 [ext_resource type="Script" path="res://GamePlay--MainGamePlayFolder/main_gamplay_scene.gd" id="1_kqk4g"]
 [ext_resource type="Texture2D" uid="uid://b1md8deagnp5f" path="res://GamePlay--Textures/FightingBackground.png" id="2_0bqpg"]
 [ext_resource type="PackedScene" uid="uid://ck0toy73fmu6o" path="res://GamePlay--MainGamePlayFolder/Boundary.tscn" id="3_oe6n8"]
+[ext_resource type="PackedScene" uid="uid://bfir3kq2fs12e" path="res://RoundsWonBlue.tscn" id="3_r5yhh"]
 [ext_resource type="PackedScene" uid="uid://cg6op4vou28hs" path="res://Players/player1HealthBar.tscn" id="4_7jxjn"]
+[ext_resource type="PackedScene" uid="uid://pe68xfkhp02m" path="res://RoundsWonRed.tscn" id="4_jg2qe"]
 [ext_resource type="PackedScene" uid="uid://cjuq3gkqfu4vn" path="res://Players/player2HealthBar.tscn" id="5_ycid5"]
 [ext_resource type="Texture2D" uid="uid://b7sr2sgvjj8xj" path="res://Card Selection Screen/Card Textures/None.png" id="6_bblna"]
 [ext_resource type="PackedScene" uid="uid://l7s43n45hpbf" path="res://Players/Player1.tscn" id="6_sso1s"]
@@ -12,17 +14,52 @@
 [ext_resource type="PackedScene" uid="uid://b2c18qo0c0mwl" path="res://GamePlay--menus/pauseMenu.tscn" id="9_ryris"]
 [ext_resource type="PackedScene" uid="uid://cmvl0maw0goru" path="res://GamePlay--MainGamePlayFolder/dynamic_camera.tscn" id="10_6xnnv"]
 
+[sub_resource type="SystemFont" id="SystemFont_06cqy"]
+font_weight = 999
+
+[sub_resource type="SystemFont" id="SystemFont_dul2d"]
+font_names = PackedStringArray("Cursive")
+font_italic = true
+font_weight = 675
+font_stretch = 50
+
 [node name="MainScene" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_kqk4g")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
 [node name="backGround" type="TextureRect" parent="CanvasLayer"]
-texture_filter = 2
+texture_filter = 1
 offset_right = 1151.0
 offset_bottom = 645.0
 texture = ExtResource("2_0bqpg")
+
+[node name="NumRoundWonBlue" parent="CanvasLayer" instance=ExtResource("3_r5yhh")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = -226.0
+offset_top = 55.0
+offset_right = -226.0
+offset_bottom = 55.0
+grow_vertical = 1
+scale = Vector2(1.5, 1.5)
+pivot_offset = Vector2(0.5, 0.5)
+
+[node name="NumRoundWonRed" parent="CanvasLayer" instance=ExtResource("4_jg2qe")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+offset_left = 154.0
+offset_top = 55.0
+offset_right = 154.0
+offset_bottom = 55.0
+grow_vertical = 1
+scale = Vector2(1.5, 1.5)
 
 [node name="Player1HB" parent="CanvasLayer" instance=ExtResource("4_7jxjn")]
 offset_left = -20.0
@@ -59,16 +96,51 @@ offset_bottom = 894.0
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("6_bblna")
 
+[node name="MatchStartText" type="RichTextLabel" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+theme_override_fonts/normal_font = SubResource("SystemFont_06cqy")
+bbcode_enabled = true
+text = "[center]3"
+
+[node name="GameTimerVisual" type="RichTextLabel" parent="CanvasLayer"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 110.0
+offset_right = 20.0
+offset_bottom = 150.0
+grow_horizontal = 2
+scale = Vector2(2, 2)
+theme_override_fonts/normal_font = SubResource("SystemFont_dul2d")
+bbcode_enabled = true
+text = "[center]99"
+
 [node name="Node2D" parent="." instance=ExtResource("3_oe6n8")]
 visible = false
 position = Vector2(-89, 76)
 
 [node name="Player1" parent="." instance=ExtResource("6_sso1s")]
+process_mode = 1
 position = Vector2(256, 456)
 
 [node name="PlayingField" parent="." instance=ExtResource("7_dmx44")]
 
 [node name="Player2" parent="." instance=ExtResource("8_oudd7")]
+process_mode = 1
 position = Vector2(799, 447)
 
 [node name="Bullets" type="Node2D" parent="."]
@@ -76,5 +148,16 @@ position = Vector2(799, 447)
 [node name="dynamicCamera" parent="." instance=ExtResource("10_6xnnv")]
 
 [node name="CardTimer" type="Timer" parent="."]
+process_mode = 1
+
+[node name="GameTimer" type="Timer" parent="."]
+process_mode = 1
+wait_time = 30.0
+one_shot = true
+
+[node name="MatchStartTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="timeout" from="CardTimer" to="." method="_on_card_timer_timeout"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
+[connection signal="timeout" from="MatchStartTimer" to="." method="_on_match_start_timer_timeout"]

@@ -16,18 +16,17 @@ grow_vertical = 2
 script = ExtResource("1_1g37f")
 
 [node name="Empty" type="Sprite2D" parent="."]
+process_mode = 3
 position = Vector2(25, 12.5)
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("2_6jsnp")
 
 [node name="Half" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(25, 12.5)
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("3_y7lhu")
 
 [node name="Full" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(25, 12.5)
 scale = Vector2(3.5, 3.5)
 texture = ExtResource("4_mkp4i")

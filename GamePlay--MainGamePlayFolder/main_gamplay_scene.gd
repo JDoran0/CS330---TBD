@@ -5,9 +5,16 @@ const GAMEPLAY_SCENE = "res://GamePlay--menus/MainGameplayScene.tscn"
 const PLUSHIE_SPAWNER_SCENE = "res://MapMod--Bear/plushie_spawner.tscn"
 const METEOR_SPAWNER_SCENE = "res://MapMod--Meteors/Meteor_spawner.tscn"
 
+@onready var player1 = $Player1
+@onready var player2 = $Player2
+var winsP1 = 0
+var winsP2 = 0
+
 static var controllerCount = 0
 var ControllerNegativeDeadzone = -0.09
 var ControllerPositiveDeadzone = 0.09
+var P2spawn = Vector2(799, 447)
+var P1spawn = Vector2(256, 456)
 
 var playedOnce = false
 
@@ -15,6 +22,8 @@ var playedOnce = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MatchStartTimer()
+	$GameTimer.start()
 	controllerCount = 0
 	Global.DAMAGE_PER_HIT = 10
 	Global.weaponType = null
@@ -22,6 +31,8 @@ func _ready():
 	$CardTimer.wait_time = randi_range(5, 10)
 	print("Timer set for:", $CardTimer.wait_time, "seconds")
 	$CardTimer.start()
+	
+	$CanvasLayer/MatchStartText.visible = false
 	
 	var card_texture = preload("res://Card Selection Screen/Card Textures/None.png")
 	update_card_slot(card_texture)
@@ -31,6 +42,70 @@ func _process(_delta):
 		playedOnce = true
 	if get_tree().current_scene == preload(MAIN_MENU_SCENE):
 		controllerCount = 0
+		
+	$CanvasLayer/MatchStartText.text = str(round($MatchStartTimer.time_left))
+	
+	$CanvasLayer/GameTimerVisual.text = str(round($GameTimer.time_left))
+	
+	if winsP1  >= 3 or winsP2 >= 3:
+		get_tree().change_scene_to_file("res://GamePlay--menus/game_over.tscn")
+		
+	checkPlayerHealth()
+
+func checkPlayerHealth():
+	if $GameTimer.time_left == 0:
+		if player1.health > player2.health:
+			winsP1 += 1
+			MatchStartTimer()
+			$GameTimer.start()
+			$CanvasLayer/NumRoundWonBlue.IncreaseRoundsWonBlue()
+			ResetCharacters()
+			
+		elif player2.health > player1.health:
+			winsP2 += 1
+			MatchStartTimer()
+			$GameTimer.start()
+			$CanvasLayer/NumRoundWonRed.IncreaseRoundsWonRed()
+			ResetCharacters()
+			
+		else:
+			winsP2 += 1
+			winsP1 += 1
+			MatchStartTimer()
+			$GameTimer.start()
+			$CanvasLayer/NumRoundWonRed.IncreaseRoundsWonRed()
+			$CanvasLayer/NumRoundWonBlue.IncreaseRoundsWonBlue()
+			ResetCharacters()
+			
+	if player1.health <= 0:
+			winsP2 += 1
+			MatchStartTimer()
+			$GameTimer.start()
+			$CanvasLayer/NumRoundWonRed.IncreaseRoundsWonRed()
+			ResetCharacters()
+			
+	if player2.health <= 0:
+		winsP1 += 1
+		MatchStartTimer()
+		$GameTimer.start()
+		$CanvasLayer/NumRoundWonBlue.IncreaseRoundsWonBlue()
+		ResetCharacters()
+
+func MatchStartTimer():
+	$CanvasLayer/MatchStartText.visible = true
+	get_tree().paused = true
+	$MatchStartTimer.start()
+	
+
+func ResetCharacters():
+		player2.health = 100
+		player1.health = 100
+		player2.position = P2spawn
+		player1.position = P1spawn
+
+func _on_game_timer_timeout() -> void:
+	$GameTimer.stop()
+	checkPlayerHealth()
 
 #Assigns a controller to the player who calls this
 #Assigns -1 to player 1 if they are a keyboard player (only 1 controller connected)
@@ -141,3 +216,10 @@ func stop_meteor_timer():
 		
 func update_card_slot(card_texture: Texture):
 	card_icon.texture = card_texture
+
+
+func _on_match_start_timer_timeout() -> void:
+	$CanvasLayer/MatchStartText.visible = false
+	$MatchStartTimer.stop()
+	get_tree().paused = false
+	
