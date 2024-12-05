@@ -262,14 +262,20 @@ layout_mode = 2
 alignment = 1
 
 [node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
+process_mode = 3
+visible = false
 layout_mode = 2
 text = "Resume"
 
 [node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
+process_mode = 3
+visible = false
 layout_mode = 2
 text = "Restart"
 
 [node name="mainMenu" type="Button" parent="PanelContainer/VBoxContainer"]
+process_mode = 3
+visible = false
 layout_mode = 2
 text = "Main Menu"
 
@@ -280,6 +286,6 @@ libraries = {
 }
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Restart" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/mainMenu" to="." method="_on_main_menu_pressed"]
