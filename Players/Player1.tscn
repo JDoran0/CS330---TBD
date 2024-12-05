@@ -186,6 +186,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="Gun" parent="." instance=ExtResource("7_yl25e")]
+visible = false
 
 [node name="Chicken" parent="." instance=ExtResource("8_2rf0l")]
 

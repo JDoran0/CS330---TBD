@@ -190,6 +190,7 @@ one_shot = true
 [node name="PunchCooldownTimer" type="Timer" parent="."]
 
 [node name="Gun" parent="." instance=ExtResource("20_jyb41")]
+visible = false
 
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
