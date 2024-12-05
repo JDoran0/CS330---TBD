@@ -41,9 +41,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
-offset_left = -226.0
+offset_left = -216.0
 offset_top = 55.0
-offset_right = -226.0
+offset_right = -216.0
 offset_bottom = 55.0
 grow_vertical = 1
 scale = Vector2(1.5, 1.5)
@@ -54,9 +54,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.0
-offset_left = 154.0
+offset_left = 144.0
 offset_top = 55.0
-offset_right = 154.0
+offset_right = 144.0
 offset_bottom = 55.0
 grow_vertical = 1
 scale = Vector2(1.5, 1.5)
@@ -80,6 +80,7 @@ grow_horizontal = 1
 pivot_offset = Vector2(5, -5)
 
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ryris")]
+z_index = 1
 
 [node name="CardSlot" type="Control" parent="CanvasLayer"]
 layout_mode = 3
