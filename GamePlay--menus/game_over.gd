@@ -3,20 +3,6 @@ extends Control
 #NOTE: May need to add a way to save the previous match's properties 
 # and then transfer it over to here.
 
-# Start same game
-#func _ready() -> void:
-#	$Blue.visible = false
-#	$Red.visible = false
-#	
-#func _process(delta: float) -> void:
-#	if RoundsWonRed.CheckWin():
-#		$Blue.visible = false
-#		$Red.visible = true
-#	else:
-#		$Blue.visible = true
-#		$Red.visible = false
-
-
 func _on_re_match_pressed() -> void:
 	MenuClick.play()
 	get_tree().change_scene_to_file("res://GamePlay--MainGamePlayFolder/MainGamplayScene.tscn")

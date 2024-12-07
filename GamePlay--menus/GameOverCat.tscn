@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ck1fh5i6qvcly"]
+[gd_scene load_steps=4 format=3 uid="uid://qbxdpk0niukd"]
 
-[ext_resource type="Script" path="res://GamePlay--menus/game_over.gd" id="1_nvu8h"]
-[ext_resource type="Texture2D" uid="uid://bbbpujj14jmph" path="res://GamePlay--Textures/MatchOverBlue.png" id="2_y4jss"]
-[ext_resource type="Texture2D" uid="uid://cgy5lvpbfw4lo" path="res://GamePlay--Textures/MatchOverRed.png" id="3_4yfbh"]
+[ext_resource type="Script" path="res://GamePlay--menus/game_over.gd" id="1_6xgyo"]
+[ext_resource type="Texture2D" uid="uid://cgy5lvpbfw4lo" path="res://GamePlay--Textures/MatchOverRed.png" id="2_3kvj5"]
+[ext_resource type="Texture2D" uid="uid://bbbpujj14jmph" path="res://GamePlay--Textures/MatchOverBlue.png" id="3_6wg23"]
 
 [node name="gameOver" type="Control"]
 process_mode = 3
@@ -12,10 +12,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nvu8h")
+script = ExtResource("1_6xgyo")
 
 [node name="Red" type="TextureRect" parent="."]
-visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 15
@@ -23,7 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_4yfbh")
+texture = ExtResource("2_3kvj5")
 stretch_mode = 6
 
 [node name="Blue" type="TextureRect" parent="."]
@@ -35,20 +34,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_y4jss")
+texture = ExtResource("3_6wg23")
 stretch_mode = 6
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -90.0
-offset_right = 90.0
-offset_bottom = 60.0
-grow_horizontal = 2
-bbcode_enabled = true
-text = "[center] Match Over [/center]"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -57,10 +44,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -88.0
-offset_top = -50.5
-offset_right = 88.0
-offset_bottom = 50.5
+offset_left = -452.0
+offset_top = -202.5
+offset_right = -276.0
+offset_bottom = -101.5
 grow_horizontal = 2
 grow_vertical = 2
 

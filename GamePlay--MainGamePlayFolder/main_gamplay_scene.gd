@@ -13,8 +13,8 @@ var winsP2 = 0
 static var controllerCount = 0
 var ControllerNegativeDeadzone = -0.09
 var ControllerPositiveDeadzone = 0.09
-var P2spawn = Vector2(799, 447)
-var P1spawn = Vector2(256, 456)
+var P2spawn = Vector2(790, 465)
+var P1spawn = Vector2(353, 465)
 
 var playedOnce = false
 
@@ -47,56 +47,92 @@ func _process(_delta):
 	
 	$CanvasLayer/GameTimerVisual.text = str(round($GameTimer.time_left))
 	
-	if winsP1  >= 3 or winsP2 >= 3:
-		get_tree().change_scene_to_file("res://GamePlay--menus/game_over.tscn")
+	#check winner
+	if winsP1  >= 3:
+		get_tree().change_scene_to_file("res://GamePlay--menus/GameOverDog.tscn")
+	elif winsP2 >= 3:
+		get_tree().change_scene_to_file("res://GamePlay--menus/GameOverCat.tscn")
 		
 	checkPlayerHealth()
 
+
 func checkPlayerHealth():
+	#if round is over due to time
 	if $GameTimer.time_left == 0:
+		#player 1 wins
 		if player1.health > player2.health:
 			winsP1 += 1
-			MatchStartTimer()
+			
 			$GameTimer.start()
 			$CanvasLayer/NumRoundWonBlue.IncreaseRoundsWonBlue()
 			ResetCharacters()
 			
+			$CanvasLayer/RoundsManager.IncreaseLeft()
+			await $CanvasLayer/RoundsManager.finishedAnimation
+			
+			MatchStartTimer()
+			
+		#player 2 wins
 		elif player2.health > player1.health:
 			winsP2 += 1
-			MatchStartTimer()
+			
 			$GameTimer.start()
 			$CanvasLayer/NumRoundWonRed.IncreaseRoundsWonRed()
 			ResetCharacters()
 			
+			$CanvasLayer/RoundsManager.IncreaseRight()
+			await $CanvasLayer/RoundsManager.finishedAnimation
+			
+			MatchStartTimer()
+		#draw
 		else:
 			winsP2 += 1
 			winsP1 += 1
-			MatchStartTimer()
+			
 			$GameTimer.start()
 			$CanvasLayer/NumRoundWonRed.IncreaseRoundsWonRed()
 			$CanvasLayer/NumRoundWonBlue.IncreaseRoundsWonBlue()
 			ResetCharacters()
 			
-	if player1.health <= 0:
-			winsP2 += 1
-			MatchStartTimer()
-			$GameTimer.start()
-			$CanvasLayer/NumRoundWonRed.IncreaseRoundsWonRed()
-			ResetCharacters()
+			$CanvasLayer/RoundsManager.IncreaseRight()
+			$CanvasLayer/RoundsManager.IncreaseLeft()
+			await $CanvasLayer/RoundsManager.finishedAnimation
 			
-	if player2.health <= 0:
-		winsP1 += 1
+			MatchStartTimer()
+		
+	#player 2 wins
+	if player1.health <= 0:
+		
+		winsP2 += 1
+		$GameTimer.start()
+		$CanvasLayer/NumRoundWonRed.IncreaseRoundsWonRed()
+		ResetCharacters()
+		
+		$CanvasLayer/RoundsManager.IncreaseRight()
+		await $CanvasLayer/RoundsManager.finishedAnimation
+		
 		MatchStartTimer()
+		
+	#player 1 wins
+	if player2.health <= 0:
+
+		winsP1 += 1
 		$GameTimer.start()
 		$CanvasLayer/NumRoundWonBlue.IncreaseRoundsWonBlue()
 		ResetCharacters()
+		
+		$CanvasLayer/RoundsManager.IncreaseLeft()
+		await $CanvasLayer/RoundsManager.finishedAnimation
+		
+		MatchStartTimer()
 
+#count down 3 seconds before Match starts
 func MatchStartTimer():
 	$CanvasLayer/MatchStartText.visible = true
-	get_tree().paused = true
 	$MatchStartTimer.start()
+	get_tree().paused = true
 	
-
+#send characters to spawn points
 func ResetCharacters():
 		player2.health = 100
 		player1.health = 100
@@ -105,6 +141,7 @@ func ResetCharacters():
 		player1.velocity = Vector2(0, 0)
 		player2.velocity = Vector2(0, 0)
 
+#when the time has run out in the round
 func _on_game_timer_timeout() -> void:
 	$GameTimer.stop()
 	checkPlayerHealth()
@@ -160,6 +197,7 @@ func last():
 	print("Running the Last")
 
 func _on_card_timer_timeout():
+	WeaponSwap.play()
 	
 	_cleanup_plushies()
 	stop_meteor_timer()
@@ -220,7 +258,7 @@ func stop_meteor_timer():
 func update_card_slot(card_texture: Texture):
 	card_icon.texture = card_texture
 
-
+#when the ready up timer starts
 func _on_match_start_timer_timeout() -> void:
 	$CanvasLayer/MatchStartText.visible = false
 	$MatchStartTimer.stop()

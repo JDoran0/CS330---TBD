@@ -21,8 +21,7 @@ MenuBack="*res://GamePlay--soundsAndMusic/menu_back.tscn"
 MenuMusic="*res://GamePlay--soundsAndMusic/menuMusic.tscn"
 ConcussedEffect="*res://Weapon--Chicken/Concussed_effect.tscn"
 Global="*res://global.gd"
-RoundsWonRed="*res://RoundsWonRed.tscn"
-RoundsWonBlue="*res://RoundsWonBlue.tscn"
+WeaponSwap="*res://GamePlay--soundsAndMusic/WeaponSwap.tscn"
 
 [display]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bhsstipd2nvyc"]
+[gd_scene load_steps=17 format=3 uid="uid://bhsstipd2nvyc"]
 
 [ext_resource type="Script" path="res://GamePlay--MainGamePlayFolder/main_gamplay_scene.gd" id="1_kqk4g"]
 [ext_resource type="Texture2D" uid="uid://b1md8deagnp5f" path="res://GamePlay--Textures/FightingBackground.png" id="2_0bqpg"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://l7s43n45hpbf" path="res://Players/Player1.tscn" id="6_sso1s"]
 [ext_resource type="PackedScene" uid="uid://b7722o05au1wy" path="res://GamePlay--MainGamePlayFolder/playingField.tscn" id="7_dmx44"]
 [ext_resource type="PackedScene" uid="uid://4rdk1nsidjd3" path="res://Players/Player2.tscn" id="8_oudd7"]
+[ext_resource type="PackedScene" uid="uid://bs7t6inbqor8a" path="res://RoundsCounter.tscn" id="9_oppec"]
 [ext_resource type="PackedScene" uid="uid://b2c18qo0c0mwl" path="res://GamePlay--menus/pauseMenu.tscn" id="9_ryris"]
 [ext_resource type="PackedScene" uid="uid://cmvl0maw0goru" path="res://GamePlay--MainGamePlayFolder/dynamic_camera.tscn" id="10_6xnnv"]
 
@@ -79,8 +80,17 @@ offset_bottom = -7.0
 grow_horizontal = 1
 pivot_offset = Vector2(5, -5)
 
+[node name="RoundsManager" parent="CanvasLayer" instance=ExtResource("9_oppec")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(5, 5)
+
 [node name="pauseMenu" parent="CanvasLayer" instance=ExtResource("9_ryris")]
 z_index = 1
+z_as_relative = false
 
 [node name="CardSlot" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -98,6 +108,7 @@ scale = Vector2(0.08, 0.08)
 texture = ExtResource("6_bblna")
 
 [node name="MatchStartText" type="RichTextLabel" parent="CanvasLayer"]
+visible = false
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -116,6 +127,7 @@ bbcode_enabled = true
 text = "[center]3"
 
 [node name="GameTimerVisual" type="RichTextLabel" parent="CanvasLayer"]
+visible = false
 texture_filter = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -136,13 +148,13 @@ position = Vector2(-89, 76)
 
 [node name="Player1" parent="." instance=ExtResource("6_sso1s")]
 process_mode = 1
-position = Vector2(256, 456)
+position = Vector2(353, 465)
 
 [node name="PlayingField" parent="." instance=ExtResource("7_dmx44")]
 
 [node name="Player2" parent="." instance=ExtResource("8_oudd7")]
 process_mode = 1
-position = Vector2(799, 447)
+position = Vector2(790, 465)
 
 [node name="Bullets" type="Node2D" parent="."]
 
@@ -152,12 +164,11 @@ position = Vector2(799, 447)
 process_mode = 1
 
 [node name="GameTimer" type="Timer" parent="."]
-process_mode = 1
 wait_time = 30.0
 one_shot = true
 
 [node name="MatchStartTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 
 [connection signal="timeout" from="CardTimer" to="." method="_on_card_timer_timeout"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]

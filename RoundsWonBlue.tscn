@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bfir3kq2fs12e"]
 
-[ext_resource type="Script" path="res://control.gd" id="1_1g37f"]
+[ext_resource type="Script" path="res://BlueRoundsScript.gd" id="1_1g37f"]
 [ext_resource type="Texture2D" uid="uid://dqhls5r0175h8" path="res://GamePlay--Textures/StatusCheckersBlue-Empty.png" id="2_6jsnp"]
 [ext_resource type="Texture2D" uid="uid://pfiihkfe1gcq" path="res://GamePlay--Textures/StatusCheckersBlue-Half.png" id="3_y7lhu"]
 [ext_resource type="Texture2D" uid="uid://xbbbqymkiiug" path="res://GamePlay--Textures/StatusCheckersBlue-Full.png" id="4_mkp4i"]
