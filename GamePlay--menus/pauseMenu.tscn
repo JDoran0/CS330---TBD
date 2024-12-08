@@ -1,7 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2c18qo0c0mwl"]
+[gd_scene load_steps=13 format=3 uid="uid://b2c18qo0c0mwl"]
 
 [ext_resource type="Script" path="res://GamePlay--menus/pause_menu.gd" id="1_xkwae"]
 [ext_resource type="Shader" path="res://GamePlay--menus/pauseMenu.gdshader" id="2_ojue4"]
+[ext_resource type="Texture2D" uid="uid://caihopt5urrsr" path="res://GamePlay--Textures/ButtonResume.png" id="3_0b765"]
+[ext_resource type="Texture2D" uid="uid://urq0j1mtoj6s" path="res://GamePlay--Textures/ButtonResumePressed.png" id="4_2fr4p"]
+[ext_resource type="Texture2D" uid="uid://y4qo4hkf7ob1" path="res://GamePlay--Textures/ButtonRematch.png" id="5_fgkb8"]
+[ext_resource type="Texture2D" uid="uid://bpyh2503peg04" path="res://GamePlay--Textures/ButtonRematchPressed.png" id="6_7823d"]
+[ext_resource type="Texture2D" uid="uid://dt2ygpi6pygik" path="res://GamePlay--Textures/ButtonExit.png" id="7_b3jt0"]
+[ext_resource type="Texture2D" uid="uid://bh45ul2weo7wu" path="res://GamePlay--Textures/ButtonExitPressed.png" id="8_3eluy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iifwj"]
 shader = ExtResource("2_ojue4")
@@ -64,50 +70,6 @@ tracks/4/keys = {
 "points": PackedFloat32Array(1, -0.15, 0, 0.15, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../../../RichTextLabel:modulate:r")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/6/type = "bezier"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../../../RichTextLabel:modulate:g")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/7/type = "bezier"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("../../../RichTextLabel:modulate:b")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/8/type = "bezier"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../../../RichTextLabel:modulate:a")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="Animation" id="Animation_vb1kq"]
 resource_name = "blur"
@@ -167,50 +129,6 @@ tracks/4/keys = {
 "points": PackedFloat32Array(0, -0.15, 0, 0.15, 0, 1, -0.15, 0, 0.15, 0),
 "times": PackedFloat32Array(0, 0.3)
 }
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../../../RichTextLabel:modulate:r")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 1, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/6/type = "bezier"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("../../../RichTextLabel:modulate:g")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 1, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/7/type = "bezier"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("../../../RichTextLabel:modulate:b")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, -0.15, 0, 0.15, 0, 1, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
-tracks/8/type = "bezier"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../../../RichTextLabel:modulate:a")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(0, -0.15, 0, 0.15, 0, 1, -0.15, 0, 0.15, 0),
-"times": PackedFloat32Array(0, 0.3)
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kyse5"]
 _data = {
@@ -238,21 +156,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -90.0
-offset_right = 90.0
-offset_bottom = 60.0
-grow_horizontal = 2
-bbcode_enabled = true
-text = "[center] PAUSED [/center]"
-
 [node name="PanelContainer" type="PanelContainer" parent="."]
 process_mode = 3
+self_modulate = Color(1, 1, 1, 0)
+top_level = true
 z_index = 1
+texture_filter = 1
 layout_mode = 2
 offset_left = 528.0
 offset_top = 254.0
@@ -263,20 +172,23 @@ offset_bottom = 254.0
 layout_mode = 2
 alignment = 1
 
-[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Resume" type="TextureButton" parent="PanelContainer/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-text = "Resume"
+texture_normal = ExtResource("3_0b765")
+texture_hover = ExtResource("4_2fr4p")
 
-[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Restart" type="TextureButton" parent="PanelContainer/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-text = "Restart"
+texture_normal = ExtResource("5_fgkb8")
+texture_hover = ExtResource("6_7823d")
 
-[node name="mainMenu" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="mainMenu" type="TextureButton" parent="PanelContainer/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
-text = "Main Menu"
+texture_normal = ExtResource("7_b3jt0")
+texture_hover = ExtResource("8_3eluy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 process_mode = 3

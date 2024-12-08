@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://qbxdpk0niukd"]
+[gd_scene load_steps=10 format=3 uid="uid://qbxdpk0niukd"]
 
 [ext_resource type="Script" path="res://GamePlay--menus/game_over.gd" id="1_6xgyo"]
 [ext_resource type="Texture2D" uid="uid://cgy5lvpbfw4lo" path="res://GamePlay--Textures/MatchOverRed.png" id="2_3kvj5"]
 [ext_resource type="Texture2D" uid="uid://bbbpujj14jmph" path="res://GamePlay--Textures/MatchOverBlue.png" id="3_6wg23"]
+[ext_resource type="Texture2D" uid="uid://y4qo4hkf7ob1" path="res://GamePlay--Textures/ButtonRematch.png" id="4_vbo76"]
+[ext_resource type="Texture2D" uid="uid://bpyh2503peg04" path="res://GamePlay--Textures/ButtonRematchPressed.png" id="5_hnub0"]
+[ext_resource type="Texture2D" uid="uid://bkxmvbjyfq0xw" path="res://GamePlay--Textures/ButtonNewMatch.png" id="6_44yh5"]
+[ext_resource type="Texture2D" uid="uid://bffrnagafdnp6" path="res://GamePlay--Textures/ButtonNewMatchPressed.png" id="7_x77rh"]
+[ext_resource type="Texture2D" uid="uid://dt2ygpi6pygik" path="res://GamePlay--Textures/ButtonExit.png" id="8_xrpiu"]
+[ext_resource type="Texture2D" uid="uid://bh45ul2weo7wu" path="res://GamePlay--Textures/ButtonExitPressed.png" id="9_ophig"]
 
 [node name="gameOver" type="Control"]
 process_mode = 3
@@ -38,32 +44,35 @@ texture = ExtResource("3_6wg23")
 stretch_mode = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -452.0
-offset_top = -202.5
-offset_right = -276.0
-offset_bottom = -101.5
+offset_left = -493.0
+offset_top = -235.0
+offset_right = -386.0
+offset_bottom = -116.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 
-[node name="reMatch" type="Button" parent="VBoxContainer"]
+[node name="reMatch" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "Rematch
-"
+texture_normal = ExtResource("4_vbo76")
+texture_hover = ExtResource("5_hnub0")
 
-[node name="newMatch" type="Button" parent="VBoxContainer"]
+[node name="newMatch" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "New Match
-"
+texture_normal = ExtResource("6_44yh5")
+texture_hover = ExtResource("7_x77rh")
 
-[node name="returnToMenu" type="Button" parent="VBoxContainer"]
+[node name="returnToMenu" type="TextureButton" parent="VBoxContainer"]
 layout_mode = 2
-text = "Return To Main Menu"
+texture_normal = ExtResource("8_xrpiu")
+texture_hover = ExtResource("9_ophig")
 
 [connection signal="pressed" from="VBoxContainer/reMatch" to="." method="_on_re_match_pressed"]
 [connection signal="pressed" from="VBoxContainer/newMatch" to="." method="_on_new_match_pressed"]
