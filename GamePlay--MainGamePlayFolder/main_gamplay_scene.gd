@@ -25,11 +25,10 @@ func _ready():
 	
 	#Timer that plays before each round starts
 	MatchStartTimer()
-	$CanvasLayer/MatchStartText.visible = false
+	$CanvasLayer/MatchStartText.visible = true
 	
 	#Timer to play throughout each round
 	$GameTimer.start()
-	
 	
 	controllerCount = 0
 	Global.DAMAGE_PER_HIT = 10

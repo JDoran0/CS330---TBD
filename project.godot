@@ -22,6 +22,7 @@ MenuMusic="*res://GamePlay--soundsAndMusic/menuMusic.tscn"
 ConcussedEffect="*res://Weapon--Chicken/Concussed_effect.tscn"
 Global="*res://global.gd"
 WeaponSwap="*res://GamePlay--soundsAndMusic/WeaponSwap.tscn"
+Punch="*res://Punch.tscn"
 
 [display]
 

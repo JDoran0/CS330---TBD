@@ -24,11 +24,14 @@
 [sub_resource type="SpriteFrames" id="SpriteFrames_w6np4"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 0.5,
 "texture": ExtResource("6_8dfqa")
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_fj2hk")
+}, {
+"duration": 0.5,
+"texture": ExtResource("6_8dfqa")
 }, {
 "duration": 1.0,
 "texture": ExtResource("15_ht6v2")
@@ -44,7 +47,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_yv2vn")
 }, {
-"duration": 1.5,
+"duration": 2.0,
 "texture": ExtResource("4_wnlbh")
 }, {
 "duration": 1.0,
@@ -145,7 +148,7 @@ texture_filter = 1
 position = Vector2(-10, 5)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_w6np4")
-animation = &"movingRight"
+animation = &"Stun"
 speed_scale = 5.0
 
 [node name="Character(crouching)" type="AnimatedSprite2D" parent="."]

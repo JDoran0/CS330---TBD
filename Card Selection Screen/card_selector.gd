@@ -13,6 +13,7 @@ var lastArea = false
 var contArea = false
 
 func _ready() -> void:
+	$ContinueButton/CardBegin.modulate = Color(1.0, 1.0, 1.0, 0.5)
 	var cursor_scene = load(CURSOR)
 	var cursor = cursor_scene.instantiate()
 	cursor.player_id = 0
@@ -20,6 +21,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if startingLineup.size() == 4:
+		$ContinueButton/CardBegin.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	else:
+		$ContinueButton/CardBegin.modulate = Color(1.0, 1.0, 1.0, 0.5)
+	
 	if Input.is_action_just_pressed("attack0"):
 		if chickArea:
 			if chickenActive == false and startingLineup.size() >= 4:

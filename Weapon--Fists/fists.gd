@@ -46,6 +46,7 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
+			Punch.play()
 			var knockback_direction = (global_position - body.global_position).normalized()
 			var velocity = knockback_direction * Global.DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
 			body.velocity = velocity * -1.25
