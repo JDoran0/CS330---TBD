@@ -46,6 +46,7 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Player"):
 		# Only apply punch if they are not the owner of the fists
 		if get_parent().name != body.name:
+			PunchWhiff.stop()
 			Punch.play()
 			var knockback_direction = (global_position - body.global_position).normalized()
 			var velocity = knockback_direction * Global.DAMAGE_PER_HIT * KNOCKBACK_MODIFIER
@@ -68,6 +69,7 @@ func _on_body_entered(body: Node) -> void:
 # displayTimer temp shows punch animation & allows collision
 func attack() -> void:
 	if canAttack:
+		PunchWhiff.play()
 		## part 1
 		var yPos
 		if get_parent().crouching == true:

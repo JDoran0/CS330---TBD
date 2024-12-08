@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://k11q4v8gjq73"]
+
+[ext_resource type="AudioStream" uid="uid://ck0mcscerpi8c" path="res://Weapon--Gun/GunFire.mp3" id="1_8684j"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_8684j")
+volume_db = -10.0
+pitch_scale = 1.54
+bus = &"SFX"

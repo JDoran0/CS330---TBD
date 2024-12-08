@@ -93,6 +93,7 @@ func _on_body_entered(body: Node) -> void:
 			DamageToDeal *= 1.5
 			
 			#play the rubber chicken noise
+			$Whiff.stop()
 			chickenSound.play()
 			
 			#Reverse the players controls as well as create a flash on the screen
@@ -115,6 +116,7 @@ func _on_body_entered(body: Node) -> void:
 func attack() -> void:
 	
 	if canAttack:
+		$Whiff.play()
 		## part 1
 		var yPos
 		if get_parent().crouching == true:

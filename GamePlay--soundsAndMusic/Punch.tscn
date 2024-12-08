@@ -4,3 +4,5 @@
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
 stream = ExtResource("1_qsw3e")
+pitch_scale = 0.71
+bus = &"SFX"
