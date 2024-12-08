@@ -22,8 +22,15 @@ var playedOnce = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	#Timer that plays before each round starts
 	MatchStartTimer()
+	$CanvasLayer/MatchStartText.visible = false
+	
+	#Timer to play throughout each round
 	$GameTimer.start()
+	
+	
 	controllerCount = 0
 	Global.DAMAGE_PER_HIT = 10
 	Global.weaponType = null
@@ -32,7 +39,6 @@ func _ready():
 	print("Timer set for:", $CardTimer.wait_time, "seconds")
 	$CardTimer.start()
 	
-	$CanvasLayer/MatchStartText.visible = false
 	
 	var card_texture = preload("res://Card Selection Screen/Card Textures/None.png")
 	update_card_slot(card_texture)
@@ -43,8 +49,8 @@ func _process(_delta):
 	if get_tree().current_scene == preload(MAIN_MENU_SCENE):
 		controllerCount = 0
 		
+	#display the two timers appropriately
 	$CanvasLayer/MatchStartText.text = str(round($MatchStartTimer.time_left))
-	
 	$CanvasLayer/GameTimerVisual.text = str(round($GameTimer.time_left))
 	
 	#check winner
@@ -55,10 +61,12 @@ func _process(_delta):
 		
 	checkPlayerHealth()
 
-
+#checking for which player died or which player has the most health by the end of the round
 func checkPlayerHealth():
+	
 	#if round is over due to time
 	if $GameTimer.time_left == 0:
+		
 		#player 1 wins
 		if player1.health > player2.health:
 			winsP1 += 1
@@ -84,6 +92,7 @@ func checkPlayerHealth():
 			await $CanvasLayer/RoundsManager.finishedAnimation
 			
 			MatchStartTimer()
+		
 		#draw
 		else:
 			winsP2 += 1
@@ -126,7 +135,7 @@ func checkPlayerHealth():
 		
 		MatchStartTimer()
 
-#count down 3 seconds before Match starts
+#count down num seconds before Match starts
 func MatchStartTimer():
 	$CanvasLayer/MatchStartText.visible = true
 	$MatchStartTimer.start()
@@ -239,6 +248,7 @@ func _on_card_timer_timeout():
 	Global.randomCard = Global.restOfCards[randomIndex]
 	Global.restOfCards.erase(Global.randomCard)
 	
+#remove all the plushies from the screen
 func _cleanup_plushies():
 	var plushies = get_tree().get_nodes_in_group("Plushie")
 	for plush in plushies:
@@ -246,6 +256,7 @@ func _cleanup_plushies():
 			plush.queue_free()
 	print("All plushies removed.")
 
+#stop meteors from spawning
 func stop_meteor_timer():
 	if meteor_spawner_instance and meteor_spawner_instance.has_node("MeteorTimer"):
 		meteor_spawner_instance.get_node("MeteorTimer").stop()
@@ -255,8 +266,11 @@ func stop_meteor_timer():
 	else:
 		print("No meteor spawner instance or timer not found.")
 		
+
+#update the card visual
 func update_card_slot(card_texture: Texture):
 	card_icon.texture = card_texture
+
 
 #when the ready up timer starts
 func _on_match_start_timer_timeout() -> void:

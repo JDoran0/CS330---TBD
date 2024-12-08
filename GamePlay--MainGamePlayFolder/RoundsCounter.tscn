@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bs7t6inbqor8a"]
 
-[ext_resource type="Script" path="res://roundsCounterScript.gd" id="1_it0g2"]
+[ext_resource type="Script" path="res://GamePlay--MainGamePlayFolder/roundsCounterScript.gd" id="1_it0g2"]
 [ext_resource type="Texture2D" uid="uid://de2kiql4a23qv" path="res://GamePlay--Textures/RoundsFade.png" id="2_3m4jd"]
 
 [sub_resource type="Animation" id="Animation_xfscp"]
