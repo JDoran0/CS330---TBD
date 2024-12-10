@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://5nr5phre01m7"]
+
+[ext_resource type="AudioStream" uid="uid://dbs44b2pyspsr" path="res://GamePlay--soundsAndMusic/PunchWhiffSFX.mp3" id="1_c8kgo"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_c8kgo")

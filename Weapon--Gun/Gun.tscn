@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dky6x1k1yekcj"]
+[gd_scene load_steps=5 format=3 uid="uid://dky6x1k1yekcj"]
 
 [ext_resource type="Script" path="res://Weapon--Gun/gun.gd" id="1_x44sc"]
 [ext_resource type="Texture2D" uid="uid://cpteixtace3cs" path="res://Weapon--Gun/Gun_Sprite.png" id="2_t8mjw"]
+[ext_resource type="PackedScene" uid="uid://k11q4v8gjq73" path="res://Weapon--Gun/GunFireSound.tscn" id="3_takkn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8jehs"]
 animations = [{
@@ -18,12 +19,15 @@ animations = [{
 script = ExtResource("1_x44sc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 position = Vector2(1, 0)
 scale = Vector2(1.00536, 1.09211)
 sprite_frames = SubResource("SpriteFrames_8jehs")
 
 [node name="BulletTimer" type="Timer" parent="."]
-wait_time = 0.75
+wait_time = 0.5
 one_shot = true
+
+[node name="FireSFX" parent="." instance=ExtResource("3_takkn")]
 
 [connection signal="timeout" from="BulletTimer" to="." method="_on_bullet_timer_timeout"]

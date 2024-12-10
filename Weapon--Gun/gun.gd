@@ -34,6 +34,7 @@ func _process(delta):
 
 func shoot():
 	if canShootAgain:
+		$FireSFX.play()
 		var bullet_container = get_tree().current_scene.get_node("Bullets")
 		var bullet = bulletPath.instantiate()
 		

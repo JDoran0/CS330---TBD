@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbh61d4ro1trx"]
+[gd_scene load_steps=6 format=3 uid="uid://cbh61d4ro1trx"]
 
 [ext_resource type="Script" path="res://Weapon--Chicken/ChickenScript.gd" id="1_ovddn"]
 [ext_resource type="Texture2D" uid="uid://b8vahphy37saq" path="res://GamePlay--Textures/Rubber Chicken.png" id="2_hv3ex"]
 [ext_resource type="AudioStream" uid="uid://sthi33sv7nl4" path="res://Weapon--Chicken/RubberChicken.mp3" id="3_abso4"]
+[ext_resource type="PackedScene" uid="uid://be7am7linpy50" path="res://Weapon--Chicken/Whiff.tscn" id="3_oqofi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhrlk"]
 radius = 6.0
@@ -25,7 +26,11 @@ one_shot = true
 
 [node name="RubberChicken" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_abso4")
+volume_db = -10.0
+pitch_scale = 1.2
 bus = &"SFX"
+
+[node name="Whiff" parent="." instance=ExtResource("3_oqofi")]
 
 [node name="RightHit" type="Sprite2D" parent="."]
 position = Vector2(30, 6)

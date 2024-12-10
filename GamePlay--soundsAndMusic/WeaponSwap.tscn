@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccprh6oessjle"]
+
+[ext_resource type="AudioStream" uid="uid://daw0jjsq0mq8i" path="res://GamePlay--soundsAndMusic/WepaonChange.mp3" id="1_b0aok"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer"]
+stream = ExtResource("1_b0aok")
+volume_db = -5.0
+pitch_scale = 1.5
+bus = &"SFX"

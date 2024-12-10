@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://be7am7linpy50"]
+
+[ext_resource type="AudioStream" uid="uid://d0jikqd0rwf4t" path="res://Weapon--Chicken/WhiffSFX.mp3" id="1_pmgcd"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_pmgcd")

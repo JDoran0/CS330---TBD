@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ke2nfyntkx3a"
+path="res://.godot/imported/ClickPop.mp3-5f784108576f31bce083fa0f6b1feddc.mp3str"
+
+[deps]
+
+source_file="res://Card Selection Screen/ClickPop.mp3"
+dest_files=["res://.godot/imported/ClickPop.mp3-5f784108576f31bce083fa0f6b1feddc.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
