@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://eu0h2a8ap3xi"]
+[gd_scene load_steps=20 format=3 uid="uid://eu0h2a8ap3xi"]
 
 [ext_resource type="Script" path="res://Card Selection Screen/card_selector.gd" id="1_npcrd"]
 [ext_resource type="Texture2D" uid="uid://ceoe4b0sjjs2o" path="res://Card Selection Screen/Card Textures/Tarot - Rubber Chicken.png" id="2_2lpd4"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://2st8tkvtcbl3" path="res://Card Selection Screen/Card Textures/Tarot - The Punch.png" id="5_gymil"]
 [ext_resource type="Texture2D" uid="uid://dcb2pr2qqlgki" path="res://Card Selection Screen/Card Textures/Tarot - Ice.png" id="8_4jeds"]
 [ext_resource type="Texture2D" uid="uid://c7m822yjrbuwu" path="res://Card Selection Screen/Card Begin.png" id="9_2765k"]
+[ext_resource type="Texture2D" uid="uid://dt2ygpi6pygik" path="res://GamePlay--Textures/ButtonExit.png" id="10_5lfvh"]
+[ext_resource type="Texture2D" uid="uid://bh45ul2weo7wu" path="res://GamePlay--Textures/ButtonExitPressed.png" id="11_6vphf"]
+[ext_resource type="AudioStream" uid="uid://ke2nfyntkx3a" path="res://Card Selection Screen/ClickPop.mp3" id="12_tnqio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xmnv"]
 size = Vector2(560, 860)
@@ -177,6 +180,20 @@ expand_mode = 2
 position = Vector2(148.75, 45.5)
 shape = SubResource("RectangleShape2D_rhjad")
 
+[node name="BackButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 137.0
+offset_top = 556.0
+offset_right = 244.0
+offset_bottom = 596.0
+texture_normal = ExtResource("10_5lfvh")
+texture_hover = ExtResource("11_6vphf")
+
+[node name="ClickPop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_tnqio")
+volume_db = 10.0
+bus = &"SFX"
+
 [connection signal="mouse_entered" from="CardButtons/Cards/Chicken" to="." method="_on_chicken_mouse_entered"]
 [connection signal="mouse_exited" from="CardButtons/Cards/Chicken" to="." method="_on_chicken_mouse_exited"]
 [connection signal="toggled" from="CardButtons/Cards/Chicken" to="." method="_on_chicken_toggled"]
@@ -210,3 +227,4 @@ shape = SubResource("RectangleShape2D_rhjad")
 [connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]
 [connection signal="area_entered" from="ContinueButton/ContArea" to="." method="_on_cont_area_area_entered"]
 [connection signal="area_exited" from="ContinueButton/ContArea" to="." method="_on_cont_area_area_exited"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

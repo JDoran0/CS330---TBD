@@ -4,6 +4,8 @@ const CURSOR = "res://Card Selection Screen/controller_cursor.tscn"
 var startingLineup = []
 var cursor_instance = Node2D
 
+@onready var clickSound = $ClickPop
+
 var chickArea = false
 var meteorArea = false
 var gunArea = false
@@ -28,31 +30,37 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("attack0"):
 		if chickArea:
+			clickSound.play()
 			if chickenActive == false and startingLineup.size() >= 4:
 				_on_chicken_toggled(false)
 			else:
 				_on_chicken_toggled(!chickenActive)
 		elif meteorArea:
+			clickSound.play()
 			if meteorsActive == false and startingLineup.size() >= 4:
 				_on_meteors_toggled(false)
 			else:
 				_on_meteors_toggled(!meteorsActive)
 		elif gunArea:
+			clickSound.play()
 			if gunActive == false and startingLineup.size() >= 4:
 				_on_gun_toggled(false)
 			else:
 				_on_gun_toggled(!gunActive)
 		elif punchArea:
+			clickSound.play()
 			if punchActive == false and startingLineup.size() >= 4:
 				_on_one_punch_toggled(false)
 			else:
 				_on_one_punch_toggled(!punchActive)
 		elif bearArea:
+			clickSound.play()
 			if bearActive == false and startingLineup.size() >= 4:
 				_on_bear_toggled(false)
 			else:
 				_on_bear_toggled(!bearActive)
 		elif lastArea:
+			clickSound.play()
 			if lastActive == false and startingLineup.size() >= 4:
 				_on_last_toggled(false)
 			else:
@@ -76,6 +84,7 @@ func _on_chicken_mouse_exited() -> void:
 		$CardButtons/Cards/Chicken.scale = Vector2(1, 1)
 
 func _on_chicken_toggled(Chicken: bool) -> void:
+	clickSound.play()
 	if Chicken and startingLineup.size() >= 4:
 		print("Maximum cards selected. Cannot select Chicken.")
 		return
@@ -116,7 +125,7 @@ func _on_meteors_mouse_exited() -> void:
 		$CardButtons/Cards/Meteors.scale = Vector2(1, 1)
 
 func _on_meteors_toggled(Meteors: bool) -> void:
-	
+	clickSound.play()
 	if Meteors and startingLineup.size() >= 4:
 		print("Maximum cards selected. Cannot select Meteors.")
 		return
@@ -157,7 +166,7 @@ func _on_gun_mouse_exited() -> void:
 		$CardButtons/Cards/Gun.scale = Vector2(1, 1)
 
 func _on_gun_toggled(Gun: bool) -> void:
-	
+	clickSound.play()
 	if Gun and startingLineup.size() >= 4:
 		print("Maximum cards selected. Cannot select Gun.")
 		return
@@ -198,7 +207,7 @@ func _on_one_punch_mouse_exited() -> void:
 		$CardButtons/Cards2/OnePunch.scale = Vector2(1, 1)
 
 func _on_one_punch_toggled(Punch: bool) -> void:
-	
+	clickSound.play()
 	if Punch and startingLineup.size() >= 4:
 		print("Maximum cards selected. Cannot select Meteors.")
 		return
@@ -239,7 +248,7 @@ func _on_bear_mouse_exited() -> void:
 		$CardButtons/Cards2/Bear.scale = Vector2(1, 1)
 
 func _on_bear_toggled(Bear: bool) -> void:
-	
+	clickSound.play()
 	if Bear and startingLineup.size() >= 4:
 		print("Maximum cards selected. Cannot select Meteors.")
 		return
@@ -280,7 +289,7 @@ func _on_last_mouse_exited() -> void:
 		$CardButtons/Cards2/Last.scale = Vector2(1, 1)
 
 func _on_last_toggled(Last: bool) -> void:
-	
+	clickSound.play()
 	if Last and startingLineup.size() >= 4:
 		print("Maximum cards selected. Cannot select Meteors.")
 		return
@@ -333,3 +342,8 @@ func _on_cont_area_area_entered(area: Area2D) -> void:
 
 func _on_cont_area_area_exited(area: Area2D) -> void:
 	contArea = false
+
+
+func _on_back_button_pressed() -> void:
+	MenuBack.play()
+	get_tree().change_scene_to_file("res://GamePlay--menus/menu.tscn")

@@ -3,6 +3,7 @@
 [ext_resource type="AudioStream" uid="uid://dnqxcesxgyggk" path="res://GamePlay--soundsAndMusic/PunchingSoundEffect.mp3" id="1_qsw3e"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+process_mode = 3
 stream = ExtResource("1_qsw3e")
 pitch_scale = 0.71
 bus = &"SFX"
