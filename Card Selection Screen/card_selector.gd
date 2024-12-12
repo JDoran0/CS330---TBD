@@ -4,7 +4,18 @@ const CURSOR = "res://Card Selection Screen/controller_cursor.tscn"
 var startingLineup = []
 var cursor_instance = Node2D
 
+#plays when a card is selected
 @onready var clickSound = $ClickPop
+
+#plays when too many cards are being selected
+@onready var limit = $Notif
+
+@onready var chickenCard = $CardButtons/Cards/Chicken
+@onready var meteorCard = $CardButtons/Cards/Meteors
+@onready var gunCard = $CardButtons/Cards/Gun
+@onready var onePunchCard = $CardButtons/Cards2/OnePunch
+@onready var bearCard = $CardButtons/Cards2/Bear
+@onready var lastCard = $CardButtons/Cards2/Last
 
 var chickArea = false
 var meteorArea = false
@@ -14,8 +25,19 @@ var bearArea = false
 var lastArea = false
 var contArea = false
 
+
 func _ready() -> void:
+	
+	#makes the begin button dim until 4 cards are selected
 	$ContinueButton/CardBegin.modulate = Color(1.0, 1.0, 1.0, 0.5)
+	chickenCard.modulate = Color(0.5, 0.5, 0.5, 1)
+	meteorCard.modulate = Color(0.5, 0.5, 0.5, 1)
+	gunCard.modulate = Color(0.5, 0.5, 0.5, 1)
+	onePunchCard.modulate = Color(0.5, 0.5, 0.5, 1)
+	bearCard.modulate = Color(0.5, 0.5, 0.5, 1)
+	lastCard.modulate = Color(0.5, 0.5, 0.5, 1)
+	
+	
 	var cursor_scene = load(CURSOR)
 	var cursor = cursor_scene.instantiate()
 	cursor.player_id = 0
@@ -23,11 +45,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	
+	#light up the begin button if 4 cards selected
 	if startingLineup.size() == 4:
 		$ContinueButton/CardBegin.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	else:
 		$ContinueButton/CardBegin.modulate = Color(1.0, 1.0, 1.0, 0.5)
 	
+	#Checks if the controller user selected any cards
 	if Input.is_action_just_pressed("attack0"):
 		if chickArea:
 			clickSound.play()
@@ -67,37 +92,40 @@ func _process(delta: float) -> void:
 				_on_last_toggled(!lastActive)
 		elif contArea && startingLineup.size() == 4:
 			_on_continue_button_pressed()
-		else:
-			print("Nothing")
 
 
 # Chicken Set-Up
 var chickenActive = false
 
 func _on_chicken_mouse_entered() -> void:
-	if not chickenActive:
-		$CardButtons/Cards/Chicken.pivot_offset = $CardButtons/Cards/Chicken.size / 2
-		$CardButtons/Cards/Chicken.scale *= Vector2(1.1, 1.1)
+	if !chickenActive:
+		chickenCard.pivot_offset = chickenCard.size / 2
+		chickenCard.scale *= Vector2(1.1, 1.1)
 
 func _on_chicken_mouse_exited() -> void:
-	if not chickenActive:
-		$CardButtons/Cards/Chicken.scale = Vector2(1, 1)
+	if !chickenActive:
+		chickenCard.scale = Vector2(1, 1)
 
 func _on_chicken_toggled(Chicken: bool) -> void:
-	clickSound.play()
-	if Chicken and startingLineup.size() >= 4:
-		print("Maximum cards selected. Cannot select Chicken.")
-		return
+	if startingLineup.size() >= 4:
+		if Chicken:
+			limit.play()
+			return
+	
+	
 	
 	chickenActive = Chicken 
+	
 	if Chicken:
-		print("Chicken Selected")
+		clickSound.play()
+		chickenCard.modulate = Color(1, 1, 1, 1)
 		startingLineup.append("Chick")
-		$CardButtons/Cards/Chicken.scale = Vector2(1.1, 1.1)  # Keep scaled up when active
+		chickenCard.scale = Vector2(1.1, 1.1)  # Keep scaled up when active
 	else:
-		print("Chicken Not On")
+		clickSound.play()
+		chickenCard.modulate = Color(0.5, 0.5, 0.5, 1)
 		startingLineup.erase("Chick")
-		$CardButtons/Cards/Chicken.scale = Vector2(1, 1)
+		chickenCard.scale = Vector2(1, 1)
 		
 	_update_start_button()
 	
@@ -117,28 +145,31 @@ var meteorsActive = false
 
 func _on_meteors_mouse_entered() -> void:
 	if not meteorsActive:
-		$CardButtons/Cards/Meteors.pivot_offset = $CardButtons/Cards/Meteors.size / 2
-		$CardButtons/Cards/Meteors.scale *= Vector2(1.1, 1.1)
+		meteorCard.pivot_offset = meteorCard.size / 2
+		meteorCard.scale *= Vector2(1.1, 1.1)
 
 func _on_meteors_mouse_exited() -> void:
 	if not meteorsActive:
-		$CardButtons/Cards/Meteors.scale = Vector2(1, 1)
+		meteorCard.scale = Vector2(1, 1)
 
 func _on_meteors_toggled(Meteors: bool) -> void:
-	clickSound.play()
-	if Meteors and startingLineup.size() >= 4:
-		print("Maximum cards selected. Cannot select Meteors.")
-		return
+	if startingLineup.size() >= 4:
+		if Meteors:
+			limit.play()
+			return
 	
 	meteorsActive = Meteors
+	
 	if Meteors:
-		print("Meteors Selected")
+		clickSound.play()
+		meteorCard.modulate = Color(1, 1, 1, 1)
 		startingLineup.append("Meteor")
-		$CardButtons/Cards/Meteors.scale = Vector2(1.1, 1.1)
+		meteorCard.scale = Vector2(1.1, 1.1)
 	else:
-		print("Meteor Not On")
+		clickSound.play()
+		meteorCard.modulate = Color(0.5, 0.5, 0.5, 1)
 		startingLineup.erase("Meteor")
-		$CardButtons/Cards/Meteors.scale = Vector2(1, 1)
+		meteorCard.scale = Vector2(1, 1)
 		
 	_update_start_button()
 	
@@ -158,28 +189,32 @@ var gunActive = false
 
 func _on_gun_mouse_entered() -> void:
 	if not gunActive:
-		$CardButtons/Cards/Gun.pivot_offset = $CardButtons/Cards/Gun.size / 2
-		$CardButtons/Cards/Gun.scale *= Vector2(1.1, 1.1)
+		gunCard.pivot_offset = gunCard.size / 2
+		gunCard.scale *= Vector2(1.1, 1.1)
 
 func _on_gun_mouse_exited() -> void:
 	if not gunActive:
-		$CardButtons/Cards/Gun.scale = Vector2(1, 1)
+		gunCard.scale = Vector2(1, 1)
 
 func _on_gun_toggled(Gun: bool) -> void:
-	clickSound.play()
-	if Gun and startingLineup.size() >= 4:
-		print("Maximum cards selected. Cannot select Gun.")
-		return
+	if startingLineup.size() >= 4:
+		if Gun:
+			limit.play()
+			return
 	
 	gunActive = Gun
+	
 	if Gun:
-		print("Gun Selected")
+		clickSound.play()
+		gunCard.modulate = Color(1, 1, 1, 1)
 		startingLineup.append("Gun")
-		$CardButtons/Cards/Gun.scale = Vector2(1.1, 1.1)
+		gunCard.scale = Vector2(1.1, 1.1)
 	else:
+		clickSound.play()
+		gunCard.modulate = Color(0.5, 0.5, 0.5, 1)
 		print("Gun Not On")
 		startingLineup.erase("Gun")
-		$CardButtons/Cards/Gun.scale = Vector2(1, 1)
+		gunCard.scale = Vector2(1, 1)
 		
 	_update_start_button()
 	
@@ -199,28 +234,31 @@ var punchActive = false
 
 func _on_one_punch_mouse_entered() -> void:
 	if not punchActive:
-		$CardButtons/Cards2/OnePunch.pivot_offset = $CardButtons/Cards2/OnePunch.size / 2
-		$CardButtons/Cards2/OnePunch.scale *= Vector2(1.1, 1.1)
+		onePunchCard.pivot_offset = onePunchCard.size / 2
+		onePunchCard.scale *= Vector2(1.1, 1.1)
 
 func _on_one_punch_mouse_exited() -> void:
 	if not punchActive:
-		$CardButtons/Cards2/OnePunch.scale = Vector2(1, 1)
+		onePunchCard.scale = Vector2(1, 1)
 
 func _on_one_punch_toggled(Punch: bool) -> void:
-	clickSound.play()
-	if Punch and startingLineup.size() >= 4:
-		print("Maximum cards selected. Cannot select Meteors.")
-		return
+	if startingLineup.size() >= 4:
+		if Punch:
+			limit.play()
+			return
 		
 	punchActive = Punch
+	
 	if Punch:
-		print("Punch Selected")
+		clickSound.play()
+		onePunchCard.modulate = Color(1, 1, 1, 1)
 		startingLineup.append("Punch")
-		$CardButtons/Cards2/OnePunch.scale = Vector2(1.1, 1.1)
+		onePunchCard.scale = Vector2(1.1, 1.1)
 	else:
-		print("Punch Not On")
+		clickSound.play()
+		onePunchCard.modulate = Color(0.5, 0.5, 0.5, 1)
 		startingLineup.erase("Punch")
-		$CardButtons/Cards2/OnePunch.scale = Vector2(1, 1)
+		onePunchCard.scale = Vector2(1, 1)
 		
 	_update_start_button()
 	
@@ -240,28 +278,31 @@ var bearActive = false
 
 func _on_bear_mouse_entered() -> void:
 	if not bearActive:
-		$CardButtons/Cards2/Bear.pivot_offset = $CardButtons/Cards2/Bear.size / 2
-		$CardButtons/Cards2/Bear.scale *= Vector2(1.1, 1.1)
+		bearCard.pivot_offset = bearCard.size / 2
+		bearCard.scale *= Vector2(1.1, 1.1)
 
 func _on_bear_mouse_exited() -> void:
 	if not bearActive:
-		$CardButtons/Cards2/Bear.scale = Vector2(1, 1)
+		bearCard.scale = Vector2(1, 1)
 
 func _on_bear_toggled(Bear: bool) -> void:
-	clickSound.play()
-	if Bear and startingLineup.size() >= 4:
-		print("Maximum cards selected. Cannot select Meteors.")
-		return
+	if startingLineup.size() >= 4:
+		if Bear:
+			limit.play()
+			return
 		
 	bearActive = Bear
+	
 	if Bear:
-		print("Bear Selected")
+		clickSound.play()
+		bearCard.modulate = Color(1, 1, 1, 1)
 		startingLineup.append("Bear")
-		$CardButtons/Cards2/Bear.scale = Vector2(1.1, 1.1)
+		bearCard.scale = Vector2(1.1, 1.1)
 	else:
-		print("Bear Not On")
+		clickSound.play()
+		bearCard.modulate = Color(0.5, 0.5, 0.5, 1)
 		startingLineup.erase("Bear")
-		$CardButtons/Cards2/Bear.scale = Vector2(1, 1)
+		bearCard.scale = Vector2(1, 1)
 		
 	_update_start_button()
 	
@@ -281,28 +322,31 @@ var lastActive = false
 
 func _on_last_mouse_entered() -> void:
 	if not lastActive:
-		$CardButtons/Cards2/Last.pivot_offset = $CardButtons/Cards2/Last.size / 2
-		$CardButtons/Cards2/Last.scale *= Vector2(1.1, 1.1)
+		lastCard.pivot_offset = lastCard.size / 2
+		lastCard.scale *= Vector2(1.1, 1.1)
 
 func _on_last_mouse_exited() -> void:
 	if not lastActive:
-		$CardButtons/Cards2/Last.scale = Vector2(1, 1)
+		lastCard.scale = Vector2(1, 1)
 
 func _on_last_toggled(Last: bool) -> void:
-	clickSound.play()
-	if Last and startingLineup.size() >= 4:
-		print("Maximum cards selected. Cannot select Meteors.")
-		return
+	if startingLineup.size() >= 4:
+		if Last:
+			limit.play()
+			return
 		
 	lastActive = Last
+	
 	if Last:
-		print("Last Selected")
+		clickSound.play()
+		lastCard.modulate = Color(1, 1, 1, 1)
 		startingLineup.append("Last")
-		$CardButtons/Cards2/Last.scale = Vector2(1.1, 1.1)
+		lastCard.scale = Vector2(1.1, 1.1)
 	else:
-		print("Last Not On")
+		clickSound.play()
+		lastCard.modulate = Color(0.5, 0.5, 0.5, 1)
 		startingLineup.erase("Last")
-		$CardButtons/Cards2/Last.scale = Vector2(1, 1)
+		lastCard.scale = Vector2(1, 1)
 		
 	_update_start_button()
 	
@@ -342,7 +386,6 @@ func _on_cont_area_area_entered(area: Area2D) -> void:
 
 func _on_cont_area_area_exited(area: Area2D) -> void:
 	contArea = false
-
 
 func _on_back_button_pressed() -> void:
 	MenuBack.play()

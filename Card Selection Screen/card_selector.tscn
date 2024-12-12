@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://eu0h2a8ap3xi"]
+[gd_scene load_steps=21 format=3 uid="uid://eu0h2a8ap3xi"]
 
 [ext_resource type="Script" path="res://Card Selection Screen/card_selector.gd" id="1_npcrd"]
 [ext_resource type="Texture2D" uid="uid://ceoe4b0sjjs2o" path="res://Card Selection Screen/Card Textures/Tarot - Rubber Chicken.png" id="2_2lpd4"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c7m822yjrbuwu" path="res://Card Selection Screen/Card Begin.png" id="9_2765k"]
 [ext_resource type="Texture2D" uid="uid://dt2ygpi6pygik" path="res://GamePlay--Textures/ButtonExit.png" id="10_5lfvh"]
 [ext_resource type="Texture2D" uid="uid://bh45ul2weo7wu" path="res://GamePlay--Textures/ButtonExitPressed.png" id="11_6vphf"]
+[ext_resource type="AudioStream" uid="uid://u6v7y3wtko2y" path="res://Card Selection Screen/Notif.mp3" id="12_bviv5"]
 [ext_resource type="AudioStream" uid="uid://ke2nfyntkx3a" path="res://Card Selection Screen/ClickPop.mp3" id="12_tnqio"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6xmnv"]
@@ -192,6 +193,11 @@ texture_hover = ExtResource("11_6vphf")
 [node name="ClickPop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_tnqio")
 volume_db = 10.0
+bus = &"SFX"
+
+[node name="Notif" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_bviv5")
+pitch_scale = 2.0
 bus = &"SFX"
 
 [connection signal="mouse_entered" from="CardButtons/Cards/Chicken" to="." method="_on_chicken_mouse_entered"]
