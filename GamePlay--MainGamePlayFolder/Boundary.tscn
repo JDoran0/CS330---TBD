@@ -1,37 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://ck0toy73fmu6o"]
+[gd_scene load_steps=2 format=3 uid="uid://ck0toy73fmu6o"]
 
 [ext_resource type="Script" path="res://GamePlay--MainGamePlayFolder/boundaryScript.gd" id="1_ysk7m"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7rxx5"]
-size = Vector2(4213.96, 890.157)
-
 [node name="Boundary" type="Area2D"]
+process_mode = 3
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_ysk7m")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(642, 2007)
 scale = Vector2(1.53561, 1.75238)
-shape = SubResource("RectangleShape2D_7rxx5")
-debug_color = Color(0.990842, 0, 0.273262, 0.42)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(653, -2906)
-scale = Vector2(1.53561, 1.75238)
-shape = SubResource("RectangleShape2D_7rxx5")
-debug_color = Color(0.983423, 0, 0.353168, 0.42)
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
-position = Vector2(-3376, -439)
-rotation = 1.5708
-scale = Vector2(1.53561, 1.75238)
-shape = SubResource("RectangleShape2D_7rxx5")
-debug_color = Color(0.982816, 0, 0.35876, 0.42)
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
-position = Vector2(4679, -451)
-rotation = 1.5708
-scale = Vector2(1.53561, 1.75238)
-shape = SubResource("RectangleShape2D_7rxx5")
-debug_color = Color(0.981718, 0, 0.368597, 0.42)
+build_mode = 1
+polygon = PackedVector2Array(-1993.34, -53.0707, -2002.46, -2420.71, 3168.12, -2485.76, 3242.36, 1012.34, -1984.23, 987.799)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

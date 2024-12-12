@@ -17,7 +17,6 @@ metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape2D_74nug")
-one_way_collision = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Ground"]
 modulate = Color(0.751622, 0.402658, 1, 0.243137)
