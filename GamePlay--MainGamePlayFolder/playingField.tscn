@@ -11,13 +11,52 @@ size = Vector2(768, 20)
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(576, 512)
+scale = Vector2(0.6, 1)
 collision_mask = 2
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("RectangleShape2D_74nug")
+one_way_collision = true
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="Ground"]
-modulate = Color(0, 0.682868, 0.687444, 0.243137)
+modulate = Color(0.751622, 0.402658, 1, 0.243137)
+position = Vector2(0, -7.62939e-06)
+scale = Vector2(768, 16)
+mesh = SubResource("BoxMesh_b7hof")
+texture = SubResource("CanvasTexture_hr5nh")
+
+[node name="Ground2" type="StaticBody2D" parent="."]
+position = Vector2(133, 394)
+rotation = 0.120428
+scale = Vector2(0.5, 1)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground2"]
+shape = SubResource("RectangleShape2D_74nug")
+one_way_collision = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Ground2"]
+modulate = Color(0.751622, 0.402658, 1, 0.243137)
+position = Vector2(0, -7.62939e-06)
+scale = Vector2(768, 16)
+mesh = SubResource("BoxMesh_b7hof")
+texture = SubResource("CanvasTexture_hr5nh")
+
+[node name="Ground3" type="StaticBody2D" parent="."]
+position = Vector2(1017, 394)
+rotation = -0.120428
+scale = Vector2(0.5, 1)
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground3"]
+shape = SubResource("RectangleShape2D_74nug")
+one_way_collision = true
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Ground3"]
+modulate = Color(0.751622, 0.402658, 1, 0.243137)
 position = Vector2(0, -7.62939e-06)
 scale = Vector2(768, 16)
 mesh = SubResource("BoxMesh_b7hof")

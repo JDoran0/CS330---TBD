@@ -173,6 +173,9 @@ one_shot = true
 [node name="MatchStartTimer" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="Boundary" parent="." instance=ExtResource("3_oe6n8")]
+position = Vector2(48, 732)
+
 [connection signal="timeout" from="CardTimer" to="." method="_on_card_timer_timeout"]
 [connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="timeout" from="MatchStartTimer" to="." method="_on_match_start_timer_timeout"]

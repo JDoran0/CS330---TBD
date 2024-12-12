@@ -3,13 +3,14 @@ extends Control
 @onready var RoundsWon = 0
 
 
-var BlueWon = false
+var blueWon = false
 
 func _ready() -> void:
 	$Empty.visible = true
 	$Half.visible = false
 	$Full.visible = false
 
+#update the score tracker
 func IncreaseRoundsWonBlue():
 	RoundsWon += 1
 	if RoundsWon == 1:
@@ -19,8 +20,7 @@ func IncreaseRoundsWonBlue():
 		$Half.visible = false
 		$Full.visible = true
 	if RoundsWon == 3:
-		#get_tree().change_scene_to_file("res://GamePlay--menus/game_over.tscn")
-		BlueWon = true
+		blueWon = true
 
 func CheckWin():
-	return BlueWon
+	return blueWon

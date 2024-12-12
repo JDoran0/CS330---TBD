@@ -55,40 +55,46 @@ func _process(delta: float) -> void:
 	#Checks if the controller user selected any cards
 	if Input.is_action_just_pressed("attack0"):
 		if chickArea:
-			clickSound.play()
 			if chickenActive == false and startingLineup.size() >= 4:
 				_on_chicken_toggled(false)
+				limit.play()
 			else:
+				clickSound.play()
 				_on_chicken_toggled(!chickenActive)
 		elif meteorArea:
-			clickSound.play()
 			if meteorsActive == false and startingLineup.size() >= 4:
+				limit.play()
 				_on_meteors_toggled(false)
 			else:
+				clickSound.play()
 				_on_meteors_toggled(!meteorsActive)
 		elif gunArea:
-			clickSound.play()
 			if gunActive == false and startingLineup.size() >= 4:
+				limit.play()
 				_on_gun_toggled(false)
 			else:
+				clickSound.play()
 				_on_gun_toggled(!gunActive)
 		elif punchArea:
-			clickSound.play()
 			if punchActive == false and startingLineup.size() >= 4:
+				limit.play()
 				_on_one_punch_toggled(false)
 			else:
+				clickSound.play()
 				_on_one_punch_toggled(!punchActive)
 		elif bearArea:
-			clickSound.play()
 			if bearActive == false and startingLineup.size() >= 4:
+				limit.play()
 				_on_bear_toggled(false)
 			else:
+				clickSound.play()
 				_on_bear_toggled(!bearActive)
 		elif lastArea:
-			clickSound.play()
 			if lastActive == false and startingLineup.size() >= 4:
+				limit.play()
 				_on_last_toggled(false)
 			else:
+				clickSound.play()
 				_on_last_toggled(!lastActive)
 		elif contArea && startingLineup.size() == 4:
 			_on_continue_button_pressed()
@@ -111,8 +117,6 @@ func _on_chicken_toggled(Chicken: bool) -> void:
 		if Chicken:
 			limit.play()
 			return
-	
-	
 	
 	chickenActive = Chicken 
 	
